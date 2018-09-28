@@ -83,21 +83,33 @@ etc ...
 
 Le modèle formel regroupe :
 
-  - l'ensemble des pathogènes définis plus haut (pour rappel, les bactéries, virus, allergènes, cellules cancéreuses ...)
-  - un ensemble (à définir) de cellules responsables de la défense immunitaire (Lymphocytes, Macrophages, ...)
+  - l'ensemble des pathogènes définis plus haut (pour rappel, les bactéries, virus, allergènes, cellules cancéreuses ...) modélisés
+  sous une forme réaliste (2D ou 3D ?)
+  - un ensemble (à définir) de cellules responsables de la défense immunitaire (Lymphocytes, Macrophages, ...) modélisées de
+  manière réaliste (2D ou 3D ?)
   - les mécanismes et la chaine immunitaire (renforcement des capacité des Lymphocytes T en présence de cytokine, macrophages qui
   "mangent" les corps étrangers et les déchets, Lymphocytes T qui attaquent avec des immunoglobines ...)
   - la fièvre engendrée par les "combats"
   - une représentation des maladies auto-immunes
   - ...
 
+Le moteur d'interrogation utilise les mécaniques de tower defense : des vagues successives d'ennemis que le joueur doit affronter
+
 ### Interactions avec le modèle
 Nous allons utiliser les mécanismes d'un Tower Defense (Voir Pitch pour plus d'informations).
+
+  - placement des tours (= des cellules du système immunitaire)
+  - menu de contruction ?
+  - possibilité d'actionner des bonus temporaires
 
 Possibilité de faire un Clash Royale like qui semble mieux cadrer les objectifs pédagogiques, tout en limitant les idées reçues.
 
 ### Problèmes et progression
 L'apprenant-joueur devra passer plusieurs niveaux, où il devra déployer une réponse immunitaire adapté aux pathogènes et maladies rencontrées.
+La difficulté des niveaux est basée sur :
+
+  - le nombre de pathogènes
+  - le nombre de types différents 
 
 ### Décorum
 
