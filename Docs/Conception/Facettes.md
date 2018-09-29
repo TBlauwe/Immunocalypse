@@ -93,7 +93,6 @@ Le modèle formel regroupe :
   - une représentation des maladies auto-immunes
   - ...
 
-Le moteur d'interrogation utilise les mécaniques de tower defense : des vagues successives d'ennemis que le joueur doit affronter
 
 ### Interactions avec le modèle
 Nous allons utiliser les mécanismes d'un Tower Defense (Voir Pitch pour plus d'informations).
@@ -108,13 +107,20 @@ Possibilité de faire un Clash Royale like qui semble mieux cadrer les objectifs
 L'apprenant-joueur devra passer plusieurs niveaux, où il devra déployer une réponse immunitaire adapté aux pathogènes et maladies rencontrées.
 La difficulté des niveaux est basée sur :
 
-  - le nombre de pathogènes
-  - le nombre de types différents 
+  - le nombre de pathogènes types confondus)
+  - le nombre de types différents de pathogènes (virus, bactéries ...)
+  - le nombre de chemins empruntable par les ennemis
+  - le nombre d'objectifs à défendre
+  - éventuellement le nombre de bonus dispos
+  - vitesse des pathogènes
+  - résistance des pathogènes
+  - disponibilité des différentes cellules immunitaires
 
 ### Décorum
 
 - Gallerie des entités
 - Etoiles pour les niveaux en fonction de l'efficacité de la défense (Temps, ressources dépensées, Vies)
+- Eventuellement petit pitch sur les personnes dont on défend le corps
 
 ### Conditions d'utilisation
 
