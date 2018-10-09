@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23366432383859502}
   - component: {fileID: 65446344893312690}
   - component: {fileID: 54543589214653994}
+  - component: {fileID: 114474371923691442}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: pathogene
@@ -112,3 +113,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114474371923691442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1317776129595244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477b4e5c4ed38624b94e831aa4264006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer_mask: 1
+  range: 3
+  safetyDistance: 1.3
+  is_moving: 0
+  velocity: 2
+  target: {fileID: 0}
