@@ -457,10 +457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a636cb1a1b15a547b63a6b8ebf5142e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eatDelta: 2
   cooldown: 2
-  nextMeal: 0
   eatingLimitBeforeDeath: 10
-  eatingCollider: {fileID: 0}
   eatMask: 1
 --- !u!114 &617758333
 MonoBehaviour:
