@@ -15,8 +15,8 @@ public class EatingSystem : FSystem {
             Triggered3D triggered = go.GetComponent<Triggered3D>();
 
             // Decrease nextMeal
-            if (eater.nextMeal > 0) {
-                eater.nextMeal -= Time.deltaTime;
+            if (eater.cooldown > 0) {
+                eater.cooldown -= Time.deltaTime;
             }
 
             // Something is in our eating range
@@ -42,10 +42,10 @@ public class EatingSystem : FSystem {
             Eatable eatable = triggered.Targets[i].GetComponent<Eatable>();
 
             // If we can eat it (layer is good) and cooldown is ok
-            if (eatable != null && (eatable.eatableLevel & eater.eatMask) > 0 && eater.nextMeal <= 0)
+            if (eatable != null && (eatable.eatableLevel & eater.eatMask) > 0 && eater.cooldown <= 0)
             {
                 // Need some rest before eating again
-                eater.nextMeal = eater.cooldown;
+                eater.cooldown = eater.eatDelta;
 
                 // Destroy eaten object
                 GameObjectManager.unbind(triggered.Targets[i]);

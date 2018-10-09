@@ -2,9 +2,8 @@
 
 [RequireComponent(typeof(WithHealth))]
 public class Eater : MonoBehaviour {
-    public float cooldown;
-    public float nextMeal;
+    public float eatDelta;
+    [HideInInspector] public float cooldown;
     public float eatingLimitBeforeDeath;
-    public SphereCollider eatingCollider;
     public int eatMask;
 }
