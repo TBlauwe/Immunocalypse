@@ -21,7 +21,6 @@ public class EphemeralSystem : FSystem {
             WithHealth health = go.GetComponent<WithHealth>();
             Ephemeral ephemeral = go.GetComponent<Ephemeral>();
             if (health.health <= 0) continue;
-            Debug.Log(health.health);
             if (ephemeral.elapsedTime == 0)
             {
                 ephemeral.startingHealth = health.health;
