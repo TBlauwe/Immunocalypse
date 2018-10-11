@@ -6,6 +6,7 @@ TagManager:
   tags:
   - pathogene
   - defense_site
+  - immuno
   layers:
   - Default
   - TransparentFX
