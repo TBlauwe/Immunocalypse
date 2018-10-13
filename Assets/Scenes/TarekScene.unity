@@ -275,7 +275,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.73
+      value: 3.88
       objectReference: {fileID: 0}
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalPosition.y
@@ -392,7 +392,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.19
+      value: -1.09
       objectReference: {fileID: 0}
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalPosition.y
@@ -400,7 +400,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.25
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 4246934391709150, guid: 465e37693ea30284bafc23165c08e0ed, type: 2}
       propertyPath: m_LocalRotation.x
@@ -525,7 +525,6 @@ GameObject:
   - component: {fileID: 901112004}
   - component: {fileID: 901112003}
   - component: {fileID: 901112009}
-  - component: {fileID: 901112010}
   m_Layer: 0
   m_Name: DefenseSite
   m_TagString: defense_site
@@ -559,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defensePoints: 1
-  layerMask: 0
+  layerMask: 1
 --- !u!136 &901112005
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -645,17 +644,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defensePoints: 1
   layerMask: 1
---- !u!114 &901112010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 901112002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1034401219, guid: 0427b67fbc763a2498a3275ea3fe75fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &911210741
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,10 +658,9 @@ GameObject:
   - component: {fileID: 911210744}
   - component: {fileID: 911210743}
   - component: {fileID: 911210742}
-  - component: {fileID: 911210748}
   - component: {fileID: 911210751}
-  - component: {fileID: 911210750}
   - component: {fileID: 911210749}
+  - component: {fileID: 911210748}
   m_Layer: 0
   m_Name: Pathogene
   m_TagString: pathogene
@@ -805,17 +792,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 911210741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1355463954, guid: 0427b67fbc763a2498a3275ea3fe75fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &911210750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 911210741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 015e48546f5ba8a4fb172b3508e9b3ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -939,7 +915,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1976280001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.61, y: 0, z: 0.78}
+  m_LocalPosition: {x: -1.81, y: 0, z: -2.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
