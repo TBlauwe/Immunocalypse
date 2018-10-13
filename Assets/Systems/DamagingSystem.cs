@@ -6,7 +6,8 @@ public class DamagingSystem : FSystem {
 
     private Family damagersFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Damager)));
     private Family destroyablesFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Destroyable)));
-
+    private int damagingsPerSecond = 1;
+    private float lastTimeDamaged = 0;
 
 	// Use this to update member variables when system pause. 
 	// Advice: avoid to update your families inside this function.
@@ -21,22 +22,27 @@ public class DamagingSystem : FSystem {
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        foreach(GameObject attacker in damagersFamily)
+        lastTimeDamaged += Time.deltaTime;
+        if(lastTimeDamaged>=1/damagingsPerSecond)
         {
-            Triggered3D trigger3D = attacker.GetComponent<Triggered3D>();
-            Damager damager = attacker.GetComponent<Damager>();
-            foreach (GameObject target in trigger3D.Targets)
+            lastTimeDamaged = 0;
+            foreach (GameObject attacker in damagersFamily)
             {
-                if (target.Equals(attacker)) continue;
-                if (destroyablesFamily.contains(target.GetInstanceID()))
+                Triggered3D trigger3D = attacker.GetComponent<Triggered3D>();
+                Damager damager = attacker.GetComponent<Damager>();
+                foreach (GameObject target in trigger3D.Targets)
                 {
-                    Destroyable destroyable = target.GetComponent<Destroyable>();
-                    if ((damager.damagablesLayerMask & destroyable.layerMask) > 0)
+                    if (target.Equals(attacker)) continue;
+                    if (destroyablesFamily.contains(target.GetInstanceID()))
                     {
-                        WithHealth health = target.GetComponent<WithHealth>();
-                        if (damager.attackPoints > destroyable.defensePoints)
+                        Destroyable destroyable = target.GetComponent<Destroyable>();
+                        if ((damager.damagablesLayerMask & destroyable.layerMask) > 0)
                         {
-                            health.health -= damager.attackPoints - destroyable.defensePoints;
+                            WithHealth health = target.GetComponent<WithHealth>();
+                            if (damager.attackPoints > destroyable.defensePoints)
+                            {
+                                health.health -= damager.attackPoints - destroyable.defensePoints;
+                            }
                         }
                     }
                 }
