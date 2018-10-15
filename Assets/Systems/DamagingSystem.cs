@@ -4,7 +4,7 @@ using FYFY_plugins.TriggerManager;
 
 public class DamagingSystem : FSystem {
 
-    private Family damagersFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Damager)));
+    private Family damagersFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Damager), typeof(Triggered3D)));
     private Family destroyablesFamily = FamilyManager.getFamily(new AllOfComponents(typeof(Destroyable)));
     private int damagingsPerSecond = 1;
     private float lastTimeDamaged = 0;

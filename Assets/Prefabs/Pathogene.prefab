@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114977736739777466}
   - component: {fileID: 114022155301697274}
   - component: {fileID: 114544557044417214}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pathogene
   m_TagString: pathogene
   m_Icon: {fileID: 0}
