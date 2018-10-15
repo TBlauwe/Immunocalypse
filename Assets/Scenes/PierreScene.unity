@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,6 +318,14 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DeadRemovingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: DamagingSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DamagingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: GameUISystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: GameUISystem
     _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
@@ -625,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 1091681918535136, guid: ee2189e0f10bc5a46a7cdd616aadae95, type: 2}
+  - {fileID: 1981677808569422, guid: ee2189e0f10bc5a46a7cdd616aadae95, type: 2}
   probabilities: []
   rate: 4
   numberOfWaves: 0
@@ -797,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 1091681918535136, guid: ee2189e0f10bc5a46a7cdd616aadae95, type: 2}
+  - {fileID: 1981677808569422, guid: ee2189e0f10bc5a46a7cdd616aadae95, type: 2}
   probabilities: []
   rate: 4
   numberOfWaves: 0
