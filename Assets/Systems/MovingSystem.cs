@@ -29,6 +29,12 @@ public class MovingSystem : FSystem {
                 Vector3 newVelocity = new Vector3();
                 if (movableA.target != null)
                 {
+                    objectA.transform.Rotate(Vector3.RotateTowards(
+                        objectA.transform.position,
+                        movableA.target.transform.position - objectA.transform.position,
+                        movableA.velocity * Time.deltaTime,
+                        0.0f
+                    ));
                     Vector3 targetPosition = movableA.target.transform.position;
                     Vector3 toTarget = targetPosition - objectA.transform.position;
                     if(toTarget.magnitude > movableA.safetyDistance)
