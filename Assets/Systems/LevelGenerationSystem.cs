@@ -179,6 +179,7 @@ public class LevelGenerationSystem : FSystem {
         cell.name = "Cell [" + h + "][" + w + "]";
 
         levelGeneration.cells[h, w] = cell;
+        GameObjectManager.bind(cell);
 	}
 
     public float getOuterRadius(GameObject go)

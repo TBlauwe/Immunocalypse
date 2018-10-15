@@ -14,7 +14,10 @@ public class TargetComputerSystem : FSystem {
         {
             Movable movable = gameObject.GetComponent<Movable>();
             {
-                if (_defense_sites.Count > 0) movable.target = _defense_sites.First();
+                if (_defense_sites.Count > 0)
+                {
+                    movable.target = _defense_sites.First();
+                }
             }
         }
 

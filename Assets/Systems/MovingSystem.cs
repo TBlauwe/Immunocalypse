@@ -75,6 +75,7 @@ public class MovingSystem : FSystem {
                 }
                 //We normalize the velocity
                 newVelocity.Normalize();
+                Debug.Log(newVelocity);
                 objectA.GetComponent<Rigidbody>().velocity = newVelocity * movableA.velocity;
             }
         }
