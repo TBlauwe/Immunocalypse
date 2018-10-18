@@ -1,29 +1,40 @@
 ﻿using UnityEngine;
 using FYFY;
+using FYFY_plugins.TriggerManager;
 
 public class TargetComputerSystem : FSystem {
-    private readonly Family _pathogenes = FamilyManager.getFamily(new AnyOfTags("pathogene"), new AnyOfComponents(typeof(Movable)));
-    private readonly Family _immunos = FamilyManager.getFamily(new AnyOfTags("immuno"), new AnyOfComponents(typeof(Movable)));
-    private readonly Family _defense_sites = FamilyManager.getFamily(new AnyOfTags("defense_site"));
+    private readonly Family _pathogenes = FamilyManager.getFamily(new AnyOfTags("pathogene"), new AnyOfComponents(typeof(Movable))); 
+    private readonly Family _macrophages = FamilyManager.getFamily(new AllOfComponents(typeof(Macrophage)));
 
-    private readonly Family _movables = FamilyManager.getFamily(new AllOfComponents(typeof(Movable)));
+    private readonly Family _defense_sites = FamilyManager.getFamily(new AnyOfTags("defense_site"));
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject gameObject in _pathogenes)
         {
             Movable movable = gameObject.GetComponent<Movable>();
+            if (_defense_sites.Count > 0 && movable.target == null)
             {
-                if (_defense_sites.Count > 0) movable.target = _defense_sites.First();
+                int index = (int)Random.value * _defense_sites.Count;
+                movable.target = _defense_sites.getAt(index);
             }
         }
 
-        foreach (GameObject gameObject in _immunos)
+        foreach (GameObject gameObject in _macrophages)
         {
             Movable movable = gameObject.GetComponent<Movable>();
-            if (movable.target == null)
+            Macrophage macrophage = gameObject.GetComponent<Macrophage>();
+
+            continue;
+
+            if (movable.target == null && _pathogenes.Count > 0)
             {
-                if (_pathogenes.Count > 0) movable.target = _pathogenes.First();
+                Triggered3D triggered = macrophage.targetDetectionRange.GetComponent<Triggered3D>();
+                if (triggered != null)
+                {
+                    int index = (int)Random.value * triggered.Targets.Length;
+                    movable.target = triggered.Targets[index];
+                }
             }
         }
     }

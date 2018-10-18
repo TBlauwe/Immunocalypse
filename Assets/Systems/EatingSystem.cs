@@ -4,7 +4,7 @@ using FYFY_plugins.TriggerManager;
 
 public class EatingSystem : FSystem {
     private readonly Family _eaters = FamilyManager.getFamily(new AllOfComponents(
-        typeof(Eater)
+        typeof(Eater), typeof(Triggered3D)
     ));
 
 	// Use to process your families.

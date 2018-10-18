@@ -29,12 +29,6 @@ public class MovingSystem : FSystem {
                 Vector3 newVelocity = new Vector3();
                 if (movableA.target != null)
                 {
-                    objectA.transform.Rotate(Vector3.RotateTowards(
-                        objectA.transform.position,
-                        movableA.target.transform.position - objectA.transform.position,
-                        movableA.velocity * Time.deltaTime,
-                        0.0f
-                    ));
                     Vector3 targetPosition = movableA.target.transform.position;
                     Vector3 toTarget = targetPosition - objectA.transform.position;
                     if(toTarget.magnitude > movableA.safetyDistance)
@@ -62,7 +56,7 @@ public class MovingSystem : FSystem {
                     if (and > 0 && distance < movableA.range)
                     {
                         Vector3 u = r.normalized;
-                        float a = 2.0f;
+                        float a = 0.1f;
                         float b = 0.0f;
                         float n = 2f;
                         float m = 2f;
@@ -76,6 +70,9 @@ public class MovingSystem : FSystem {
                 //We normalize the velocity
                 newVelocity.Normalize();
                 objectA.GetComponent<Rigidbody>().velocity = newVelocity * movableA.velocity;
+
+                // Add some random rotation
+                objectA.transform.Rotate(Random.value, Random.value, Random.value);
             }
         }
     }
