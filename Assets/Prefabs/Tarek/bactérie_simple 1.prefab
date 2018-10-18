@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   layer_mask: 1
-  range: 0.5
-  safetyDistance: 0.2
+  range: 0.1
+  safetyDistance: 0.05
   is_moving: 1
   velocity: 0.2
   target: {fileID: 0}
