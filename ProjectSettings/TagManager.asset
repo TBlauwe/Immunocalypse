@@ -7,6 +7,7 @@ TagManager:
   - pathogene
   - defense_site
   - immuno
+  - cardPanel
   layers:
   - Default
   - TransparentFX

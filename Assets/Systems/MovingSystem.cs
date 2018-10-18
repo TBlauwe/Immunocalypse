@@ -56,7 +56,7 @@ public class MovingSystem : FSystem {
                     if (and > 0 && distance < movableA.range)
                     {
                         Vector3 u = r.normalized;
-                        float a = 2.0f;
+                        float a = 0.1f;
                         float b = 0.0f;
                         float n = 2f;
                         float m = 2f;
@@ -69,7 +69,11 @@ public class MovingSystem : FSystem {
                 }
                 //We normalize the velocity
                 newVelocity.Normalize();
+                Debug.Log(newVelocity);
                 objectA.GetComponent<Rigidbody>().velocity = newVelocity * movableA.velocity;
+
+                // Add some random rotation
+                objectA.transform.Rotate(Random.value, Random.value, Random.value);
             }
         }
     }
