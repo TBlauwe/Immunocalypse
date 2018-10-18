@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23871631599379768}
   - component: {fileID: 95857610267096956}
   m_Layer: 0
-  m_Name: macrophage_simple
+  m_Name: macrophage_simple 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
