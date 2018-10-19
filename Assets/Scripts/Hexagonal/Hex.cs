@@ -42,6 +42,13 @@ public class Hex : IEquatable<Hex> {
         return new Hex(a.q * k, a.r * k, a.s * k);
     }
 
+    public static Pair<int, int> ToIndex(Hex hex)
+    {
+        int h = hex.q + (hex.s - (hex.s&1)) / 2;
+        int w = hex.s;
+        return new Pair<int, int>(h, w);
+    }
+
     public static Pair<double, double> ToCoordinate(Hex hex, float gap, float sizeX, float sizeZ)
     {
         double x = (Math.Sqrt(3.0) * hex.q + Math.Sqrt(3.0) / 2.0 * hex.r) * sizeX;
@@ -99,12 +106,24 @@ public class Hex : IEquatable<Hex> {
         return results;
     }
 
-    // Returns a ring of hexes in the center's specified range
+    // Returns a list of hexes forming a hexagonal grid with the specified radius
     public static List<Hex> Spiral(Hex center, int radius)
     {
         List<Hex> results = new List<Hex>() { center };
 
         for(int i=1; i <= radius; i++)
+        {
+            results.AddRange(Hex.Ring(center, i));
+        }
+        return results;
+    }
+
+    // Returns a list of hexes forming a hexagonal grid with the specified radius starting from specified int
+    public static List<Hex> SpiralAt(Hex center, int startAt, int radius)
+    {
+        List<Hex> results = new List<Hex>() {};
+
+        for(int i=startAt; i <= startAt + radius - 1; i++)
         {
             results.AddRange(Hex.Ring(center, i));
         }

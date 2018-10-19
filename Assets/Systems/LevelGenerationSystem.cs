@@ -4,9 +4,7 @@ using FYFY;
 
 public enum GENERATEUR
 {
-    RANDOM,
-    ISLAND,
-    HEXAGON,
+    HEXAGON
 }
 
 public class LevelGenerationSystem : FSystem {
@@ -22,12 +20,6 @@ public class LevelGenerationSystem : FSystem {
 
         switch (levelGeneration.gen)
         {
-            case GENERATEUR.RANDOM:
-                randomGeneration(level, levelGeneration);
-                break;
-            case GENERATEUR.ISLAND:
-                squareIslandGeneration(level, levelGeneration);
-                break;
             case GENERATEUR.HEXAGON:
                 hexIslandGeneration(level, levelGeneration);
                 break;
@@ -57,118 +49,90 @@ public class LevelGenerationSystem : FSystem {
 		levelGeneration.petriBox.transform.SetParent(level.transform, true);
         levelGeneration.petriBox.name = "Petri Box";
 
-        float treshold = (Mathf.FloorToInt(levelGeneration.radius / 5) + 1);
+        float treshold = (Mathf.FloorToInt(getRadius(levelGeneration) / 5) + 1);
         levelGeneration.petriBox.transform.localScale = Vector3.one * treshold;
         levelGeneration.petriBox.transform.localPosition = new Vector3( levelGeneration.petriBox.transform.localPosition.x,
                                                                         0,
                                                                         levelGeneration.petriBox.transform.localPosition.z) + Vector3.up * (-0.06f * treshold);
     }
 
-    private void randomGeneration(GameObject level, LevelGeneration levelGeneration)
-    {
-        int radius = levelGeneration.radius;
-
-		levelGeneration.cells = new GameObject[radius, radius];
-
-        float totalCells = radius * radius;
-        int wantedCells = Mathf.FloorToInt(levelGeneration.gridFill * totalCells);
-
-        float proba = wantedCells / totalCells; 
-
-        for(int h = 0; h < radius; h++)
-        {
-            for(int w = 0; w < radius; w++)
-            {
-                if (UnityEngine.Random.Range(0.0f,1.0f) <= proba)
-                {
-                    createCell(level, levelGeneration, h, w);
-                    wantedCells--;
-                }
-                totalCells--;
-                proba = wantedCells / totalCells; 
-            }
-        }
-    }
-
     private void hexIslandGeneration(GameObject level, LevelGeneration levelGeneration)
     {
-        foreach(Hex hex in Hex.Spiral(new Hex(0, 0, 0), levelGeneration.radius))
-        {
-            Pair<double, double> coord = Hex.ToCoordinate(hex, levelGeneration.gap, getOuterRadius(levelGeneration.cellPrefab), getInnerRadius(levelGeneration.cellPrefab));
-
-            GameObject cell = Object.Instantiate<GameObject>(levelGeneration.cellPrefab);
-
-            Vector3 position;
-            position.x = (float) coord.a;
-            position.y = 0f;
-            position.z = (float) coord.b;
-
-            cell.transform.SetParent(level.transform, false);
-            cell.transform.localPosition = position;
-            cell.transform.eulerAngles = new Vector3(cell.transform.eulerAngles.x, UnityEngine.Random.Range(0.0f, 359.99f), cell.transform.eulerAngles.z);
-
-            GameObjectManager.bind(cell);
-        }
-    }
-
-    private void squareIslandGeneration(GameObject level, LevelGeneration levelGeneration)
-    {
         int radius = levelGeneration.radius;
-
-		levelGeneration.cells = new GameObject[radius, radius];
-
-        // Possible indexes 
-        List<Pair<int, int>> indexes = new List<Pair<int, int>>();
-        for (int h = 0; h < radius; h++)
+        foreach(Hex hex in Hex.Spiral(new Hex(0, 0, 0), radius))
         {
-            for (int w = 0; w < radius; w++)
-            {
-                indexes.Add(new Pair<int, int>(h, w));
-            }
+            spawnCell(level, levelGeneration, hex);
         }
 
-        Pair<int, int> idx = null;
-        List<Pair<int, int>> neighboursIdx = null;
-        int size = 0;   // Island's size (between specified min-max)
+        radius++;
 
-        for(int i = 0; i < levelGeneration.islandsNumber; i++)
+        foreach(Hex hex in Hex.SpiralAt(new Hex(0, 0, 0), radius, levelGeneration.safeZoneRings))
         {
-            if(indexes.Count > 0)
-            {
-                idx = indexes[UnityEngine.Random.Range(0, indexes.Count)];
-                size = UnityEngine.Random.Range(levelGeneration.islandMinSize, levelGeneration.islandMaxSize+1);
+            // createCell(level, levelGeneration, hex);
+        }
 
-                indexes.Remove(idx);
+        radius += levelGeneration.safeZoneRings;
 
-                neighboursIdx = getCellNeighboursAtDistance(levelGeneration, idx.a, idx.b, size);
+        List<Hex> possibleHexes = Hex.SpiralAt(new Hex(0, 0, 0), radius, levelGeneration.reservedFactoryRing);
+        IListExtensions.Shuffle<Hex>(possibleHexes);
 
-                createCell(level, levelGeneration, idx.a, idx.b);
-                foreach(Pair<int, int> neighbourIdx in neighboursIdx)
-                {
-                    if (indexes.Contains(neighbourIdx))
-                    {
-                        createCell(level, levelGeneration, neighbourIdx.a, neighbourIdx.b);
-                        indexes.Remove(neighbourIdx);
-                    }
-                }
+        while(levelGeneration.factoryPrefabList.Count > 0 && possibleHexes.Count > 0)
+        {
+            Hex randomHex = IListExtensions.Pop<Hex>(possibleHexes);
+            
+            int lastIndex = levelGeneration.factoryPrefabList.Count - 1;
+
+            GameObject factory = levelGeneration.factoryPrefabList[lastIndex];
+            int number = levelGeneration.factoryNumberList[lastIndex];
+
+            number--;
+            if(number == 0){
+                levelGeneration.factoryPrefabList.RemoveAt(lastIndex);
+                levelGeneration.factoryNumberList.RemoveAt(lastIndex);
             }
+            else
+            {
+                levelGeneration.factoryNumberList[lastIndex] = number;
+            }
+
+            if (factory != null) { spawnFactory(level, levelGeneration, factory, randomHex); }
         }
     }
-	
-	private void createCell (GameObject level, LevelGeneration levelGeneration, int h, int w) {
-		GameObject cell = Object.Instantiate<GameObject>(levelGeneration.cellPrefab);
 
-		Vector3 position;
-		position.x = (levelGeneration.gap * h) * getOuterRadius(cell) * 1.5f;
-		position.y = 0f;
-		position.z = ((levelGeneration.gap * w) + h * 0.5f - h / 2) * getInnerRadius(cell) * 2.0f;
+	private void spawnCell(GameObject level, LevelGeneration levelGeneration, Hex hex) {
+        GameObject cell = Object.Instantiate<GameObject>(levelGeneration.cellPrefab);
 
-		cell.transform.SetParent(level.transform, false);
-		cell.transform.localPosition = position;
+        Pair<double, double> coord = Hex.ToCoordinate(hex, levelGeneration.gap, getOuterRadius(levelGeneration.cellPrefab), getInnerRadius(levelGeneration.cellPrefab));
+
+        Vector3 position;
+        position.x = (float) coord.a;
+        position.y = 0f;
+        position.z = (float) coord.b;
+
+        cell.transform.SetParent(level.transform, false);
+        cell.transform.localPosition = position;
         cell.transform.eulerAngles = new Vector3(cell.transform.eulerAngles.x, UnityEngine.Random.Range(0.0f, 359.99f), cell.transform.eulerAngles.z);
-        cell.name = "Cell [" + h + "][" + w + "]";
 
-        levelGeneration.cells[h, w] = cell;
+        cell.name = "Cell [" + Hex.ToIndex(hex).a + "][" + Hex.ToIndex(hex).b + "]";
+
+        GameObjectManager.bind(cell);
+	}
+
+	private void spawnFactory(GameObject level, LevelGeneration levelGeneration, GameObject factory, Hex hex) {
+        GameObject cell = Object.Instantiate<GameObject>(factory);
+
+        Pair<double, double> coord = Hex.ToCoordinate(hex, levelGeneration.gap, getOuterRadius(levelGeneration.cellPrefab), getInnerRadius(levelGeneration.cellPrefab));
+
+        Vector3 position;
+        position.x = (float) coord.a;
+        position.y = 0f;
+        position.z = (float) coord.b;
+
+        cell.transform.SetParent(level.transform, false);
+        cell.transform.localPosition = position;
+        cell.transform.eulerAngles = new Vector3(cell.transform.eulerAngles.x, UnityEngine.Random.Range(0.0f, 359.99f), cell.transform.eulerAngles.z);
+
+        cell.name = "Factory Cell [" + Hex.ToIndex(hex).a + "][" + Hex.ToIndex(hex).b + "]";
 
         GameObjectManager.bind(cell);
 	}
@@ -184,6 +148,11 @@ public class LevelGenerationSystem : FSystem {
         return getOuterRadius(go) * 0.866025404f;
     }
 
+    public int getRadius(LevelGeneration levelGeneration)
+    {
+        return levelGeneration.radius + levelGeneration.safeZoneRings + levelGeneration.reservedFactoryRing;
+    }
+
     public Vector3 getCenter(GameObject go)
     {
         Bounds bounds = new Bounds();
@@ -197,66 +166,5 @@ public class LevelGenerationSystem : FSystem {
     public Vector3 getBoxSize(LevelGeneration levelGeneration)
     {
         return levelGeneration.petriBox.transform.lossyScale;
-    }
-
-    private List<Pair<int, int>> getCellNeighbours(LevelGeneration levelGeneration, int x, int y)
-    {
-        int radius = levelGeneration.radius;
-
-        List<Pair<int, int>> neighbours = new List<Pair<int, int>>();
-
-        if (y - 1 >= 0){ neighbours.Add(new Pair<int, int>(x, y - 1)); }
-        if (y + 1 >= 0){ neighbours.Add(new Pair<int, int>(x, y + 1)); }
-        if (x - 1 >= 0){ neighbours.Add(new Pair<int, int>(x - 1, y)); }
-        if (x + 1 >= 0){ neighbours.Add(new Pair<int, int>(x + 1, y)); }
-
-        if(x % 2 == 0)
-        {
-            if (x - 1 > 0 && y - 1 >= 0){ neighbours.Add(new Pair<int, int>(x - 1, y - 1)); }
-            if (y - 1 >= 0 && x + 1 <= radius - 1){ neighbours.Add(new Pair<int, int>(x + 1, y - 1)); }
-        }
-        else
-        {
-            if (x + 1 <= radius - 1 && y + 1 <= radius - 1){ neighbours.Add(new Pair<int, int>(x + 1, y + 1)); }
-            if (x - 1 > 0 && y + 1 <= radius - 1){ neighbours.Add(new Pair<int, int>(x - 1, y + 1)); }
-        }
-
-        return neighbours;
-    }
-
-    private List<Pair<int, int>> getCellNeighboursAtDistance(LevelGeneration levelGeneration, int x, int y, int distance)
-    {
-        List<Pair<int, int>> neighbours = new List<Pair<int, int>>();
-        List<Pair<int, int>> unvisitedCells = new List<Pair<int, int>>{ new Pair<int, int>(x, y) };
-
-        for (int i=0; i < distance; i++)
-        {
-            int counter = unvisitedCells.Count;
-            if(counter > 0)
-            {
-                for(int j = 0; j < counter; j++)
-                {
-                    Pair<int, int> idx = unvisitedCells[0];
-                    if (!neighbours.Contains(idx))
-                    {
-                        neighbours.Add(idx);
-                    }
-
-                    List<Pair<int, int>> cellNeighbours = getCellNeighbours(levelGeneration, idx.a, idx.b);
-                    foreach(Pair<int, int> neighbourIdx in cellNeighbours)
-                    {
-                        if (!neighbours.Contains(neighbourIdx) && 
-                            !unvisitedCells.Contains(neighbourIdx))
-                        {
-                            unvisitedCells.Add(neighbourIdx);
-                        }
-                    }
-
-                    unvisitedCells.RemoveAt(0);
-                }
-            }
-        }
-
-        return neighbours;
     }
 }

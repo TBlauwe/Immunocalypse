@@ -29,19 +29,12 @@ public class LevelGenerationEditor : Editor {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Grid Generation", EditorStyles.boldLabel);
-            level.gen = (GENERATEUR)EditorGUILayout.EnumPopup(new GUIContent("Type",  "RANDOM - Randomly place cells in grid" + "\n" +
-                                                                                "ISLAND - Randomly place island made of cells"), level.gen);
+            level.gen = (GENERATEUR)EditorGUILayout.EnumPopup(new GUIContent("Type", "HEXAGON - Generate three rings : Factories, SafeZone, Cells space (Outer to inner)"), level.gen);
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         switch (level.gen)
         {
-            case GENERATEUR.RANDOM:
-                randomGUI();
-                break;
-            case GENERATEUR.ISLAND:
-                islandGUI();
-                break;
             case GENERATEUR.HEXAGON:
                 hexGUI();
                 break;
@@ -49,11 +42,11 @@ public class LevelGenerationEditor : Editor {
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
-        EditorGUILayout.LabelField("Factories List " + (level.factoryList.Count == 0 ? "(no child)" : "(" + level.factoryList.Count.ToString() + " children)"), EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Factories List " + (level.factoryPrefabList.Count == 0 ? "(no child)" : "(" + level.factoryPrefabList.Count.ToString() + " children)"), EditorStyles.boldLabel);
         showFactoryList = GUILayout.Toggle(showFactoryList, "Click to " + (showFactoryList ? "collapse" : "expand"), "Foldout", GUILayout.ExpandWidth(false));
             if (showFactoryList)
             {
-                for(int i=0; i<level.factoryList.Count; i++)
+                for(int i=0; i<level.factoryPrefabList.Count; i++)
                 {
                     drawFactoryEntry(i);
                 }
@@ -74,17 +67,26 @@ public class LevelGenerationEditor : Editor {
 
     private void addFactoryButton()
     {
-        if (GUILayout.Button("Add")){ level.factoryList.Add(new Pair<GameObject, int>(null, 0)); }
+        if (GUILayout.Button("Add")){
+            level.factoryPrefabList.Add(new GameObject());
+            level.factoryNumberList.Add(0);
+        }
     }
 
     private void clearFactoryButton()
     {
-        if (GUILayout.Button("Clear")){ level.factoryList.Clear(); }
+        if (GUILayout.Button("Clear")){
+            level.factoryPrefabList.Clear();
+            level.factoryNumberList.Clear();
+        }
     }
 
     private void removeFactoryButton(int index)
     {
-        if (GUILayout.Button("X")){ level.factoryList.RemoveAt(index); }
+        if (GUILayout.Button("X")){
+            level.factoryPrefabList.RemoveAt(index);
+            level.factoryNumberList.RemoveAt(index);
+        }
     }
 
     // ===============================
@@ -95,27 +97,11 @@ public class LevelGenerationEditor : Editor {
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PrefixLabel("Factory " + (index + 1).ToString());
-            level.factoryList[index].a = EditorGUILayout.ObjectField(level.factoryList[index].a, typeof(GameObject), true) as GameObject;
+            level.factoryPrefabList[index] = EditorGUILayout.ObjectField(level.factoryPrefabList[index], typeof(GameObject), true) as GameObject;
             EditorGUILayout.LabelField("Number",  GUILayout.MaxWidth(55.0f));
-            level.factoryList[index].b = EditorGUILayout.IntField(level.factoryList[index].b, GUILayout.MaxWidth(25.0f));
+            level.factoryNumberList[index] = EditorGUILayout.IntField(level.factoryNumberList[index], GUILayout.MaxWidth(25.0f));
             removeFactoryButton(index);
         EditorGUILayout.EndHorizontal();
-    }
-
-    private void randomGUI()
-    {
-        EditorGUILayout.LabelField("Random Settings", EditorStyles.boldLabel);
-            level.gridFill = EditorGUILayout.Slider(new GUIContent("Grid Fill", "How much cells compare to total grid cells should be filled ?"), level.gridFill, 0.0f, 1.0f);
-    }
-
-    private void islandGUI()
-    {
-        int maxIslandSize = (level.radius * level.radius) / level.islandsNumber;
-        int maxIslandNumber = (level.radius * level.radius) / level.islandMaxSize;
-        EditorGUILayout.LabelField("Islands Settings", EditorStyles.boldLabel);
-            level.islandMinSize = EditorGUILayout.IntSlider(new GUIContent("Island Min Size", "Explicit"), level.islandMinSize, 1, maxIslandSize);
-            level.islandMaxSize = EditorGUILayout.IntSlider(new GUIContent("Island Max Size", "Explicit"), level.islandMaxSize, level.islandMinSize, maxIslandSize);
-            level.islandsNumber = EditorGUILayout.IntSlider(new GUIContent("Number of Islands", "Explicit"), level.islandsNumber, 1, maxIslandNumber);
     }
 
     private void hexGUI()
@@ -125,7 +111,7 @@ public class LevelGenerationEditor : Editor {
         int maxIslandNumber = totalHex / level.islandMaxSize;
         EditorGUILayout.LabelField("Rings settings", EditorStyles.boldLabel);
             level.reservedFactoryRing = EditorGUILayout.IntSlider(new GUIContent("Factories rings", "Rings reserved for the factories starting at the outer rings"), level.reservedFactoryRing, 1, 100);
-            level.safeZoneRings = EditorGUILayout.IntSlider(new GUIContent("Sage zone rings", "No cell's land between factories' rings and cells' rings"), level.safeZoneRings, 1, 100);
+            level.safeZoneRings = EditorGUILayout.IntSlider(new GUIContent("Safe zone rings", "No cell's land between factories' rings and cells' rings"), level.safeZoneRings, 1, 100);
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();

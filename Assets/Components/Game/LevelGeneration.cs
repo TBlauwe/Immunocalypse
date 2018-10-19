@@ -8,7 +8,7 @@ public class LevelGeneration : MonoBehaviour {
 
     public float gap = 1.1f;    // Espace entre les hexagons
 
-    public GENERATEUR gen = GENERATEUR.RANDOM;  // Type de génération
+    public GENERATEUR gen = GENERATEUR.HEXAGON;  // Type de génération
 
     // ===== RANDOM SPECIFIC =====
     public float gridFill = 0.5f;   // Pourcentage de remplissage de la grille
@@ -31,5 +31,6 @@ public class LevelGeneration : MonoBehaviour {
     public GameObject petriBox;     // Référence du GameObject de la boîte de petri 
 
     // ===== GAMEPLAY SPECIFIC =====
-    public List<Pair<GameObject, int>> factoryList = new List<Pair<GameObject, int>>();
+    public List<GameObject> factoryPrefabList = new List<GameObject>();
+    public List<int> factoryNumberList = new List<int>();
 }

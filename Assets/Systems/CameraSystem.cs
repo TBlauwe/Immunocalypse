@@ -38,7 +38,7 @@ public class CameraSystem : FSystem {
         Vector3 size = level.GetComponent<LevelGeneration>().petriBox.transform.lossyScale / 2;
 
         // Y Offset to center the grid in the view
-        float xDistance = size.x * 1.1f;
+        float xDistance = size.x * cameraControl.offset;
         float yDistance = Vector3.Distance(Vector3.zero, Vector3.right * xDistance);
 
         // XZ Offset to center the grid in the view  
