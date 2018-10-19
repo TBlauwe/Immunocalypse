@@ -501,9 +501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c31b3e50667d747bf5877f99283e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 8
+  radius: 2
   gap: 1.1
-  gen: 0
+  gen: 2
   gridFill: 0.5
   islandsNumber: 1
   islandMinSize: 1
