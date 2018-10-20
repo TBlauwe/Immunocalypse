@@ -40,27 +40,28 @@ public class EatingSystem : FSystem {
         foreach (GameObject go in _macrophages)
         {
             // We suppose that the is a gameobject reference in eatingRange field in the Macrophage component
-            Eater eater = go.GetComponent<Eater>();
+            Macrophage eater = go.GetComponent<Macrophage>();
             Triggered3D triggered = go.GetComponent<Macrophage>().eatingRange.GetComponent<Triggered3D>();
-
-
-            // Decrease nextMeal
-            if (eater.cooldown > 0)
-            {
-                eater.cooldown -= Time.deltaTime;
-            }
 
             // Something is in our eating range
             if (triggered != null)
             {
-                Eat(eater, triggered);
-            }
+                foreach (GameObject target in triggered.Targets)
+                {
+                    Eatable eatable = target.GetComponent<Eatable>();
 
-            // If eating limit reaches 0, the game object must die
-            if (eater.eatingLimitBeforeDeath == 0)
-            {
-                WithHealth withHealth = go.GetComponent<WithHealth>();
-                withHealth.health = 0;
+                    // If we can eat it (layer is good) and cooldown is ok
+                    if (eatable != null && (eatable.eatableLevel & eater.eatingMask) > 0)
+                    {
+                        // Destroy eaten object
+                        try
+                        {
+                            GameObjectManager.unbind(target);
+                            Object.Destroy(target);
+                        }
+                        catch (UnknownGameObjectException) { }  // If another macrophage has eaten our target while computing                     
+                    }
+                }
             }
         }
 

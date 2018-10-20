@@ -21,7 +21,7 @@ public class TargetComputerSystem : FSystem {
             }
         }
 
-        foreach (GameObject gameObject in _macrophages)
+        /*foreach (GameObject gameObject in _macrophages)
         {
             Movable movable = gameObject.GetComponent<Movable>();
             Macrophage macrophage = gameObject.GetComponent<Macrophage>();
@@ -47,6 +47,6 @@ public class TargetComputerSystem : FSystem {
                     movable.target = targets[index];
                 }
             }
-        }
+        }*/
     }
 }

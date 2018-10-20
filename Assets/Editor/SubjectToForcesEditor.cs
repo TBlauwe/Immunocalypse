@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [CustomEditor(typeof(SubjectToForces))]
+[CanEditMultipleObjects]
 public class SubjectToForcesEditor : Editor {
 
     private SubjectToForces component;          // Reference to the component
@@ -16,12 +17,9 @@ public class SubjectToForcesEditor : Editor {
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-
-        EditorGUILayout.Space();
-
+        
         EditorGUILayout.HelpBox("This editor is designed to help you applying the right forces to your entity. Forces are defined with the Lenard-Jones potential function.", MessageType.Info);
-
-        EditorGUILayout.Space();
+        
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Forces Settings", EditorStyles.boldLabel);
         
@@ -47,7 +45,10 @@ public class SubjectToForcesEditor : Editor {
 
     private void _addForceSpecButton()
     {
-        if (GUILayout.Button("Add")) { component.appliedForces.Add(new ForceSpec()); }
+        if (GUILayout.Button("Add"))
+        {
+            component.appliedForces.Add(new ForceSpec());
+        }
     }
 
     private void _clearForceSpecButton()
@@ -77,6 +78,7 @@ public class SubjectToForcesEditor : Editor {
 
             EditorGUILayout.BeginHorizontal();
             {
+                
                 EditorGUILayout.LabelField("Mask", IN_LABEL_STYLE, GUILayout.MinWidth(35.0f));
                 component.appliedForces[index].Mask = EditorGUILayout.IntField(
                     component.appliedForces[index].Mask,
