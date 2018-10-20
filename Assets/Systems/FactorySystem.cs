@@ -15,9 +15,17 @@ public class FactorySystem : FSystem
         {
             Factory factory = go.GetComponent<Factory>();
 
-            // Is the factory working ?
-            factory.activated = AtLeastOneThingToInstanciate(factory.entries);
-            if (!factory.activated || factory.paused) continue;
+            // Is the factory working ? Should it be destroyed ?
+            if (!AtLeastOneThingToInstanciate(factory.entries))
+            {
+                if (factory.destroyWhenFinished)
+                {
+                    GameObjectManager.unbind(go);
+                    Object.Destroy(go);
+                }
+                continue;
+            }
+            if (factory.paused) continue;
 
             // Update remaining time and skip instanciation process if we still have to wait
             factory.remaining -= Time.deltaTime;
@@ -44,6 +52,7 @@ public class FactorySystem : FSystem
 
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);
+            clone.SetActive(true);
             GameObjectManager.bind(clone);
 
             // Set GameObject's position

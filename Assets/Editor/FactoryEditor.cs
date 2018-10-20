@@ -117,6 +117,13 @@ public class FactoryEditor : Editor
                 factory.useRandomSpawning = EditorGUILayout.Toggle(factory.useRandomSpawning);
             }
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.PrefixLabel("Destroy factory when it has finished");
+                factory.destroyWhenFinished = EditorGUILayout.Toggle(factory.destroyWhenFinished);
+            }
+            EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
     }

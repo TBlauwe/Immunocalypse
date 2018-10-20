@@ -14,6 +14,12 @@ public class FactoryEntry
     {
         if (prefab == null) throw new ArgumentNullException();
         this.prefab = prefab;
-        nb = originalNb = 1;
+        nb = 1;
+        originalNb = 1;
+    }
+
+    public override string ToString()
+    {
+        return "Entry(" + originalNb + "," + nb + ")";
     }
 }
