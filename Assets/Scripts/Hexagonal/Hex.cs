@@ -49,7 +49,7 @@ public class Hex : IEquatable<Hex> {
         return new Pair<int, int>(h, w);
     }
 
-    public static Pair<double, double> ToCoordinate(Hex hex, float gap, float sizeX, float sizeZ)
+    public static Pair<double, double> ToCoordinate(Hex hex, float sizeX, float sizeZ)
     {
         double x = (Math.Sqrt(3.0) * hex.q + Math.Sqrt(3.0) / 2.0 * hex.r) * sizeX;
         double z = (1.5 * hex.r) * sizeZ;

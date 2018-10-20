@@ -2,169 +2,144 @@
 using System.Collections.Generic;
 using FYFY;
 
-public enum GENERATEUR
-{
-    HEXAGON
-}
-
 public class LevelGenerationSystem : FSystem {
 
-    public Family _levelGO; 
+    public Family _levelGO;
+
+    private GameObject level;
+    private LevelSettings levelSettings;
 
     public LevelGenerationSystem()
     {
-        Family _levelGO = FamilyManager.getFamily(new AllOfComponents(typeof(LevelGeneration)));
+        // ===== VARIABLES SETUP =====
+        Family _levelGO = FamilyManager.getFamily(new AllOfComponents(typeof(LevelSettings)));
 
-        GameObject level = _levelGO.First();
-        LevelGeneration levelGeneration = level.GetComponent<LevelGeneration>();
+        level = _levelGO.First();
+        levelSettings = level.GetComponent<LevelSettings>();
 
-        switch (levelGeneration.gen)
+        // ===== GRID SETUP =====
+        switch (levelSettings.gridType)
         {
-            case GENERATEUR.HEXAGON:
-                hexIslandGeneration(level, levelGeneration);
+            case GRID_TYPE.HEXAGON:
+                hexIslandGeneration();
                 break;
         }
-        level.transform.position = Vector3.zero - getCenter(level); // Center the grid
-        setupPetriBox(level, levelGeneration);
+
+        // ===== ARENA SETUP =====
+        setupArena();
     }
 
-	// Use this to update member variables when system pause. 
-	// Advice: avoid to update your families inside this function.
-	protected override void onPause(int currentFrame) {
-	}
-
-	// Use this to update member variables when system resume.
-	// Advice: avoid to update your families inside this function.
-	protected override void onResume(int currentFrame){
-	}
-
-	// Use to process your families.
-	protected override void onProcess(int familiesUpdateCount) {
-	}
-
-    private void setupPetriBox(GameObject level, LevelGeneration levelGeneration)
+    private void setupArena()
     {
-        levelGeneration.petriBox = Object.Instantiate<GameObject>(levelGeneration.petriPrefab);
+        GameObject arena = Object.Instantiate<GameObject>(levelSettings.arenaPrefab);
 
-		levelGeneration.petriBox.transform.SetParent(level.transform, true);
-        levelGeneration.petriBox.name = "Petri Box";
+		arena.transform.SetParent(level.transform, true);
+        arena.name = "Petri Box";
 
-        float treshold = (Mathf.FloorToInt(getRadius(levelGeneration) / 5) + 1);
-        levelGeneration.petriBox.transform.localScale = Vector3.one * treshold;
-        levelGeneration.petriBox.transform.localPosition = new Vector3( levelGeneration.petriBox.transform.localPosition.x,
-                                                                        0,
-                                                                        levelGeneration.petriBox.transform.localPosition.z) + Vector3.up * (-0.06f * treshold);
+        float treshold = Mathf.Clamp(getTotalRadius() * Mathf.Max(levelSettings.cellSizeX, levelSettings.cellSizeZ), 1, 100);
+        arena.transform.localScale = Vector3.one * treshold;
+        arena.transform.localPosition = new Vector3(arena.transform.localPosition.x, 0, arena.transform.localPosition.z) +
+                                            Vector3.up * (-0.06f * treshold);
+
+        levelSettings.size = arena.GetComponent<Renderer>().bounds.size;
+        levelSettings.center = arena.transform.position;  
     }
 
-    private void hexIslandGeneration(GameObject level, LevelGeneration levelGeneration)
+    private void hexIslandGeneration()
     {
-        int radius = levelGeneration.radius;
+        int radius = levelSettings.radius;
+
+        // ===== STEP I =====
+        // Place cell's island based on settings 
         foreach(Hex hex in Hex.Spiral(new Hex(0, 0, 0), radius))
         {
-            spawnCell(level, levelGeneration, hex);
+            spawnGameObjectAt(levelSettings.cellPrefab, hex, levelSettings.cellPrefab.name);
         }
-
         radius++;
 
-        foreach(Hex hex in Hex.SpiralAt(new Hex(0, 0, 0), radius, levelGeneration.safeZoneRings))
+        // ===== OPTIONAL STEP =====
+        // Loop cycling through no cell's land
+        /**
+        foreach(Hex hex in Hex.SpiralAt(new Hex(0, 0, 0), radius, levelSettings.safeZoneRings))
         {
-            // createCell(level, levelGeneration, hex);
         }
+        **/
 
-        radius += levelGeneration.safeZoneRings;
+        // ===== STEP II =====
+        // Place factories based on settings 
+        radius += levelSettings.numberOffSafeZoneLayers;
 
-        List<Hex> possibleHexes = Hex.SpiralAt(new Hex(0, 0, 0), radius, levelGeneration.reservedFactoryRing);
+        List<Hex> possibleHexes = Hex.SpiralAt(new Hex(0, 0, 0), radius, levelSettings.numberOfFactoriesLayers);
         IListExtensions.Shuffle<Hex>(possibleHexes);
 
-        while(levelGeneration.factoryPrefabList.Count > 0 && possibleHexes.Count > 0)
+        while(levelSettings.factoryPrefabList.Count > 0 && possibleHexes.Count > 0)
         {
             Hex randomHex = IListExtensions.Pop<Hex>(possibleHexes);
+            GameObject factory = getNextFactory();
             
-            int lastIndex = levelGeneration.factoryPrefabList.Count - 1;
-
-            GameObject factory = levelGeneration.factoryPrefabList[lastIndex];
-            int number = levelGeneration.factoryNumberList[lastIndex];
-
-            number--;
-            if(number == 0){
-                levelGeneration.factoryPrefabList.RemoveAt(lastIndex);
-                levelGeneration.factoryNumberList.RemoveAt(lastIndex);
-            }
-            else
-            {
-                levelGeneration.factoryNumberList[lastIndex] = number;
-            }
-
-            if (factory != null) { spawnFactory(level, levelGeneration, factory, randomHex); }
+            if (factory != null) { spawnGameObjectAt(factory, randomHex, factory.name); }
         }
     }
 
-	private void spawnCell(GameObject level, LevelGeneration levelGeneration, Hex hex) {
-        GameObject cell = Object.Instantiate<GameObject>(levelGeneration.cellPrefab);
+    // Returns next factory from levelSettings.factoryPrefabList. Each time a factory is returned, his counter
+    // is decremented until it reaches zero where it will be removed from the list
+    // If no factory remains, null is returned
 
-        Pair<double, double> coord = Hex.ToCoordinate(hex, levelGeneration.gap, getOuterRadius(levelGeneration.cellPrefab), getInnerRadius(levelGeneration.cellPrefab));
-
-        Vector3 position;
-        position.x = (float) coord.a;
-        position.y = 0f;
-        position.z = (float) coord.b;
-
-        cell.transform.SetParent(level.transform, false);
-        cell.transform.localPosition = position;
-        cell.transform.eulerAngles = new Vector3(cell.transform.eulerAngles.x, UnityEngine.Random.Range(0.0f, 359.99f), cell.transform.eulerAngles.z);
-
-        cell.name = "Cell [" + Hex.ToIndex(hex).a + "][" + Hex.ToIndex(hex).b + "]";
-
-        GameObjectManager.bind(cell);
-	}
-
-	private void spawnFactory(GameObject level, LevelGeneration levelGeneration, GameObject factory, Hex hex) {
-        GameObject cell = Object.Instantiate<GameObject>(factory);
-
-        Pair<double, double> coord = Hex.ToCoordinate(hex, levelGeneration.gap, getOuterRadius(levelGeneration.cellPrefab), getInnerRadius(levelGeneration.cellPrefab));
-
-        Vector3 position;
-        position.x = (float) coord.a;
-        position.y = 0f;
-        position.z = (float) coord.b;
-
-        cell.transform.SetParent(level.transform, false);
-        cell.transform.localPosition = position;
-        cell.transform.eulerAngles = new Vector3(cell.transform.eulerAngles.x, UnityEngine.Random.Range(0.0f, 359.99f), cell.transform.eulerAngles.z);
-
-        cell.name = "Factory Cell [" + Hex.ToIndex(hex).a + "][" + Hex.ToIndex(hex).b + "]";
-
-        GameObjectManager.bind(cell);
-	}
-
-    public float getOuterRadius(GameObject go)
+    private GameObject getNextFactory()
     {
-        Vector3 size = go.GetComponent<Renderer>().bounds.size/2;
-        return Mathf.Max(size.x, size.z);
-    }
+        int idx = levelSettings.factoryPrefabList.Count - 1;
+        
+        if(idx < 0) { return null; }
 
-    public float getInnerRadius(GameObject go)
-    {
-        return getOuterRadius(go) * 0.866025404f;
-    }
+        GameObject factory = levelSettings.factoryPrefabList[idx];
+        int        counter = levelSettings.factoryNumberList[idx];
 
-    public int getRadius(LevelGeneration levelGeneration)
-    {
-        return levelGeneration.radius + levelGeneration.safeZoneRings + levelGeneration.reservedFactoryRing;
-    }
-
-    public Vector3 getCenter(GameObject go)
-    {
-        Bounds bounds = new Bounds();
-        foreach(Transform child in go.transform)
-        {
-            bounds.Encapsulate(child.position);
+        counter--;
+        if(counter == 0){
+            levelSettings.factoryPrefabList.RemoveAt(idx);
+            levelSettings.factoryNumberList.RemoveAt(idx);
+        }else{
+            levelSettings.factoryNumberList[idx] = counter;
         }
-        return bounds.center;
+
+        return factory;
     }
 
-    public Vector3 getBoxSize(LevelGeneration levelGeneration)
+    // Spawn a prefab at hex location with the specified name.
+    // bUseHexCoordinate true = Append hex coordinates to name.
+    private void spawnGameObjectAt(GameObject prefab, Hex hex, string name="Object", bool bUseHexCoordinate=true, bool randomizeYRotation=true)
     {
-        return levelGeneration.petriBox.transform.lossyScale;
+        GameObject go = Object.Instantiate<GameObject>(prefab);
+
+        Pair<double, double> coord = Hex.ToCoordinate(  hex,
+                                                        getOuterRadius(),
+                                                        getInnerRadius());
+
+        Vector3 position = new Vector3((float)coord.a, 0f, (float) coord.b);
+
+        go.transform.SetParent(level.transform, false);
+        go.transform.localPosition = position;
+        go.transform.eulerAngles = new Vector3( go.transform.eulerAngles.x,
+                                                (randomizeYRotation ? UnityEngine.Random.Range(0.0f, 359.99f) : go.transform.eulerAngles.y),
+                                                go.transform.eulerAngles.z);
+
+        go.name = name + (bUseHexCoordinate ? "[" + Hex.ToIndex(hex).a + "][" + Hex.ToIndex(hex).b + "]" : "");
+
+        GameObjectManager.bind(go);
+    }
+
+    public float getOuterRadius()
+    {
+        return levelSettings.cellSizeX / 2;
+    }
+
+    public float getInnerRadius()
+    {
+        return getOuterRadius() * 0.866025404f;
+    }
+
+    public int getTotalRadius()
+    {
+        return levelSettings.radius + levelSettings.numberOffSafeZoneLayers + levelSettings.numberOfFactoriesLayers;
     }
 }

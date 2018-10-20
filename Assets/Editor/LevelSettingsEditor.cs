@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(LevelGeneration))]
-public class LevelGenerationEditor : Editor {
+[CustomEditor(typeof(LevelSettings))]
+public class LevelSettingsEditor : Editor {
 
-    private LevelGeneration level;          // Reference to the level
+    private LevelSettings level;          // Reference to the level
 
-    private bool showFactoryList = true;    // Bool to track if foldout must be expanded or collapsed
+    private bool showFactoryList = true;    // Bool to track if Factories prefabs' foldout must be expanded or collapsed
 
     private void OnEnable()
     {
-        level = (LevelGeneration) target;
+        level = (LevelSettings) target;
     }
 
     public override void OnInspectorGUI()
@@ -22,20 +22,27 @@ public class LevelGenerationEditor : Editor {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Grid Settings", EditorStyles.boldLabel);
-            level.radius = EditorGUILayout.IntSlider(new GUIContent("Radius", "Radius of hexagonal grids reserved for cells"), level.radius, 1, 100);
+            level.radius    = EditorGUILayout.IntSlider(new GUIContent("Radius", "Radius of hexagonal grids reserved for cells"), level.radius, 1, 100);
+            level.cellSizeX = EditorGUILayout.Slider(new GUIContent("Size X", "Cell's X size "), level.cellSizeX, 0.1f, 100.0f);
+            level.cellSizeZ = EditorGUILayout.Slider(new GUIContent("Size Z", "Cell's Z size"), level.cellSizeZ, 0.1f, 100.0f);
             level.cellPrefab = EditorGUILayout.ObjectField(new GUIContent("Cell Prefab", "GameObject used to represent a cell"), level.cellPrefab, typeof(GameObject), true) as GameObject;
-            level.petriPrefab = EditorGUILayout.ObjectField(new GUIContent("Petri Prefab", "GameObject used to represent the arena"), level.petriPrefab, typeof(GameObject), true) as GameObject;
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Arena Settings", EditorStyles.boldLabel);
+            level.arenaType = (ARENA_TYPE)EditorGUILayout.EnumPopup(new GUIContent("Arena Type", "Petri - Use a petri's box as arena"), level.arenaType);
+            level.arenaPrefab = EditorGUILayout.ObjectField(new GUIContent("Arena Prefab", "GameObject used to represent the arena"), level.arenaPrefab, typeof(GameObject), true) as GameObject;
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Grid Generation", EditorStyles.boldLabel);
-            level.gen = (GENERATEUR)EditorGUILayout.EnumPopup(new GUIContent("Type", "HEXAGON - Generate three rings : Factories, SafeZone, Cells space (Outer to inner)"), level.gen);
+            level.gridType = (GRID_TYPE)EditorGUILayout.EnumPopup(new GUIContent("Type", "HEXAGON - Generate three rings : Factories, SafeZone, Cells space (Outer to inner)"), level.gridType);
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
-        switch (level.gen)
+        switch (level.gridType)
         {
-            case GENERATEUR.HEXAGON:
+            case GRID_TYPE.HEXAGON:
                 hexGUI();
                 break;
         }
@@ -57,7 +64,7 @@ public class LevelGenerationEditor : Editor {
                 EditorGUILayout.EndHorizontal();
             } 
 
-        // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Splitter
+        // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Splitter for graphical's purposes
 
     }
 
@@ -109,9 +116,9 @@ public class LevelGenerationEditor : Editor {
         int totalHex = Mathf.FloorToInt(Mathf.Pow(level.radius, 3) - Mathf.Pow((level.radius - 1), 3));
         int maxIslandSize = totalHex / level.islandsNumber;
         int maxIslandNumber = totalHex / level.islandMaxSize;
-        EditorGUILayout.LabelField("Rings settings", EditorStyles.boldLabel);
-            level.reservedFactoryRing = EditorGUILayout.IntSlider(new GUIContent("Factories rings", "Rings reserved for the factories starting at the outer rings"), level.reservedFactoryRing, 1, 100);
-            level.safeZoneRings = EditorGUILayout.IntSlider(new GUIContent("Safe zone rings", "No cell's land between factories' rings and cells' rings"), level.safeZoneRings, 1, 100);
+        EditorGUILayout.LabelField("Layers settings", EditorStyles.boldLabel);
+            level.numberOfFactoriesLayers = EditorGUILayout.IntSlider(new GUIContent("Factories layers", "Number of layers for the factories"), level.numberOfFactoriesLayers, 1, 100);
+            level.numberOffSafeZoneLayers = EditorGUILayout.IntSlider(new GUIContent("Safe zone layers", "Number of layers between factories' rings and cells' rings"), level.numberOffSafeZoneLayers, 1, 100);
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();

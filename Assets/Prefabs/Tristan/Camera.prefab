@@ -133,8 +133,7 @@ MonoBehaviour:
   ZoomMin: 0.5
   ZoomMax: 100
   MoveSpeed: 10
-  RotationSpeed: 150
-  offset: 10
+  RotationSpeed: 15
   defaultPosition: {x: 0, y: 0, z: 0}
-  defaultRotation: {x: 0, y: 0, z: 0, w: 0}
+  defaultRotation: {x: 0, y: 0, z: 0}
   defaultSize: 0
