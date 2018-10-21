@@ -51,9 +51,23 @@ public class LevelGenerationSystem : FSystem {
 
         // ===== STEP I =====
         // Place cell's island based on settings 
-        foreach(Hex hex in Hex.Spiral(new Hex(0, 0, 0), radius))
+        List<Hex> possibleHexes = Hex.Spiral(new Hex(0, 0, 0), radius);
+        IListExtensions.Shuffle<Hex>(possibleHexes);
+
+        for(int i=0; i < levelSettings.islandsNumber && possibleHexes.Count > 0; i++)
         {
-            spawnGameObjectAt(levelSettings.cellPrefab, hex, levelSettings.cellPrefab.name);
+            Hex randomHex = IListExtensions.Pop<Hex>(possibleHexes);
+            spawnGameObjectAt(levelSettings.cellPrefab, randomHex, levelSettings.cellPrefab.name);
+
+            List<Hex> neighbours = Hex.Spiral(randomHex, Random.Range(levelSettings.islandMinSize, levelSettings.islandMaxSize));
+            foreach(Hex neighbour in neighbours)
+            {
+                if (possibleHexes.Contains(neighbour))
+                {
+                    spawnGameObjectAt(levelSettings.cellPrefab, neighbour, levelSettings.cellPrefab.name);
+                    possibleHexes.Remove(neighbour);
+                }
+            }
         }
         radius++;
 
@@ -69,7 +83,7 @@ public class LevelGenerationSystem : FSystem {
         // Place factories based on settings 
         radius += levelSettings.numberOffSafeZoneLayers;
 
-        List<Hex> possibleHexes = Hex.SpiralAt(new Hex(0, 0, 0), radius, levelSettings.numberOfFactoriesLayers);
+        possibleHexes = Hex.SpiralAt(new Hex(0, 0, 0), radius, levelSettings.numberOfFactoriesLayers);
         IListExtensions.Shuffle<Hex>(possibleHexes);
 
         while(levelSettings.factoryPrefabList.Count > 0 && possibleHexes.Count > 0)
