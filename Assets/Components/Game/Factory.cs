@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Factory : MonoBehaviour {
-    public GameObject[] prefabs;
-    [Range(0, 1)] public float[] probabilities;
-    public float rate;
-    [Range(1, 10)] public int numberOfWaves;
-    [HideInInspector] public float remainingTime;
-    public int individualPerWave;
+    [SerializeField] public List<FactoryEntry> entries = new List<FactoryEntry>();
+    [SerializeField] public bool useRandomSpawning = false;
+    [SerializeField] public float rate = 0.1f;
+    [HideInInspector] public float remaining = 0;
+    [SerializeField] public bool paused = false;
+    [SerializeField] public bool destroyWhenFinished = false;
 }

@@ -2,67 +2,79 @@
 using FYFY;
 using System.Collections.Generic;
 
-public class FactorySystem : FSystem {
+public class FactorySystem : FSystem
+{
     private readonly Family _factories = FamilyManager.getFamily(new AllOfComponents(
         typeof(Factory)
     ));
 
-	// Use to process your families.
-	protected override void onProcess(int familiesUpdateCount) {
+    // Use to process your families.
+    protected override void onProcess(int familiesUpdateCount)
+    {
         foreach (GameObject go in _factories)
         {
             Factory factory = go.GetComponent<Factory>();
 
-            factory.remainingTime -= Time.deltaTime;
-            
-            if (factory.remainingTime <= 0)
+            // Is the factory working ? Should it be destroyed ?
+            if (!AtLeastOneThingToInstanciate(factory.entries))
             {
-                // Reset factory remainingTime according to the rate
-                factory.remainingTime = factory.rate;
-
-                // Select the prefab that wil be instanciated according provided probabilities
-                List<float> cumulative = GetCumulativeProbabilities(factory.probabilities);
-
-                // get a random number
-                float number = Random.value;
-
-                // Find index
-                int index = FindIndex(number, cumulative);
-
-                // Instantiate object and set its position
-                GameObject unit = Object.Instantiate(factory.prefabs[index]);
-                unit.transform.position = factory.transform.position;
-
-                // Bind to FYFY
-                GameObjectManager.bind(unit);
+                if (factory.destroyWhenFinished)
+                {
+                    GameObjectManager.unbind(go);
+                    Object.Destroy(go);
+                }
+                continue;
             }
-        }
-	}
+            if (factory.paused) continue;
 
-    private List<float> GetCumulativeProbabilities(float[] initial)
-    {
-        List<float> cumulative = new List<float>();
-        foreach (float proba in initial)
-        {
-            if (cumulative.Count > 0)
+            // Update remaining time and skip instanciation process if we still have to wait
+            factory.remaining -= Time.deltaTime;
+            if (factory.remaining > 0) continue;
+
+            // Select the entity that will be created (according to factory's mode)
+            FactoryEntry entry = null;
+            if (factory.useRandomSpawning)
             {
-                cumulative.Add(cumulative[cumulative.Count - 1] + proba);
+                do
+                {
+                    entry = factory.entries[Random.Range(0, factory.entries.Count)];
+                } while (entry.nb == 0) ;
             }
             else
             {
-                cumulative.Add(proba);
+                int i = 0;
+                do
+                {
+                    entry = factory.entries[i];
+                    ++i;
+                } while (entry.nb == 0);
             }
+
+            // Instanciate the GameObject
+            GameObject clone = Object.Instantiate(entry.prefab);
+            clone.SetActive(true);
+            GameObjectManager.bind(clone);
+
+            // Set GameObject's position
+            clone.transform.position = go.transform.position;
+
+            // Decrease the number of remaining object to instanciate (for this prefab)
+            --entry.nb;
+
+            // Reset remaining time to rate
+            factory.remaining = factory.rate;
         }
-        return cumulative;
     }
 
-    private int FindIndex(float number, List<float> cumulative)
+    private bool AtLeastOneThingToInstanciate(List<FactoryEntry> entries)
     {
+        bool found = false;
         int i = 0;
-        while (i < cumulative.Count && number < cumulative[i])
+        while (!found && i < entries.Count)
         {
+            found = entries[i].nb > 0;
             ++i;
         }
-        return (i == 0) ? i : i - 1;
+        return found;
     }
 }
