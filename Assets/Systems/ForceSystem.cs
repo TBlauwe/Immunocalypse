@@ -13,32 +13,37 @@ public class ForceSystem : FSystem {
 
             foreach (GameObject creator in _forceCreators)
             {
-                if (creator.GetComponent<ForceCreator>() == null) { continue; }
-
-                int c_mask = creator.GetComponent<ForceCreator>().forceLayerMask;
-                foreach (ForceSpec forceSpec in subject.appliedForces)
+                if (creator == null || creator.GetComponent<ForceCreator>() == null) { continue; }
+                
+                ForceCreator[] forces = creator.GetComponents<ForceCreator>();
+                foreach (ForceCreator force in forces)
                 {
-                    if ((c_mask & forceSpec.Mask) > 0)
+                    int c_mask = force.forceLayerMask;
+                    foreach (ForceSpec forceSpec in subject.appliedForces)
                     {
-                        // We get the distance vector
-                        Vector3 r = go.transform.position - creator.transform.position;
+                        //Debug.Log((go.GetComponent<Macrophage>() ? "M" : "P") + " " + forceSpec);
+                        if ((c_mask & forceSpec.Mask) > 0)
+                        {
+                            // We get the distance vector
+                            Vector3 r = go.transform.position - creator.transform.position;
 
-                        //We retrieve the distance between them
-                        float distance = r.magnitude;
+                            //We retrieve the distance between them
+                            float distance = r.magnitude;
 
-                        Vector3 u = r.normalized;
+                            Vector3 u = r.normalized;
 
-                        //We compute the force to apply
-                        float U = forceSpec.A / Mathf.Pow(distance, forceSpec.N) - forceSpec.B / Mathf.Pow(distance, forceSpec.M);
+                            //We compute the force to apply
+                            float U = forceSpec.A / Mathf.Pow(distance, forceSpec.N) - forceSpec.B / Mathf.Pow(distance, forceSpec.M);
 
-                        computedVelocity += u * U;
+                            computedVelocity += u * U;
+                        }
                     }
                 }
             }
             //We normalize the velocity and set it
             computedVelocity.Normalize();
             Debug.DrawRay(go.transform.position, computedVelocity, Color.black);
-            go.GetComponent<Rigidbody>().velocity = computedVelocity;
+            go.GetComponent<Rigidbody>().velocity = computedVelocity * subject.speed;
         }
 	}
 }

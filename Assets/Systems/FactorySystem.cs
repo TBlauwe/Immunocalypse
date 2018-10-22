@@ -37,7 +37,7 @@ public class FactorySystem : FSystem
             {
                 do
                 {
-                    entry = factory.entries[Random.Range(0, factory.entries.Count - 1)];
+                    entry = factory.entries[Random.Range(0, factory.entries.Count)];
                 } while (entry.nb == 0) ;
             }
             else

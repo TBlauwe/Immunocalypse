@@ -19,7 +19,6 @@ public class SubjectToForcesEditor : Editor {
         serializedObject.Update();
         
         EditorGUILayout.HelpBox("This editor is designed to help you applying the right forces to your entity. Forces are defined with the Lenard-Jones potential function.", MessageType.Info);
-        
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Forces Settings", EditorStyles.boldLabel);
         
@@ -32,6 +31,14 @@ public class SubjectToForcesEditor : Editor {
         {
             _addForceSpecButton();
             _clearForceSpecButton();
+        }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.LabelField("Other settings", EditorStyles.boldLabel);
+        EditorGUILayout.BeginHorizontal();
+        {
+            EditorGUILayout.PrefixLabel("Speed");
+            component.speed = EditorGUILayout.FloatField(component.speed);
         }
         EditorGUILayout.EndHorizontal();
 

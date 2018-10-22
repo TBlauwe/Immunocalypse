@@ -18,7 +18,7 @@ public class InfectionSystem : FSystem {
                     {
                         cell.infections.Add(new FactoryEntry(target));
                         target.SetActive(false);
-                        GameObjectManager.unbind(target);
+                        target.transform.parent = entity.transform;
                     }
                 }
             }
