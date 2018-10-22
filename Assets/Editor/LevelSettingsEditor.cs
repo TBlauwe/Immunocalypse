@@ -113,9 +113,9 @@ public class LevelSettingsEditor : Editor {
 
     private void hexGUI()
     {
-        int totalHex = Mathf.FloorToInt(Mathf.Pow(level.radius, 3) - Mathf.Pow((level.radius - 1), 3));
+        int totalHex = Hex.CountHexesInIsland(level.radius);
         int maxIslandSize = totalHex / level.islandsNumber;
-        int maxIslandNumber = totalHex / level.islandMaxSize;
+        int maxIslandNumber = totalHex / Hex.CountHexesInIsland(level.islandMaxSize);
         EditorGUILayout.LabelField("Layers settings", EditorStyles.boldLabel);
             level.numberOfFactoriesLayers = EditorGUILayout.IntSlider(new GUIContent("Factories layers", "Number of layers for the factories"), level.numberOfFactoriesLayers, 1, 100);
             level.numberOffSafeZoneLayers = EditorGUILayout.IntSlider(new GUIContent("Safe zone layers", "Number of layers between factories' rings and cells' rings"), level.numberOffSafeZoneLayers, 1, 100);
@@ -127,4 +127,5 @@ public class LevelSettingsEditor : Editor {
             level.islandMaxSize = EditorGUILayout.IntSlider(new GUIContent("Island Max Size", "Explicit"), level.islandMaxSize, level.islandMinSize, maxIslandSize);
             level.islandsNumber = EditorGUILayout.IntSlider(new GUIContent("Number of Islands", "Explicit"), level.islandsNumber, 1, maxIslandNumber);
     }
+
 }

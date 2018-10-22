@@ -209,16 +209,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
   size: {x: 0, y: 0, z: 0}
-  radius: 27
+  radius: 2
   cellSizeX: 0.3
   cellSizeZ: 0.3
   gridType: 0
   arenaType: 0
   islandsNumber: 1
   islandMinSize: 1
-  islandMaxSize: 2
-  numberOfFactoriesLayers: 5
-  numberOffSafeZoneLayers: 2
+  islandMaxSize: 19
+  numberOfFactoriesLayers: 1
+  numberOffSafeZoneLayers: 1
   cellPrefab: {fileID: 1171961781354846, guid: 145dd66111c48ea4ca87faf733bc0acf, type: 2}
   arenaPrefab: {fileID: 1917278628757606, guid: 3bca19930b248d044a4f40072d9ae39d,
     type: 2}

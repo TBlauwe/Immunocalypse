@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class DynamicMaterial : MonoBehaviour {
-    public string materialName;
-    public Color startingColor;
-    public Color endingColor;
+    public string materialName;     // Used to determine which materials should be changed
+    public Color startingColor;     // Explicit
+    public Color endingColor;       // Explicit
 }

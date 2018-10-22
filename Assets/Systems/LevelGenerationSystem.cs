@@ -59,7 +59,7 @@ public class LevelGenerationSystem : FSystem {
             Hex randomHex = IListExtensions.Pop<Hex>(possibleHexes);
             spawnGameObjectAt(levelSettings.cellPrefab, randomHex, levelSettings.cellPrefab.name);
 
-            List<Hex> neighbours = Hex.Spiral(randomHex, Random.Range(levelSettings.islandMinSize, levelSettings.islandMaxSize));
+            List<Hex> neighbours = Hex.Spiral(randomHex, Random.Range(levelSettings.islandMinSize, levelSettings.islandMaxSize+1));
             foreach(Hex neighbour in neighbours)
             {
                 if (possibleHexes.Contains(neighbour))

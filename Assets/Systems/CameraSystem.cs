@@ -55,8 +55,8 @@ public class CameraSystem : FSystem {
 
         Vector3 size = levelSettings.size; 
 
-        float x = size.x / 3;
-        float y = size.x / 3;
+        float x = size.x / 2.5f;
+        float y = size.x / 2.5f;
         float z = 0.0f;
 
         Vector3 position = new Vector3(x, y, z);

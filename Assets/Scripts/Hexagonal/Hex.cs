@@ -129,4 +129,9 @@ public class Hex : IEquatable<Hex> {
         }
         return results;
     }
+
+    public static int CountHexesInIsland(int radius)
+    {
+        return (int) Math.Floor(Math.Pow(radius+1, 3) - Math.Pow(radius, 3));
+    }
 }
