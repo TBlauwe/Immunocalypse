@@ -14,7 +14,6 @@ public class FactorySystem : FSystem
         foreach (GameObject go in _factories)
         {
             Factory factory = go.GetComponent<Factory>();
-
             // Is the factory working ? Should it be destroyed ?
             if (!AtLeastOneThingToInstanciate(factory.entries))
             {
