@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
 public class Dragable : MonoBehaviour {
-    public bool isDragged;
+    [HideInInspector] public bool isDragged;
+    [HideInInspector] public float distance;
 }
