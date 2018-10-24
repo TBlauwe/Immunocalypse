@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 136967174182264256}
   - component: {fileID: 114509636048606078}
   - component: {fileID: 114116989709559216}
+  - component: {fileID: 114691353936999036}
   m_Layer: 0
   m_Name: "bact\xE9rie_simple"
   m_TagString: pathogene
@@ -164,6 +165,18 @@ MonoBehaviour:
     B: 50
     Mask: 2
   speed: 0.1
+--- !u!114 &114691353936999036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680458187064766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3917a4158326a0d4e9e488fed5418c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duplicationProbability: 0.001
 --- !u!136 &136967174182264256
 CapsuleCollider:
   m_ObjectHideFlags: 1

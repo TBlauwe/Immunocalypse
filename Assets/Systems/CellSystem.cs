@@ -71,12 +71,6 @@ public class CellSystem : FSystem {
                 GameObject obj = new GameObject();
                 obj.transform.position = entity.transform.position;
 
-                // Set all prefab as children of the created factory : they will be removed when the factory will deseapper too.
-                foreach (FactoryEntry entry in cell.infections)
-                {
-                    entry.prefab.transform.parent = obj.transform;
-                }
-
                 // Configure the factory
                 Factory factory = obj.AddComponent<Factory>();
                 factory.rate = DEFAULT_RATE;
@@ -86,6 +80,12 @@ public class CellSystem : FSystem {
 
                 // Bind it to FYFY
                 GameObjectManager.bind(obj);
+
+                // Set all prefab as children of the created factory : they will be removed when the factory will deseapper too.
+                foreach (FactoryEntry entry in cell.infections)
+                {
+                    entry.prefab.transform.parent = obj.transform;
+                }
 
                 // Die
                 healthComponent.health = 0;

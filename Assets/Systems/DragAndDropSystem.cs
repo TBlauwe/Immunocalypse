@@ -11,25 +11,24 @@ public class DragAndDropSystem : FSystem {
         foreach (GameObject go in _cards)
         {
             Dragable dragable = go.GetComponent<Dragable>();
+
             if (dragable.isDragged)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    go.transform.position = Input.mousePosition;
-                }
-                else
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Vector3 rayPoint = ray.GetPoint(dragable.distance);
+                go.transform.position = rayPoint;
+
+                if (Input.GetMouseButtonUp(0))
                 {
                     dragable.isDragged = false;
                 }
             }
             else
             {
-                if (go.GetComponent<PointerOver>() != null)
+                if (go.GetComponent<PointerOver>() != null && Input.GetMouseButton(0))
                 {
-                    GameObject duplicate = Object.Instantiate(go);
-                    GameObjectManager.bind(duplicate);
-
-                    duplicate.GetComponent<Dragable>().isDragged = true;
+                    dragable.isDragged = true;
+                    dragable.distance = Vector3.Distance(go.transform.position, Camera.main.transform.position);
                 }
             }
         }
