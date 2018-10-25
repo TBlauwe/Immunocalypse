@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 
+public enum CAMERA_MODE
+{
+    FIXED,
+    GAMEPLAY,
+    INSPECTION,
+    GALLERY
+}
+
 public class CameraSettings : MonoBehaviour {
-    // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
+    public CAMERA_MODE mode = CAMERA_MODE.FIXED;
 
     public float ZoomSpeed      = 100.0f;
     public float ZoomMin        = 0.5f;
