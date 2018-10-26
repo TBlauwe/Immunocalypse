@@ -1,6 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using System;
+
+[Serializable]
+public struct GalleryModelOrder {
+
+	public enum SpotType {
+		Close,
+	    Overview	
+	}
+
+	public SpotType Type;
+	public GameObject GalleryModelGO;
+	public int Order;
+}
 
 public class GalleryModel : MonoBehaviour {
 
@@ -14,8 +28,6 @@ public class GalleryModel : MonoBehaviour {
     public bool         unlocked=false;                 // Can it be seen ?
     [HideInInspector]
     public bool         cacheUnlocked=false;            // Update only if cache is different from current value
-
-    public int          order=0;                         // Use to establish an order for all gallery models
 
     public string       modelName="PlaceHolder";        // Explicit - Used to fill UI panel
     public string       scientificName="PlaceHolder";   // Explicit - Used to fill UI panel

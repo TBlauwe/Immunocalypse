@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using FYFY;
 
 public class CameraSystem : FSystem {
@@ -14,10 +16,13 @@ public class CameraSystem : FSystem {
     private CameraSettings  cameraSettings;
     private CAMERA_MODE     cameraMode; // Used to detect camera mode changes
 
-    // =====================================
-    // ========== INSPECTION MODE ==========
-    // =====================================
-    private Family          _galleryModelGO = FamilyManager.getFamily(new AllOfComponents(typeof(GalleryModel)));
+    // ==================================
+    // ========== GALLERY MODE ==========
+    // ==================================
+    private Family          _galleryManagerGO = FamilyManager.getFamily(new AllOfComponents(typeof(GalleryManager)));
+    private GalleryManager  galleryManager;
+    private int             currentRank=-1;
+    private int             maxRank;
 
     // ===================================
     // ========== GAMEPLAY MODE ==========
@@ -48,10 +53,10 @@ public class CameraSystem : FSystem {
                 setupCameraForGameplay(true);
                 break;
             case CAMERA_MODE.INSPECTION:
-                if(_galleryModelGO.Count == 0) { throw new ArgumentNullException("No gallery models, cannot setup camera accordingly"); }
                 break;
             case CAMERA_MODE.GALLERY:
-                if(_galleryModelGO.Count == 0) { throw new ArgumentNullException("No gallery models, cannot setup camera accordingly"); }
+                if(_galleryManagerGO.Count == 0) { throw new ArgumentNullException("No gallery manager in scene, cannot setup camera accordingly"); }
+                setupCameraForGallery();
                 break;
         }
     }
@@ -71,6 +76,7 @@ public class CameraSystem : FSystem {
             case CAMERA_MODE.INSPECTION:
                 break;
             case CAMERA_MODE.GALLERY:
+                updateCameraForGallery();
                 break;
         }
 
@@ -89,6 +95,13 @@ public class CameraSystem : FSystem {
         setCameraZoom(size.x / 2, saveAsDefault);
 
         cameraSettings.ZoomMax = size.x/2;
+    }
+
+    private void setupCameraForGallery()
+    {
+        galleryManager = _galleryManagerGO.First().gameObject.GetComponent<GalleryManager>();
+        maxRank = galleryManager.galleryModels.Count;
+        focus(0);
     }
 
 
@@ -119,12 +132,21 @@ public class CameraSystem : FSystem {
         }
     }
 
+    private void updateCameraForGallery()
+    {
+        // UPDATE ROTATION
+        float rotationDelta = Input.GetAxis("Mouse X");
+        if (Input.GetMouseButton(1) && rotationDelta != 0) { updateRotation(rotationDelta); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { focus(currentRank + 1); }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { focus(currentRank - 1); }
+    }
+
     // =============================
     // ========== PRIVATE ==========
     // =============================
     private void setPivotPosition(Vector3 position) { pivot.transform.position = position; }
 
-    private void setCameraPosition(Vector3 position, bool saveAsDefault) {
+    private void setCameraPosition(Vector3 position, bool saveAsDefault=false) {
         if (saveAsDefault)
         {
             cameraSettings.defaultPosition = position;
@@ -132,7 +154,7 @@ public class CameraSystem : FSystem {
         cameraGO.transform.position = position;
     }
 
-    private void setCameraRotation(Vector3 rotation, bool saveAsDefault) {
+    private void setCameraRotation(Vector3 rotation, bool saveAsDefault=false) {
         if (saveAsDefault)
         {
             cameraSettings.defaultRotation = rotation;
@@ -140,7 +162,7 @@ public class CameraSystem : FSystem {
         cameraGO.transform.eulerAngles = rotation;
     }
 
-    private void setCameraZoom(float zoom, bool saveAsDefault) {
+    private void setCameraZoom(float zoom, bool saveAsDefault=false) {
         if (saveAsDefault)
         {
             cameraSettings.defaultSize = zoom;
@@ -148,6 +170,32 @@ public class CameraSystem : FSystem {
         camera.orthographicSize = zoom;
     }
 
+    private void activateGalleryModel(int rank)
+    {
+        GameObject go = galleryManager.galleryModels[rank].GalleryModelGO;
+        go.transform.Find("Info").gameObject.SetActive(true); // Activate all panels
+    }
+
+    private void deactivateGalleryModel(int rank)
+    {
+        GameObject go = galleryManager.galleryModels[rank].GalleryModelGO;
+        go.transform.Find("Info").gameObject.SetActive(false); // Deactivate all panels
+    }
+
+    private void focus(int rank)
+    {
+        if(currentRank != -1) { deactivateGalleryModel(currentRank); }
+
+        currentRank = Utility.Mod(rank, maxRank);
+
+        GalleryModelOrder   galleryModelOrder   = galleryManager.galleryModels[currentRank];
+        Transform           cameraSpot          = galleryModelOrder.GalleryModelGO.GetComponent<GalleryModel>().cameraSpot;
+
+        setPivotPosition(galleryModelOrder.GalleryModelGO.transform.position);
+        setCameraPosition(cameraSpot.position);
+        setCameraRotation(cameraSpot.eulerAngles);
+        activateGalleryModel(currentRank);
+    }
 
     // ============================
     // ========== HELPER ==========
@@ -190,8 +238,6 @@ public class CameraSystem : FSystem {
 
     private float smoothZoom(float from, float to, float speed)
     {
-        Debug.Log(cameraSettings.ZoomMin);
-        Debug.Log(cameraSettings.ZoomMax);
         return Mathf.Clamp(Mathf.SmoothStep(from, to, Time.deltaTime * speed), cameraSettings.ZoomMin, cameraSettings.ZoomMax);
     }
 
@@ -221,5 +267,11 @@ public class CameraSystem : FSystem {
         }
 
         return direction;
+    }
+
+    private GalleryModel getNextGalleryModel(int actualRank)
+    {
+        GalleryModel galleryModel = null;
+        return galleryModel;
     }
 }

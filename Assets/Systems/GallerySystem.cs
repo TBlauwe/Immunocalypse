@@ -43,6 +43,7 @@ public class GallerySystem : FSystem {
 
         galleryModel.unlocked = true;
         galleryModel.cacheUnlocked = true;
+
     }
 
     private void lockModel(GameObject go)
@@ -77,6 +78,10 @@ public class GallerySystem : FSystem {
             if (galleryModel.unlocked) { unlockModel(go); }
             else { lockModel(go); }
         }
+
+        galleryModel.cameraSpot = go.transform.Find("CameraSpot").gameObject.transform;
+
+        go.transform.Find("Info").gameObject.SetActive(false); // Deactivate all panels
     }
 
     private void setModelName(GameObject go, string value)
