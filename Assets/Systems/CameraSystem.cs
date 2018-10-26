@@ -137,8 +137,8 @@ public class CameraSystem : FSystem {
         // UPDATE ROTATION
         float rotationDelta = Input.GetAxis("Mouse X");
         if (Input.GetMouseButton(1) && rotationDelta != 0) { updateRotation(rotationDelta); }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { focus(currentRank + 1); }
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { focus(currentRank - 1); }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { focus(currentRank + 1); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { focus(currentRank - 1); }
     }
 
     // =============================
