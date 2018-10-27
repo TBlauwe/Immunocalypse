@@ -6,6 +6,10 @@ using FYFY;
 
 public class GallerySystem : FSystem {
 
+    // =============================
+    // ========== MEMBERS ==========
+    // =============================
+
     private Family _modelsGO = FamilyManager.getFamily(new AllOfComponents(typeof(GalleryModel)));
 
     public GallerySystem()
@@ -16,51 +20,49 @@ public class GallerySystem : FSystem {
         }
     }
 
+    // ===========================
+    // ========== LOOPS ==========
+    // ===========================
+
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
         foreach(GameObject go in _modelsGO)
         {
-            GalleryModel galleryModel = go.GetComponent<GalleryModel>();
-
-            if (galleryModel.unlocked) { unlockModel(go); }
-            else { lockModel(go); }
+            if (hasStateChanged(go)) { refresh(go); }
         }
 	}
 
-    private void unlockModel(GameObject go)
+    // ===========================
+    // ========== SETUP ==========
+    // ===========================
+    
+    private void refresh(GameObject go)
     {
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
 
-        Light spotlight = (Light) go.transform.Find("Light").gameObject.GetComponent<Light>();
-        spotlight.enabled = true;
+        if (galleryModel.isUnlocked) { unlockModel(go); }
+        else { lockModel(go); }
 
-        GameObject panel = go.transform.Find("Info/Panel").gameObject;
-        panel.SetActive(true);
+        if (galleryModel.isHighlighted) { highlight(go); }
+        else { dehighlight(go); }
 
-        GameObject lockPanel = go.transform.Find("Info/Lock").gameObject;
-        lockPanel.SetActive(false);
+        if (galleryModel.isFocused) { focus(go); }
+        else { unfocus(go); }
 
-
-        galleryModel.unlocked = true;
-        galleryModel.cacheUnlocked = true;
-
+        refreshLight(go);
     }
 
-    private void lockModel(GameObject go)
+    private bool hasStateChanged(GameObject go)
     {
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
 
-        GameObject panel = go.transform.Find("Info/Panel").gameObject;
-        panel.SetActive(false);
+        if (galleryModel.cacheIsUnlocked != galleryModel.isUnlocked) { return true; }
 
-        GameObject lockPanel = go.transform.Find("Info/Lock").gameObject;
-        lockPanel.SetActive(true);
+        if (galleryModel.cacheIsHighlighted != galleryModel.isHighlighted) { return true; }
 
-        Light spotlight = (Light) go.transform.Find("Light").gameObject.GetComponent<Light>();
-        spotlight.enabled = false; 
+        if (galleryModel.cacheIsFocused != galleryModel.isFocused) { return true; }
 
-        galleryModel.unlocked = false;
-        galleryModel.cacheUnlocked = false;
+        return false;
     }
 
     private void setupGalleryModel(GameObject go)
@@ -73,16 +75,107 @@ public class GallerySystem : FSystem {
         setDescription(go, galleryModel.description);
         setClip(go, galleryModel.videoClip);
 
-        if (galleryModel.unlocked != galleryModel.cacheUnlocked)
-        {
-            if (galleryModel.unlocked) { unlockModel(go); }
-            else { lockModel(go); }
-        }
-
         galleryModel.cameraSpot = go.transform.Find("CameraSpot").gameObject.transform;
 
-        go.transform.Find("Info").gameObject.SetActive(false); // Deactivate all panels
+        refresh(go);
     }
+
+    // =============================
+    // ========== PRIVATE ==========
+    // =============================
+
+    private void unlockModel(GameObject go)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isUnlocked = true;
+        galleryModel.cacheIsUnlocked = true;
+    }
+
+    private void lockModel(GameObject go)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isUnlocked = false;
+        galleryModel.cacheIsUnlocked = false;
+    }
+
+    private void focus(GameObject go)
+    {
+        highlight(go);
+
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isFocused = true;
+        galleryModel.cacheIsFocused = true;
+
+        togglePanel(go);
+    }
+
+    private void unfocus(GameObject go)
+    {
+        dehighlight(go);
+
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isFocused = false;
+        galleryModel.cacheIsFocused = false;
+
+        togglePanel(go, false);
+    }
+
+    private void highlight(GameObject go)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isHighlighted = true;
+        galleryModel.cacheIsHighlighted = true;
+    }
+
+    private void dehighlight(GameObject go)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+        galleryModel.isHighlighted = false;
+        galleryModel.cacheIsHighlighted = false;
+    }
+
+    private void togglePanel(GameObject go, bool state=true)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+
+        go.transform.Find("Info").gameObject.SetActive(state);
+
+        if (galleryModel.isUnlocked){
+            go.transform.Find("Info/Panel").gameObject.SetActive(true);
+            go.transform.Find("Info/Lock").gameObject.SetActive(false);
+        }
+        else {
+            go.transform.Find("Info/Panel").gameObject.SetActive(false);
+            go.transform.Find("Info/Lock").gameObject.SetActive(true);
+        }
+    }
+
+    private void refreshLight(GameObject go)
+    {
+        GalleryModel galleryModel = go.GetComponent<GalleryModel>();
+
+        if ((galleryModel.isFocused && galleryModel.isUnlocked) || galleryModel.isHighlighted) {
+            go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = true;
+                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
+        }
+        else {
+            if (galleryModel.isFocused) {
+                go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = false;
+                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = true;
+            }
+            else
+            {
+                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
+                go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = false;
+            }
+        }
+    }
+
+        
+
+    // =======================================
+    // ========== GETTERS & SETTERS ==========
+    // =======================================
 
     private void setModelName(GameObject go, string value)
     {

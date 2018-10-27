@@ -172,14 +172,14 @@ public class CameraSystem : FSystem {
 
     private void activateGalleryModel(int rank)
     {
-        GameObject go = galleryManager.galleryModels[rank].GalleryModelGO;
-        go.transform.Find("Info").gameObject.SetActive(true); // Activate all panels
+        GalleryModel gm = galleryManager.galleryModels[rank].GalleryModelGO.GetComponent<GalleryModel>();
+        gm.isFocused = true;
     }
 
     private void deactivateGalleryModel(int rank)
     {
-        GameObject go = galleryManager.galleryModels[rank].GalleryModelGO;
-        go.transform.Find("Info").gameObject.SetActive(false); // Deactivate all panels
+        GalleryModel gm = galleryManager.galleryModels[rank].GalleryModelGO.GetComponent<GalleryModel>();
+        gm.isFocused = false;
     }
 
     private void focus(int rank)
@@ -267,11 +267,5 @@ public class CameraSystem : FSystem {
         }
 
         return direction;
-    }
-
-    private GalleryModel getNextGalleryModel(int actualRank)
-    {
-        GalleryModel galleryModel = null;
-        return galleryModel;
     }
 }
