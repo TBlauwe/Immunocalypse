@@ -100,8 +100,6 @@ public class GallerySystem : FSystem {
 
     private void focus(GameObject go)
     {
-        highlight(go);
-
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
         galleryModel.isFocused = true;
         galleryModel.cacheIsFocused = true;
@@ -111,8 +109,6 @@ public class GallerySystem : FSystem {
 
     private void unfocus(GameObject go)
     {
-        dehighlight(go);
-
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
         galleryModel.isFocused = false;
         galleryModel.cacheIsFocused = false;
@@ -154,19 +150,19 @@ public class GallerySystem : FSystem {
     {
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
 
-        if ((galleryModel.isFocused && galleryModel.isUnlocked) || galleryModel.isHighlighted) {
+        if ((galleryModel.isFocused || galleryModel.isHighlighted) && galleryModel.isUnlocked) {
             go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = true;
-                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
+            go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
         }
         else {
-            if (galleryModel.isFocused) {
+            if ((galleryModel.isFocused || galleryModel.isHighlighted) && !galleryModel.isUnlocked) {
                 go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = false;
                 go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = true;
             }
             else
             {
-                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
                 go.transform.Find("Light").gameObject.GetComponent<Light>().enabled = false;
+                go.transform.Find("ScaryLight").gameObject.GetComponent<Light>().enabled = false;
             }
         }
     }

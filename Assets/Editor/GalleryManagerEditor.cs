@@ -7,37 +7,62 @@ using UnityEditorInternal;
 [CustomEditor(typeof(GalleryManager))]
 public class GalleryManagerEditor : Editor {
 
-    private ReorderableList list;
+    private ReorderableList galleryModels;
+    private ReorderableList cameraSpots;
 
     private void OnEnable() {
-		list = new ReorderableList(serializedObject, 
+		galleryModels = new ReorderableList(serializedObject, 
         		serializedObject.FindProperty("galleryModels"), 
         		true, true, true, true);
 
-        list.drawElementCallback = 
+		cameraSpots = new ReorderableList(serializedObject, 
+        		serializedObject.FindProperty("cameraSpots"), 
+        		true, true, true, true);
+
+        galleryModels.drawElementCallback = 
             (Rect rect, int index, bool isActive, bool isFocused) => {
-                var element = list.serializedProperty.GetArrayElementAtIndex(index);
+                var element = galleryModels.serializedProperty.GetArrayElementAtIndex(index);
                 rect.y += 2;
                 EditorGUI.PropertyField(
-                    new Rect(rect.x, rect.y, 60, EditorGUIUtility.singleLineHeight),
-                    element.FindPropertyRelative("Type"), GUIContent.none);
-                EditorGUI.PropertyField(
-                    new Rect(rect.x + 70, rect.y, rect.width - 70, EditorGUIUtility.singleLineHeight),
+                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
                     element.FindPropertyRelative("GalleryModelGO"), GUIContent.none);
                 element.FindPropertyRelative("Order").intValue = index;
             };
 
-        list.drawHeaderCallback = (Rect rect) => {
+        galleryModels.drawHeaderCallback = (Rect rect) => {
 	        EditorGUI.LabelField(rect, "Gallery Models Order");
         };
 
-        list.onSelectCallback = (ReorderableList l) =>{
+        galleryModels.onSelectCallback = (ReorderableList l) =>{
             var prefab = l.serializedProperty.GetArrayElementAtIndex(l.index).FindPropertyRelative("GalleryModelGO").objectReferenceValue as GameObject;
             if (prefab)
                 EditorGUIUtility.PingObject(prefab.gameObject);
         };
 
-        list.onCanRemoveCallback = (ReorderableList l) => {
+        galleryModels.onCanRemoveCallback = (ReorderableList l) => {
+	        return l.count > 1;
+        };
+
+        cameraSpots.drawElementCallback = 
+            (Rect rect, int index, bool isActive, bool isFocused) => {
+                var element = cameraSpots.serializedProperty.GetArrayElementAtIndex(index);
+                rect.y += 2;
+                EditorGUI.ObjectField(
+                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                    element, GUIContent.none);
+            };
+
+        cameraSpots.drawHeaderCallback = (Rect rect) => {
+	        EditorGUI.LabelField(rect, "Overview camera spots");
+        };
+
+        cameraSpots.onSelectCallback = (ReorderableList l) =>{
+            var prefab = l.serializedProperty.GetArrayElementAtIndex(l.index).FindPropertyRelative("GameObject").objectReferenceValue as GameObject;
+            if (prefab)
+                EditorGUIUtility.PingObject(prefab.gameObject);
+        };
+
+        cameraSpots.onCanRemoveCallback = (ReorderableList l) => {
 	        return l.count > 1;
         };
 	}
@@ -50,7 +75,14 @@ public class GalleryManagerEditor : Editor {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
-		list.DoLayoutList();
+		galleryModels.DoLayoutList();
+
+        EditorGUILayout.HelpBox("Editor for defining an order for overview camera spots", MessageType.Info);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
+		cameraSpots.DoLayoutList();
 
 		serializedObject.ApplyModifiedProperties();
 	}

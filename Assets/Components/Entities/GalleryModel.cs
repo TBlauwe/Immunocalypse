@@ -6,12 +6,6 @@ using System;
 [Serializable]
 public struct GalleryModelOrder {
 
-	public enum SpotType {
-		Close,
-	    Overview	
-	}
-
-	public SpotType Type;
 	public GameObject GalleryModelGO;
 	public int Order;
 }
@@ -20,7 +14,6 @@ public class GalleryModel : MonoBehaviour {
 
     // IMPORTANT : Don't change go child structure, 
 
-    [HideInInspector]
     public bool         isFocused=false;                // Has the focus ?
     [HideInInspector]
     public bool         cacheIsFocused=false;           // Update only if cache is different from current value
@@ -29,7 +22,6 @@ public class GalleryModel : MonoBehaviour {
     [HideInInspector]
     public bool         cacheIsUnlocked=false;          // Update only if cache is different from current value
 
-    [HideInInspector]
     public bool         isHighlighted=false;            // Whether the model should be visible (with lights but without panel)
     [HideInInspector]
     public bool         cacheIsHighlighted=false;       // Update only if cache is different from current value

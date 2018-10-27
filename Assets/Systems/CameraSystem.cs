@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using FYFY;
+using System.Collections;
 
 public class CameraSystem : FSystem {
 
@@ -22,7 +23,9 @@ public class CameraSystem : FSystem {
     private Family          _galleryManagerGO = FamilyManager.getFamily(new AllOfComponents(typeof(GalleryManager)));
     private GalleryManager  galleryManager;
     private int             currentRank=-1;
-    private int             maxRank;
+    private GALLERY_MODE    galleryMode;
+
+    private Vector3         target;
 
     // ===================================
     // ========== GAMEPLAY MODE ==========
@@ -100,8 +103,9 @@ public class CameraSystem : FSystem {
     private void setupCameraForGallery()
     {
         galleryManager = _galleryManagerGO.First().gameObject.GetComponent<GalleryManager>();
-        maxRank = galleryManager.galleryModels.Count;
+        galleryMode = GALLERY_MODE.CLOSE;
         focus(0);
+        target = cameraGO.transform.position;
     }
 
 
@@ -134,11 +138,11 @@ public class CameraSystem : FSystem {
 
     private void updateCameraForGallery()
     {
-        // UPDATE ROTATION
         float rotationDelta = Input.GetAxis("Mouse X");
         if (Input.GetMouseButton(1) && rotationDelta != 0) { updateRotation(rotationDelta); }
         if (Input.GetKeyDown(KeyCode.RightArrow)) { focus(currentRank + 1); }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { focus(currentRank - 1); }
+        if (Input.GetKeyDown(KeyCode.Space)) { switchGalleryMode(); }
     }
 
     // =============================
@@ -170,6 +174,23 @@ public class CameraSystem : FSystem {
         camera.orthographicSize = zoom;
     }
 
+    private void highlightAllGalleryModels()
+    {
+        foreach(GalleryModelOrder gmOrder in galleryManager.galleryModels)
+        {
+            gmOrder.GalleryModelGO.GetComponent<GalleryModel>().isHighlighted = true;
+            gmOrder.GalleryModelGO.GetComponent<GalleryModel>().isFocused     = false;
+        }
+    }
+
+    private void dehighlightAllGalleryModels()
+    {
+        foreach(GalleryModelOrder gmOrder in galleryManager.galleryModels)
+        {
+            gmOrder.GalleryModelGO.GetComponent<GalleryModel>().isHighlighted   = false;
+        }
+    }
+
     private void activateGalleryModel(int rank)
     {
         GalleryModel gm = galleryManager.galleryModels[rank].GalleryModelGO.GetComponent<GalleryModel>();
@@ -182,11 +203,21 @@ public class CameraSystem : FSystem {
         gm.isFocused = false;
     }
 
-    private void focus(int rank)
+    private void focusOverview(int rank)
+    {
+        currentRank = Utility.Mod(rank, galleryManager.cameraSpots.Count);
+
+        Transform   cameraSpot  = galleryManager.cameraSpots[currentRank].transform;
+
+        setCameraPosition(cameraSpot.position);
+        setCameraRotation(cameraSpot.eulerAngles);
+    }
+
+    private void focusClose(int rank)
     {
         if(currentRank != -1) { deactivateGalleryModel(currentRank); }
 
-        currentRank = Utility.Mod(rank, maxRank);
+        currentRank = Utility.Mod(rank, galleryManager.galleryModels.Count);
 
         GalleryModelOrder   galleryModelOrder   = galleryManager.galleryModels[currentRank];
         Transform           cameraSpot          = galleryModelOrder.GalleryModelGO.GetComponent<GalleryModel>().cameraSpot;
@@ -196,6 +227,35 @@ public class CameraSystem : FSystem {
         setCameraRotation(cameraSpot.eulerAngles);
         activateGalleryModel(currentRank);
     }
+
+    private void focus(int rank)
+    {
+        switch (galleryMode)
+        {
+            case GALLERY_MODE.CLOSE:
+                focusClose(rank);
+                break;
+
+            case GALLERY_MODE.OVERVIEW:
+                focusOverview(rank);
+                break;
+        }
+    }
+
+    private void switchGalleryMode()
+    {
+        if(galleryMode == GALLERY_MODE.CLOSE) {
+            galleryMode = GALLERY_MODE.OVERVIEW;
+            highlightAllGalleryModels();
+        }
+        else {
+            galleryMode = GALLERY_MODE.CLOSE;
+            dehighlightAllGalleryModels();
+        }
+        currentRank = 0;
+        focus(0);
+    }
+
 
     // ============================
     // ========== HELPER ==========
