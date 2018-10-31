@@ -11,6 +11,7 @@ public class DragAndDropSystem : FSystem {
         foreach (GameObject go in _cards)
         {
             Dragable dragable = go.GetComponent<Dragable>();
+
             if (dragable.isDragged)
             {
                 if (Input.GetMouseButton(0))
