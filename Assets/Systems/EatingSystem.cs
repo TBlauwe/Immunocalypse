@@ -7,7 +7,10 @@ public class EatingSystem : FSystem {
         new AllOfComponents(typeof(Eater), typeof(Triggered3D)),
         new NoneOfComponents(typeof(Macrophage))
     );
-    private readonly Family _macrophages = FamilyManager.getFamily(new AllOfComponents(typeof(Macrophage)));
+    private readonly Family _macrophages = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Macrophage)),
+        new NoneOfComponents(typeof(Dragable))
+    );
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
@@ -59,7 +62,7 @@ public class EatingSystem : FSystem {
                             GameObjectManager.unbind(target);
                             Object.Destroy(target);
                         }
-                        catch (UnknownGameObjectException) { }  // If another macrophage has eaten our target while computing                     
+                        catch (UnknownGameObjectException) { continue; }  // If another macrophage has eaten our target while computing                     
                     }
                 }
             }
