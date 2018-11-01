@@ -4,7 +4,7 @@ using FYFY_plugins.PointerManager;
 
 public class DragAndDropSystem : FSystem {
     private readonly Family _cards = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Dragable), typeof(Card))
+        new AllOfComponents(typeof(Dragable))
     );
 
 	protected override void onProcess(int familiesUpdateCount) {
@@ -14,21 +14,23 @@ public class DragAndDropSystem : FSystem {
 
             if (dragable.isDragged)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                Vector3 rayPoint = ray.GetPoint(dragable.distance);
-                go.transform.position = rayPoint;
+                if (Input.GetMouseButton(0))
+                {
+                    Vector2 mousePos = new Vector2();
+                    Vector3 point = new Vector3();
 
-                if (Input.GetMouseButtonUp(0))
+                    // Get the mouse position from Input.
+                    // Note that the y position from Input is inverted.
+                    mousePos.x = Input.mousePosition.x;
+                    mousePos.y = Input.mousePosition.y;
+
+                    point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
+                    go.transform.position = point;
+                }
+                else
                 {
                     dragable.isDragged = false;
-                }
-            }
-            else
-            {
-                if (go.GetComponent<PointerOver>() != null && Input.GetMouseButton(0))
-                {
-                    dragable.isDragged = true;
-                    dragable.distance = Vector3.Distance(go.transform.position, Camera.main.transform.position);
+                    GameObjectManager.removeComponent<Dragable>(go);
                 }
             }
         }
