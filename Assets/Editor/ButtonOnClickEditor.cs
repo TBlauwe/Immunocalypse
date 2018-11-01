@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
 
-[CustomEditor(typeof(ButtonOnClick))]
-public class ButtonOnClickEditor : Editor {
+[CustomEditor(typeof(UI_Button))]
+public class UI_ButtonEditor : Editor {
 
     private ReorderableList functionNames;
 

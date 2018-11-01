@@ -10,7 +10,7 @@ public class UIButtonSystem : FSystem
     // ========== MEMBERS ==========
     // =============================
 
-    private Family _UIClickableButtons = FamilyManager.getFamily(new AllOfComponents(typeof(ButtonOnClick)));
+    private Family _UIClickableButtons = FamilyManager.getFamily(new AllOfComponents(typeof(UI_Button)));
 
     // =================================
     // ========== CONSTRUCTOR ==========
@@ -20,7 +20,7 @@ public class UIButtonSystem : FSystem
     {
         foreach (GameObject go in _UIClickableButtons)
         {
-            ButtonOnClick onClickFunctions = go.GetComponent<ButtonOnClick>();
+            UI_Button onClickFunctions = go.GetComponent<UI_Button>();
             Button button = go.GetComponent<Button>();
 
             foreach (string functionName in onClickFunctions.functionNames)
@@ -47,6 +47,9 @@ public class UIButtonSystem : FSystem
                 break;
             case "Gallery":
                 button.onClick.AddListener(Gallery);
+                break;
+            case "MenuPrincipal":
+                button.onClick.AddListener(MenuPrincipal);
                 break;
             case "Quit":
                 button.onClick.AddListener(Quit);
@@ -75,6 +78,11 @@ public class UIButtonSystem : FSystem
     public void Gallery()
     {
         SceneManager.LoadScene("GalleryScene");
+    }
+
+    public void MenuPrincipal()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Quit()
