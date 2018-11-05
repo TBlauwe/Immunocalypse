@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1bde9d254b88445b3a8813a2e33220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 200
   deathParticles: {fileID: 0}
   deathSound: {fileID: 0}
 --- !u!114 &114389185918070986

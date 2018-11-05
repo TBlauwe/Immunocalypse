@@ -14,6 +14,7 @@ public class FactorySystem : FSystem
         foreach (GameObject go in _factories)
         {
             Factory factory = go.GetComponent<Factory>();
+            
             // Is the factory working ? Should it be destroyed ?
             if (!AtLeastOneThingToInstanciate(factory.entries))
             {
@@ -48,6 +49,8 @@ public class FactorySystem : FSystem
                     ++i;
                 } while (entry.nb == 0);
             }
+
+            if (entry.prefab == null) continue; //FIXME: why is it required ?
 
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);

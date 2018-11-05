@@ -501,7 +501,8 @@ MonoBehaviour:
     type: 2}
   factoryPrefabList:
   - {fileID: 1241284251489592, guid: 7f17adaeda915044b8edc76b23d1c28a, type: 2}
-  factoryNumberList: 02000000
+  - {fileID: 1669074078160086, guid: 12717c99b9b804640856a28d6f1a60c7, type: 2}
+  factoryNumberList: 0200000001000000
 --- !u!4 &1428515134
 Transform:
   m_ObjectHideFlags: 0
@@ -739,6 +740,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DeadRemovingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: BacteriaSystem
     _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,

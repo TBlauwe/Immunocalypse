@@ -3,10 +3,6 @@ using FYFY;
 using FYFY_plugins.TriggerManager;
 
 public class EatingSystem : FSystem {
-    private readonly Family _eaters = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Eater), typeof(Triggered3D)),
-        new NoneOfComponents(typeof(Macrophage))
-    );
     private readonly Family _macrophages = FamilyManager.getFamily(
         new AllOfComponents(typeof(Macrophage)),
         new NoneOfComponents(typeof(Dragable))
@@ -14,31 +10,6 @@ public class EatingSystem : FSystem {
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-
-        // Non-macrophages eaters (for now, nobody ?)
-        foreach (GameObject go in _eaters)
-        {
-            Eater eater = go.GetComponent<Eater>();
-            Triggered3D triggered = go.GetComponent<Triggered3D>();
-
-            // Decrease nextMeal
-            if (eater.cooldown > 0) {
-                eater.cooldown -= Time.deltaTime;
-            }
-
-            // Something is in our eating range
-            if (triggered != null)
-            {
-                Eat(eater, triggered);
-            }
-
-            // If eating limit reaches 0, the game object must die
-            if (eater.eatingLimitBeforeDeath == 0)
-            {
-                WithHealth withHealth = go.GetComponent<WithHealth>();
-                withHealth.health = 0;
-            }
-        }
 
         foreach (GameObject go in _macrophages)
         {
@@ -51,26 +22,22 @@ public class EatingSystem : FSystem {
             {
                 foreach (GameObject target in triggered.Targets)
                 {
+                    if (!target.activeSelf) continue;
                     Eatable eatable = target.GetComponent<Eatable>();
 
                     // If we can eat it (layer is good) and cooldown is ok
                     if (eatable != null && (eatable.eatableLevel & eater.eatingMask) > 0)
                     {
                         // Destroy eaten object
-                        try
-                        {
-                            GameObjectManager.unbind(target);
-                            Object.Destroy(target);
-                        }
-                        catch (UnknownGameObjectException) { continue; }  // If another macrophage has eaten our target while computing                     
-                        catch (MissingReferenceException) { continue; }  // If another macrophage has eaten our target while computing                     
+                        GameObjectManager.unbind(target);
+                        Object.Destroy(target);                   
                     }
                 }
             }
         }
 
 	}
-
+    /*
     private void Eat(Eater eater, Triggered3D triggered)
     {
         int i = 0;
@@ -95,5 +62,5 @@ public class EatingSystem : FSystem {
             }
             ++i;
         }
-    }
+    }*/
 }

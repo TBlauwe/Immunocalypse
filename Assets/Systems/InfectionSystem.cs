@@ -14,11 +14,12 @@ public class InfectionSystem : FSystem {
                 GameObject[] targets = entity.GetComponent<InCollision3D>().Targets;
                 foreach (GameObject target in targets)
                 {
-                    if (target.tag == "pathogene")
+                    if (target.tag == "pathogene" && target.activeSelf)
                     {
                         cell.infections.Add(new FactoryEntry(target));
                         target.SetActive(false);
-                        target.transform.parent = entity.transform;
+                        //target.transform.parent = entity.transform;
+                        GameObjectManager.unbind(target);
                     }
                 }
             }
