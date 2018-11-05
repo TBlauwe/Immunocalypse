@@ -24,7 +24,7 @@ public class UIButtonSystem : FSystem
 
             foreach (string functionName in onClickFunctions.functionNames)
             {
-                addListener(button, functionName);
+                addListener(go, button, functionName);
             }
         }
     }
@@ -34,7 +34,7 @@ public class UIButtonSystem : FSystem
     // ========================================
 
     // Add to the switch the function's name you want to be callable from a button
-    public void addListener(Button button, string functionName)
+    public void addListener(GameObject go, Button button, string functionName)
     {
         switch (functionName)
         {
@@ -54,7 +54,7 @@ public class UIButtonSystem : FSystem
                 button.onClick.AddListener(delegate { Quit(); });
                 break;
             case "ToggleCardMenu":
-                button.onClick.AddListener(delegate { ToggleCardMenu(); } );
+                button.onClick.AddListener(delegate { ToggleCardMenu(go); } );
                 break;
             default:
                 Debug.LogError("Function name : " + functionName + " | Unknown");
@@ -87,9 +87,13 @@ public class UIButtonSystem : FSystem
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ToggleCardMenu()
+    public void ToggleCardMenu(GameObject go)
     {
-        Debug.Log("Toggle");
+        GameObject panel = go.transform.parent.Find("Deck").gameObject;
+        panel.SetActive(!panel.activeSelf);
+
+        GameObject button = go.transform.parent.Find("ToggleButton").gameObject;
+        button.transform.eulerAngles += Vector3.forward * 180;
     }
 
     public void Quit()
