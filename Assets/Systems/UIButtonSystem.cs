@@ -5,7 +5,6 @@ using FYFY;
 
 public class UIButtonSystem : FSystem
 {
-
     // =============================
     // ========== MEMBERS ==========
     // =============================
@@ -39,20 +38,23 @@ public class UIButtonSystem : FSystem
     {
         switch (functionName)
         {
-            case "Play":
-                button.onClick.AddListener(Play);
-                break;
             case "FreePlay":
-                button.onClick.AddListener(FreePlay);
+                button.onClick.AddListener(delegate { FreePlay(); });
                 break;
             case "Gallery":
-                button.onClick.AddListener(Gallery);
+                button.onClick.AddListener(delegate { Gallery(); });
                 break;
             case "MenuPrincipal":
-                button.onClick.AddListener(MenuPrincipal);
+                button.onClick.AddListener(delegate { MenuPrincipal(); });
+                break;
+            case "Play":
+                button.onClick.AddListener(delegate { Play(); } );
                 break;
             case "Quit":
-                button.onClick.AddListener(Quit);
+                button.onClick.AddListener(delegate { Quit(); });
+                break;
+            case "ToggleCardMenu":
+                button.onClick.AddListener(delegate { ToggleCardMenu(); } );
                 break;
             default:
                 Debug.LogError("Function name : " + functionName + " | Unknown");
@@ -83,6 +85,11 @@ public class UIButtonSystem : FSystem
     public void MenuPrincipal()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ToggleCardMenu()
+    {
+        Debug.Log("Toggle");
     }
 
     public void Quit()

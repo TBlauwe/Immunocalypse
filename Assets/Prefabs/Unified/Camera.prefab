@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 338c533088689c94999b5654e8862db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 1
   ZoomSpeed: 10
   ZoomMin: 0.5
   MoveSpeed: 10
