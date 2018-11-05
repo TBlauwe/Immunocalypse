@@ -50,7 +50,7 @@ public class CellSystem : FSystem {
                 {
                     int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime);
                     int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
-                    cell.infections[i].originalNb += consumedResources;
+                    cell.infections[i].originalNb += consumedResources / 2;
                     cell.infections[i].nb = cell.infections[i].originalNb;
                     healthComponent.health -= consumedResources;
                     ++i;

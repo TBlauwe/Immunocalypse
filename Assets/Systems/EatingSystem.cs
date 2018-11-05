@@ -63,6 +63,7 @@ public class EatingSystem : FSystem {
                             Object.Destroy(target);
                         }
                         catch (UnknownGameObjectException) { continue; }  // If another macrophage has eaten our target while computing                     
+                        catch (MissingReferenceException) { continue; }  // If another macrophage has eaten our target while computing                     
                     }
                 }
             }

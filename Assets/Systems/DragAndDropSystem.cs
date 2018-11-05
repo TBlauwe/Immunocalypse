@@ -25,6 +25,7 @@ public class DragAndDropSystem : FSystem {
                     mousePos.y = Input.mousePosition.y;
 
                     point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
+                    point.y = 0;
                     go.transform.position = point;
                 }
                 else

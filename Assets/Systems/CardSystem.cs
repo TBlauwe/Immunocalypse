@@ -20,6 +20,7 @@ public class CardSystem : FSystem {
                 mousePos.y = Input.mousePosition.y;
 
                 point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
+                point.y = 0;
 
                 // Instanciate prefab
                 GameObject clone = Object.Instantiate(card.entityPrefab);
