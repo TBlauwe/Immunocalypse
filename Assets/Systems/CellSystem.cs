@@ -50,7 +50,7 @@ public class CellSystem : FSystem {
                 {
                     int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime);
                     int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
-                    cell.infections[i].originalNb += consumedResources / 2;
+                    cell.infections[i].originalNb += (int) Mathf.Log(consumedResources);
                     cell.infections[i].nb = cell.infections[i].originalNb;
                     healthComponent.health -= consumedResources;
                     ++i;
@@ -84,7 +84,12 @@ public class CellSystem : FSystem {
                 // Set all prefab as children of the created factory : they will be removed when the factory will deseapper too.
                 foreach (FactoryEntry entry in cell.infections)
                 {
-                    entry.prefab.transform.parent = obj.transform;
+                    // Debug.Log(entry.prefab);
+                    if (entry.prefab != null)
+                    {
+                        //entry.prefab.transform.parent = obj.transform; // FIXME: why is it required ?
+                        Object.Destroy(entry.prefab, 5);
+                    }
                 }
 
                 // Die
