@@ -80,7 +80,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0}
+  m_BackGroundColor: {r: 0.10980392, g: 0.19215687, b: 0.22745098, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -130,10 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  ZoomSpeed: 10
+  ZoomSpeed: 100
   ZoomMin: 0.5
   MoveSpeed: 10
-  RotationSpeed: 15
+  RotationSpeed: 150
   ZoomMax: 100
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}
