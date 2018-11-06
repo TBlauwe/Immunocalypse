@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -408,7 +408,7 @@ Transform:
   - {fileID: 679964575}
   - {fileID: 1335225253}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216258012
 GameObject:
@@ -473,7 +473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPrefab: {fileID: 1310659980959336, guid: 5afa66f0c9536b54db1b57698f803f9c,
     type: 2}
-  energyCost: 40
   shouldDisplay: 0
   title: Macrophage
   image: {fileID: 21300000, guid: b9ae1883779057b458587df5ac6a42f3, type: 3}
@@ -511,6 +510,49 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 216258012}
   m_CullTransparentMesh: 0
+--- !u!1 &283601142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 283601143}
+  - component: {fileID: 283601144}
+  m_Layer: 0
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &283601143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 283601142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 988809496}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &283601144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 283601142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73232fb2598cf8345ae6797b3202b1d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 976217224}
+  - {fileID: 216258015}
 --- !u!1 &466313275
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +818,7 @@ GameObject:
   - component: {fileID: 686852909}
   - component: {fileID: 686852908}
   - component: {fileID: 686852907}
+  - component: {fileID: 686852910}
   m_Layer: 0
   m_Name: CardHolder
   m_TagString: Untagged
@@ -859,6 +902,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 686852905}
   m_CullTransparentMesh: 0
+--- !u!114 &686852910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 686852905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94868ca9cf9f21c41b5b3b939deedd39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &785845094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPrefab: {fileID: 1310659980959336, guid: 5afa66f0c9536b54db1b57698f803f9c,
     type: 2}
-  energyCost: 40
   shouldDisplay: 0
   title: Macrophage
   image: {fileID: 21300000, guid: b9ae1883779057b458587df5ac6a42f3, type: 3}
@@ -1245,6 +1298,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 976217221}
   m_CullTransparentMesh: 0
+--- !u!4 &988809496 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4221384766485394, guid: 95831ccd15da0f742a083175b2af8f3e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1878482828}
 --- !u!1 &1047707811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1877,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4221384766485394, guid: 95831ccd15da0f742a083175b2af8f3e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95831ccd15da0f742a083175b2af8f3e, type: 2}

@@ -50,7 +50,7 @@ public class CellSystem : FSystem {
                 {
                     int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime);
                     int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
-                    cell.infections[i].originalNb += (int) Mathf.Log(consumedResources);
+                    cell.infections[i].originalNb += Mathf.FloorToInt(Mathf.Log(consumedResources));
                     cell.infections[i].nb = cell.infections[i].originalNb;
                     healthComponent.health -= consumedResources;
                     ++i;
@@ -85,11 +85,7 @@ public class CellSystem : FSystem {
                 foreach (FactoryEntry entry in cell.infections)
                 {
                     // Debug.Log(entry.prefab);
-                    if (entry.prefab != null)
-                    {
-                        //entry.prefab.transform.parent = obj.transform; // FIXME: why is it required ?
-                        Object.Destroy(entry.prefab, 5);
-                    }
+                    entry.prefab.transform.parent = obj.transform;
                 }
 
                 // Die

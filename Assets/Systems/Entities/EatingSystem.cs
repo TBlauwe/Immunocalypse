@@ -26,7 +26,7 @@ public class EatingSystem : FSystem {
                     Eatable eatable = target.GetComponent<Eatable>();
 
                     // If we can eat it (layer is good) and cooldown is ok
-                    if (eatable != null && (eatable.eatableLevel & eater.eatingMask) > 0)
+                    if (eatable != null && target.activeSelf && (eatable.eatableLevel & eater.eatingMask) > 0)
                     {
                         // Destroy eaten object
                         GameObjectManager.unbind(target);
@@ -35,32 +35,5 @@ public class EatingSystem : FSystem {
                 }
             }
         }
-
 	}
-    /*
-    private void Eat(Eater eater, Triggered3D triggered)
-    {
-        int i = 0;
-        bool haveEaten = false;
-        while (eater.eatingLimitBeforeDeath > 0 && !haveEaten && i < triggered.Targets.Length)
-        {
-            Eatable eatable = triggered.Targets[i].GetComponent<Eatable>();
-
-            // If we can eat it (layer is good) and cooldown is ok
-            if (eatable != null && (eatable.eatableLevel & eater.eatMask) > 0 && eater.cooldown <= 0)
-            {
-                // Need some rest before eating again
-                eater.cooldown = eater.eatDelta;
-
-                // Destroy eaten object
-                GameObjectManager.unbind(triggered.Targets[i]);
-                Object.Destroy(triggered.Targets[i]);
-
-                // We have eaten
-                haveEaten = true;
-                eater.eatingLimitBeforeDeath -= 1;
-            }
-            ++i;
-        }
-    }*/
 }

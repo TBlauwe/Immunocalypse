@@ -16,10 +16,14 @@ public class InfectionSystem : FSystem {
                 {
                     if (target.tag == "pathogene" && target.activeSelf)
                     {
-                        cell.infections.Add(new FactoryEntry(target));
+                        FactoryEntry infection = new FactoryEntry(target)
+                        {
+                            originalNb = 2,
+                            nb = 2
+                        };
+
+                        cell.infections.Add(infection);
                         target.SetActive(false);
-                        //target.transform.parent = entity.transform;
-                        GameObjectManager.unbind(target);
                     }
                 }
             }

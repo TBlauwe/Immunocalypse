@@ -20,6 +20,7 @@ public class FactorySystem : FSystem
             {
                 if (factory.destroyWhenFinished)
                 {
+                    // Tmp
                     GameObjectManager.unbind(go);
                     Object.Destroy(go);
                 }
@@ -50,7 +51,7 @@ public class FactorySystem : FSystem
                 } while (entry.nb == 0);
             }
 
-            if (entry.prefab == null) continue; //FIXME: why is it required ?
+            //if (entry.prefab == null) continue; //FIXME: why is it required ?
 
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);

@@ -48,6 +48,10 @@ public class CardSystem : FSystem {
 
                 // Set postion to mouse position
                 clone.transform.position = point;
+
+                // De-activate card
+                card.shouldDisplay = false;
+                go.SetActive(false);
             }
         }
 	}
