@@ -2,7 +2,9 @@
 using FYFY;
 
 public class BacteriaSystem : FSystem {
-    private readonly Family bacterias = FamilyManager.getFamily(new AllOfComponents(typeof(Bacteria)));
+    private readonly Family bacterias = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Bacteria)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+    );
 
 	protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject entity in bacterias)

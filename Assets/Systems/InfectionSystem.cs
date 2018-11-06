@@ -24,6 +24,7 @@ public class InfectionSystem : FSystem {
 
                         cell.infections.Add(infection);
                         target.SetActive(false);
+                        target.transform.parent = entity.transform;
                     }
                 }
             }

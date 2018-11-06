@@ -84,8 +84,7 @@ public class CellSystem : FSystem {
                 // Set all prefab as children of the created factory : they will be removed when the factory will deseapper too.
                 foreach (FactoryEntry entry in cell.infections)
                 {
-                    // Debug.Log(entry.prefab);
-                    entry.prefab.transform.parent = obj.transform;
+                    entry.prefab.transform.SetParent(obj.transform);
                 }
 
                 // Die

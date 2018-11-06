@@ -1496,7 +1496,7 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: BacteriaSystem
-    _pause: 0
+    _pause: 1
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: CellSystem
