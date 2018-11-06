@@ -10,6 +10,7 @@ public class UIButtonSystem : FSystem
     // =============================
 
     private Family _UIClickableButtons = FamilyManager.getFamily(new AllOfComponents(typeof(UI_Button)));
+    private readonly Family _cards = FamilyManager.getFamily(new AllOfComponents(typeof(Card)));
 
     // =================================
     // ========== CONSTRUCTOR ==========
@@ -69,22 +70,34 @@ public class UIButtonSystem : FSystem
     // ========================================
     public void Play()
     {
-        SceneManager.LoadScene("PlayScene");
+        //SceneManager.LoadScene("PlayScene");
+        GameObjectManager.loadScene("PierreScene");
     }
 
     public void FreePlay()
     {
-        SceneManager.LoadScene("FreePlayScene");
+        //SceneManager.LoadScene("FreePlayScene");
+        GameObjectManager.loadScene("FreePlayScene");
     }
 
     public void Gallery()
     {
-        SceneManager.LoadScene("GalleryScene");
+        //SceneManager.LoadScene("GalleryScene");
+        GameObjectManager.loadScene("GalleryScene");
     }
 
     public void MenuPrincipal()
     {
-        SceneManager.LoadScene("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
+        if (SceneManager.GetActiveScene().name == "PierreScene")
+        {
+            GameObject player = GameObject.Find("Player");
+            foreach (GameObject card in _cards)
+            {
+                card.transform.parent = player.transform;
+            }
+        }
+        GameObjectManager.loadScene("MainMenu");
     }
 
     public void ToggleCardMenu(GameObject go)

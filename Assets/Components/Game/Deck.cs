@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Deck : MonoBehaviour {
-    public Card[] cards;
+    public List<GameObject> cards = new List<GameObject>();
 }

@@ -1,0 +1,50 @@
+﻿using UnityEngine;
+using FYFY;
+
+public class PlayerSystem : FSystem {
+    private readonly Family _players = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
+
+    public PlayerSystem()
+    {
+        _players.addEntryCallback(DontDestroyCallback);
+        if (_players.Count == 0)
+        {
+            CreatePlayer();
+        }
+    }
+
+	// Use to process your families.
+	protected override void onProcess(int familiesUpdateCount) {
+        foreach (GameObject go in _players)
+        {
+            // Nothing yet
+        }
+	}
+
+    // A call back function telling that all player objects shouldn't be destroyed
+    private void DontDestroyCallback(GameObject player)
+    {
+        GameObjectManager.dontDestroyOnLoadAndRebind(player);
+    }
+
+    private void CreatePlayer()
+    {
+        // Create the player
+        GameObject player = new GameObject("Player");
+        Deck deck = player.AddComponent<Deck>();
+        player.AddComponent<Player>();
+
+        // Add some cards
+        deck.cards.Add(CreateMacrophageCard(player));
+
+        GameObjectManager.bind(player);
+    }
+
+    private GameObject CreateMacrophageCard(GameObject parent)
+    {
+        GameObject go = Resources.Load<GameObject>("Test/UI_Macrophage_Card");
+        GameObject card = Object.Instantiate(go);
+        card.transform.SetParent(parent.transform);
+        return card;
+    }
+}

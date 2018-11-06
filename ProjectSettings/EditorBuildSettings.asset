@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GalleryScene.unity
     guid: 0102010e8f008274d8559a0ed377cd09
+  - enabled: 1
+    path: Assets/Scenes/PierreScene.unity
+    guid: 582264be0e8296643be3b57454e84de4
   m_configObjects: {}
