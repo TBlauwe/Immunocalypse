@@ -3,6 +3,7 @@ using FYFY;
 using UnityEngine.UI;
 using FYFY_plugins.PointerManager;
 using System.Collections.Generic;
+using FYFY_plugins.TriggerManager;
 
 /// <summary>
 ///     This System is designed to manage cards in the User Interface.
@@ -17,14 +18,21 @@ public class UICardSystem : FSystem {
     );
 
     // All active cards with the mouse point over
-    private readonly Family _hoveredCard = FamilyManager.getFamily(
+    private readonly Family _hoveredCards = FamilyManager.getFamily(
         new AllOfComponents(typeof(Card), typeof(PointerOver)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+    );
+
+    // All card that are triggered
+    private readonly Family _triggeredCards = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Card), typeof(Triggered2D)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF), new NoneOfComponents(typeof(PointerOver))
     );
 
     // Get all decks
     private readonly Family _decks = FamilyManager.getFamily(
         new AllOfComponents(typeof(Deck))
     );
+
+    private readonly GameObject UI = GameObject.Find("UI");
 
     public UICardSystem()
     {
@@ -44,8 +52,8 @@ public class UICardSystem : FSystem {
     /// <param name="familiesUpdateCount"></param>
     protected override void onProcess(int familiesUpdateCount) {
 
-        // Manage cards
-        foreach (GameObject go in _hoveredCard)
+        // Manage hovered cards
+        foreach (GameObject go in _hoveredCards)
         {
             // Get the card component
             Card card = go.GetComponent<Card>();
@@ -62,18 +70,56 @@ public class UICardSystem : FSystem {
             
         }
 
+        // Manage triggered cards
+        foreach (GameObject go in _triggeredCards)
+        {
+            // Get the card component
+            Card card = go.GetComponent<Card>();
+            Triggered2D triggered = go.GetComponent<Triggered2D>();
+            Dragable dragable = go.GetComponent<Dragable>();
+
+            // Switch according to what type of card it is
+            if (!card.lastParent.Equals(triggered.Targets[0]))
+            {
+                dragable.isDragged = false;
+                
+                // Activate card and set it as an in-game card
+                go.SetActive(true);
+
+                // Add it to the holder
+                card.lastParent = go.transform.parent.gameObject;
+                go.transform.SetParent(triggered.Targets[0].transform);
+                go.transform.localScale = new Vector3(1, 1, 1);
+                go.transform.SetAsFirstSibling();
+            }
+
+        }
+
         // Manage card holders
         foreach (GameObject go in _holders)
         {
             CardHolder holder = go.GetComponent<CardHolder>();
-            if (holder.inGame)
+            if (holder.inGame) // Holder in a play scene
             {
                 GameObject entity = _decks.First();
                 foreach (Deck deck in entity.GetComponents<Deck>())
                 {
                     if (deck.inGame)
                     {
-                        MoveCardsToHolder(go, deck.cards);
+                        MoveCardsToHolder(go, deck.cards, true);
+                        deck.cards.Clear();
+                    }
+                }
+            }
+
+            else if (go.name == "GlobalCardHolder") // Holder in preparedeck scene
+            {
+                GameObject entity = _decks.First();
+                foreach (Deck deck in entity.GetComponents<Deck>())
+                {
+                    if (!deck.inGame)
+                    {
+                        MoveCardsToHolder(go, deck.cards, false);
                         deck.cards.Clear();
                     }
                 }
@@ -138,44 +184,37 @@ public class UICardSystem : FSystem {
     private void BeforeGameDragAndDrop(GameObject go)
     {
         if (Input.GetMouseButtonDown(0))
-        {
+        {            
+            Vector2 mousePos = new Vector2
+            {
+                // Get the mouse position from Input.
+                // Note that the y position from Input is inverted.
+                x = Input.mousePosition.x,
+                y = Input.mousePosition.y
+            };
+
+            // Tell the card it is mouving
+            go.GetComponent<Dragable>().isDragged = true;
+
+            // Remove card from parent holder
             Card card = go.GetComponent<Card>();
-            Vector2 mousePos = new Vector2();
-            Vector3 point = new Vector3();
-
-            // Get the mouse position from Input.
-            // Note that the y position from Input is inverted.
-            mousePos.x = Input.mousePosition.x;
-            mousePos.y = Input.mousePosition.y;
-
-            point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.y));
-            point.y = 0;
-
-            // Instanciate prefab
-            GameObject clone = Object.Instantiate(card.entityPrefab);
-            Dragable drag = clone.AddComponent<Dragable>();
-            drag.isDragged = true;
-
-            // Bind it to FYFY
-            GameObjectManager.bind(clone);
-
-            // Set postion to mouse position
-            clone.transform.position = point;
-
-            // De-activate card
-            // go.transform.SetParent(_players.First().transform);
+            card.lastParent = go.transform.parent.gameObject;
+            go.transform.SetParent(UI.transform);
+            go.transform.position = mousePos;
         }
     }
 
-    private void MoveCardsToHolder(GameObject holder, List<GameObject> cards)
+    private void MoveCardsToHolder(GameObject holder, List<GameObject> cards, bool inGame)
     {
         foreach (GameObject card in cards)
         {
             // Activate card and set it as an in-game card
             card.SetActive(true);
-            card.GetComponent<Card>().inGame = true;
+            card.GetComponent<Card>().inGame = inGame;
 
             // Add it to the holder
+            Card _card = card.GetComponent<Card>();
+            _card.lastParent = card.transform.parent.gameObject;
             card.transform.SetParent(holder.transform);
             card.transform.localScale = new Vector3(1, 1, 1);
             card.transform.SetAsFirstSibling();
@@ -189,6 +228,8 @@ public class UICardSystem : FSystem {
         {
             if (!deck.inGame)
             {
+                Card _card = card.GetComponent<Card>();
+                _card.lastParent = card.transform.parent.gameObject;
                 card.transform.SetParent(entity.transform);
                 deck.cards.Add(card);
             }

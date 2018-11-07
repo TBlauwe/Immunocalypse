@@ -57,6 +57,9 @@ public class UIButtonSystem : FSystem
             case "ToggleCardMenu":
                 button.onClick.AddListener(delegate { ToggleCardMenu(go); } );
                 break;
+            case "Fight":
+                button.onClick.AddListener(delegate { Fight(); });
+                break;
             default:
                 Debug.LogError("Function name : " + functionName + " | Unknown");
                 break;
@@ -71,7 +74,7 @@ public class UIButtonSystem : FSystem
     public void Play()
     {
         //SceneManager.LoadScene("PlayScene");
-        GameObjectManager.loadScene("PierreScene");
+        GameObjectManager.loadScene("PrepareDeckScene");
     }
 
     public void FreePlay()
@@ -89,12 +92,24 @@ public class UIButtonSystem : FSystem
     public void MenuPrincipal()
     {
         //SceneManager.LoadScene("MainMenu");
-        if (SceneManager.GetActiveScene().name == "PierreScene")
+        if (SceneManager.GetActiveScene().name == "PierreScene" || SceneManager.GetActiveScene().name == "PrepareDeckScene")
         {
             GameObject player = GameObject.Find("Player");
             foreach (GameObject card in _cards)
             {
-                card.transform.parent = player.transform;
+                foreach (Deck deck in player.GetComponents<Deck>())
+                {
+                    if (!deck.inGame)
+                    {
+                        deck.cards.Clear();
+                        foreach (GameObject go in _cards)
+                        {
+                            deck.cards.Add(go);
+                            go.transform.SetParent(player.transform);
+                            go.SetActive(false);
+                        }
+                    }
+                }
             }
         }
         GameObjectManager.loadScene("MainMenu");
@@ -119,5 +134,38 @@ public class UIButtonSystem : FSystem
         #else
              Application.Quit();
         #endif
+    }
+
+    public void Fight()
+    {
+        GameObject player = GameObject.Find("Player");
+        GameObject globalHolder = GameObject.Find("GlobalCardHolder");
+        GameObject levelHolder = GameObject.Find("LevelCardHolder");
+
+        foreach (Deck deck in player.GetComponents<Deck>())
+        {
+            if (deck.inGame)
+            {
+                deck.cards.Clear();
+                foreach (Transform tr in levelHolder.transform)
+                {
+                    deck.cards.Add(tr.gameObject);
+                    tr.gameObject.transform.SetParent(player.transform);
+                    tr.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                deck.cards.Clear();
+                foreach (Transform tr in globalHolder.transform)
+                {
+                    deck.cards.Add(tr.gameObject);
+                    tr.gameObject.transform.SetParent(player.transform);
+                    tr.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        GameObjectManager.loadScene("PierreScene");
     }
 }
