@@ -31,11 +31,17 @@ public class PlayerSystem : FSystem {
     {
         // Create the player
         GameObject player = new GameObject("Player");
-        Deck deck = player.AddComponent<Deck>();
+
+        // Global Deck
+        Deck globalDeck = player.AddComponent<Deck>();
         player.AddComponent<Player>();
 
+        // Level Deck
+        Deck levelDeck = player.AddComponent<Deck>();
+        levelDeck.inGame = true;
+
         // Add some cards
-        deck.cards.Add(CreateMacrophageCard(player));
+        globalDeck.cards.Add(CreateMacrophageCard(player));
 
         GameObjectManager.bind(player);
     }

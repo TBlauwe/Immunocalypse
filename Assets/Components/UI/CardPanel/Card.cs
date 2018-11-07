@@ -5,4 +5,5 @@ public class Card : MonoBehaviour {
     public bool         initialized;
     public string       title;
     public Sprite       image;
+    public bool inGame = false;
 }
