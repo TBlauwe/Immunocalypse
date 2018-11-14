@@ -104,7 +104,6 @@ public class UIButtonSystem : FSystem
                 card.transform.SetParent(_player.transform);
                 card.SetActive(false);
                 card.GetComponent<Card>().inGame = false;
-                GameObjectManager.addComponent<TriggerSensitive2D>(card);
             }
 
             // Everything must return to the global deck
@@ -142,7 +141,6 @@ public class UIButtonSystem : FSystem
         foreach(GameObject card in _cards)
         {
             card.transform.SetParent(player.transform);
-            GameObjectManager.removeComponent<TriggerSensitive2D>(card);
         }
 
         GameObjectManager.loadScene("PierreScene");

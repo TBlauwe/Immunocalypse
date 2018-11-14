@@ -22,11 +22,6 @@ public class UICardSystem : FSystem {
         new AllOfComponents(typeof(Card), typeof(PointerOver)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
     );
 
-    // All card that are triggered
-    private readonly Family _triggeredCards = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Card), typeof(Triggered2D)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF), new NoneOfComponents(typeof(PointerOver))
-    );
-
     // All players (normally, only one !)
     private readonly Family _player = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
 
@@ -91,7 +86,7 @@ public class UICardSystem : FSystem {
         }
 
         // Manage triggered cards, aka cards in collision with a holder (prepare deck)
-        foreach (GameObject go in _triggeredCards)
+        /*foreach (GameObject go in _triggeredCards)
         {
             // Get the card component
             Card card = go.GetComponent<Card>();
@@ -126,7 +121,7 @@ public class UICardSystem : FSystem {
                 }
             }
 
-        }
+        }*/
 	}
 
     /// <summary>
@@ -185,7 +180,9 @@ public class UICardSystem : FSystem {
 
     private void BeforeGameDragAndDrop(GameObject go)
     {
-        if (Input.GetMouseButtonDown(0))
+        Dragable dragable = go.GetComponent<Dragable>();
+
+        if (Input.GetMouseButtonDown(0) && !dragable.isDragged)
         {            
             Vector2 mousePos = new Vector2
             {
@@ -195,12 +192,10 @@ public class UICardSystem : FSystem {
                 y = Input.mousePosition.y
             };
 
-            // Tell the card it is mouving
-            go.GetComponent<Dragable>().isDragged = true;
+            // Tell the card it is moving
+            dragable.isDragged = true;
 
             // Remove card from parent holder
-            Card card = go.GetComponent<Card>();
-            card.lastParent = go.transform.parent.gameObject;
             go.transform.SetParent(UI.transform);
             go.transform.position = mousePos;
         }
@@ -215,9 +210,6 @@ public class UICardSystem : FSystem {
             card.GetComponent<Card>().inGame = inGame;
 
             // Add it to the holder
-            Card _card = card.GetComponent<Card>();
-            //_card.lastParent = card.transform.parent.gameObject;
-            _card.lastParent = holder;
             card.transform.SetParent(holder.transform);
             card.transform.localScale = new Vector3(1, 1, 1);
             card.transform.SetAsFirstSibling();
@@ -231,8 +223,6 @@ public class UICardSystem : FSystem {
         Player player = entity.GetComponent<Player>();
 
         // Change card parent
-        Card _card = card.GetComponent<Card>();
-        _card.lastParent = card.transform.parent.gameObject;
         card.transform.SetParent(entity.transform);
 
         // Change card's deck

@@ -7,5 +7,4 @@ public class Card : MonoBehaviour {
     public string       title;
     public Sprite       image;
     public bool inGame = false;
-    [HideInInspector] public GameObject lastParent;
 }
