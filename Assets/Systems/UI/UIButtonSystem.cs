@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using FYFY;
+using FYFY_plugins.TriggerManager;
 
 public class UIButtonSystem : FSystem
 {
@@ -94,23 +95,20 @@ public class UIButtonSystem : FSystem
         //SceneManager.LoadScene("MainMenu");
         if (SceneManager.GetActiveScene().name == "PierreScene" || SceneManager.GetActiveScene().name == "PrepareDeckScene")
         {
-            GameObject player = GameObject.Find("Player");
+            GameObject _player = GameObject.Find("Player"); // Could be replaced with a Family searching for Player component
+            Player player = _player.GetComponent<Player>();
+
             foreach (GameObject card in _cards)
             {
-                foreach (Deck deck in player.GetComponents<Deck>())
-                {
-                    if (!deck.inGame)
-                    {
-                        deck.cards.Clear();
-                        foreach (GameObject go in _cards)
-                        {
-                            deck.cards.Add(go);
-                            go.transform.SetParent(player.transform);
-                            go.SetActive(false);
-                        }
-                    }
-                }
+                // Card are no more active and in-game
+                card.transform.SetParent(_player.transform);
+                card.SetActive(false);
+                card.GetComponent<Card>().inGame = false;
+                GameObjectManager.addComponent<TriggerSensitive2D>(card);
             }
+
+            // Everything must return to the global deck
+            player.globalDeck.AddRange(player.levelDeck);
         }
         GameObjectManager.loadScene("MainMenu");
     }
@@ -139,31 +137,12 @@ public class UIButtonSystem : FSystem
     public void Fight()
     {
         GameObject player = GameObject.Find("Player");
-        GameObject globalHolder = GameObject.Find("GlobalCardHolder");
-        GameObject levelHolder = GameObject.Find("LevelCardHolder");
 
-        foreach (Deck deck in player.GetComponents<Deck>())
+        // Each card returns to the player
+        foreach(GameObject card in _cards)
         {
-            if (deck.inGame)
-            {
-                deck.cards.Clear();
-                foreach (Transform tr in levelHolder.transform)
-                {
-                    deck.cards.Add(tr.gameObject);
-                    tr.gameObject.transform.SetParent(player.transform);
-                    tr.gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                deck.cards.Clear();
-                foreach (Transform tr in globalHolder.transform)
-                {
-                    deck.cards.Add(tr.gameObject);
-                    tr.gameObject.transform.SetParent(player.transform);
-                    tr.gameObject.SetActive(false);
-                }
-            }
+            card.transform.SetParent(player.transform);
+            GameObjectManager.removeComponent<TriggerSensitive2D>(card);
         }
 
         GameObjectManager.loadScene("PierreScene");

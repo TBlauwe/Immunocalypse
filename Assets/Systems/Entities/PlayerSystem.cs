@@ -30,20 +30,13 @@ public class PlayerSystem : FSystem {
     private void CreatePlayer()
     {
         // Create the player
-        GameObject player = new GameObject("Player");
-
-        // Global Deck
-        Deck globalDeck = player.AddComponent<Deck>();
-        player.AddComponent<Player>();
-
-        // Level Deck
-        Deck levelDeck = player.AddComponent<Deck>();
-        levelDeck.inGame = true;
+        GameObject go = new GameObject("Player");
+        Player player = go.AddComponent<Player>();
 
         // Add some cards
-        globalDeck.cards.Add(CreateMacrophageCard(player));
+        player.globalDeck.Add(CreateMacrophageCard(go));
 
-        GameObjectManager.bind(player);
+        GameObjectManager.bind(go);
     }
 
     private GameObject CreateMacrophageCard(GameObject parent)

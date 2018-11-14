@@ -27,10 +27,8 @@ public class UICardSystem : FSystem {
         new AllOfComponents(typeof(Card), typeof(Triggered2D)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF), new NoneOfComponents(typeof(PointerOver))
     );
 
-    // Get all decks
-    private readonly Family _decks = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Deck))
-    );
+    // All players (normally, only one !)
+    private readonly Family _player = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
 
     private readonly GameObject UI = GameObject.Find("UI");
 
@@ -44,6 +42,28 @@ public class UICardSystem : FSystem {
         {
             InitializeCard(go);
         }
+
+        // Manage card holders
+        foreach (GameObject go in _holders)
+        {
+            CardHolder holder = go.GetComponent<CardHolder>();
+            if (holder.inGame) // Holder in a play scene
+            {
+                GameObject entity = _player.First();
+                Player player = entity.GetComponent<Player>();
+
+                MoveCardsToHolder(go, player.levelDeck, true);
+            }
+
+            else if (go.name == "GlobalCardHolder") // Holder in preparedeck scene
+            {
+                GameObject entity = _player.First();
+                Player player = entity.GetComponent<Player>();
+
+                MoveCardsToHolder(go, player.globalDeck, false);
+            }
+        }
+
     }
 
     /// <summary>
@@ -70,7 +90,7 @@ public class UICardSystem : FSystem {
             
         }
 
-        // Manage triggered cards
+        // Manage triggered cards, aka cards in collision with a holder (prepare deck)
         foreach (GameObject go in _triggeredCards)
         {
             // Get the card component
@@ -87,43 +107,25 @@ public class UICardSystem : FSystem {
                 go.SetActive(true);
 
                 // Add it to the holder
-                card.lastParent = go.transform.parent.gameObject;
+                card.lastParent = triggered.Targets[0];
                 go.transform.SetParent(triggered.Targets[0].transform);
                 go.transform.localScale = new Vector3(1, 1, 1);
                 go.transform.SetAsFirstSibling();
-            }
 
-        }
-
-        // Manage card holders
-        foreach (GameObject go in _holders)
-        {
-            CardHolder holder = go.GetComponent<CardHolder>();
-            if (holder.inGame) // Holder in a play scene
-            {
-                GameObject entity = _decks.First();
-                foreach (Deck deck in entity.GetComponents<Deck>())
+                // Switch deck
+                Player player = _player.First().GetComponent<Player>();
+                if (player.globalDeck.Contains(go))
                 {
-                    if (deck.inGame)
-                    {
-                        MoveCardsToHolder(go, deck.cards, true);
-                        deck.cards.Clear();
-                    }
+                    player.globalDeck.Remove(go);
+                    player.levelDeck.Add(go);
+                }
+                else
+                {
+                    player.levelDeck.Remove(go);
+                    player.globalDeck.Add(go);
                 }
             }
 
-            else if (go.name == "GlobalCardHolder") // Holder in preparedeck scene
-            {
-                GameObject entity = _decks.First();
-                foreach (Deck deck in entity.GetComponents<Deck>())
-                {
-                    if (!deck.inGame)
-                    {
-                        MoveCardsToHolder(go, deck.cards, false);
-                        deck.cards.Clear();
-                    }
-                }
-            }
         }
 	}
 
@@ -208,13 +210,14 @@ public class UICardSystem : FSystem {
     {
         foreach (GameObject card in cards)
         {
-            // Activate card and set it as an in-game card
+            // Activate card and set it as an in-game card if necessary
             card.SetActive(true);
             card.GetComponent<Card>().inGame = inGame;
 
             // Add it to the holder
             Card _card = card.GetComponent<Card>();
-            _card.lastParent = card.transform.parent.gameObject;
+            //_card.lastParent = card.transform.parent.gameObject;
+            _card.lastParent = holder;
             card.transform.SetParent(holder.transform);
             card.transform.localScale = new Vector3(1, 1, 1);
             card.transform.SetAsFirstSibling();
@@ -223,16 +226,17 @@ public class UICardSystem : FSystem {
 
     private void MoveCardToGlobalDeck(GameObject card)
     {
-        GameObject entity = _decks.First();
-        foreach (Deck deck in entity.GetComponents<Deck>())
-        {
-            if (!deck.inGame)
-            {
-                Card _card = card.GetComponent<Card>();
-                _card.lastParent = card.transform.parent.gameObject;
-                card.transform.SetParent(entity.transform);
-                deck.cards.Add(card);
-            }
-        }
+        // Get player
+        GameObject entity = _player.First();
+        Player player = entity.GetComponent<Player>();
+
+        // Change card parent
+        Card _card = card.GetComponent<Card>();
+        _card.lastParent = card.transform.parent.gameObject;
+        card.transform.SetParent(entity.transform);
+
+        // Change card's deck
+        player.globalDeck.Add(card);
+        player.levelDeck.Remove(card);
     }
 }
