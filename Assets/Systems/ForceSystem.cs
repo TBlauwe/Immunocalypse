@@ -10,15 +10,15 @@ public class ForceSystem : FSystem {
     );
 
     protected override void onProcess(int familiesUpdateCount) {
-        foreach (GameObject go in _subToForces)
-        {
+        //foreach (GameObject go in _subToForces)
+        //{
+        for (int i  = 0; i < _subToForces.Count; ++i) {
+            GameObject go = _subToForces.getAt(i);
             SubjectToForces subject = go.GetComponent<SubjectToForces>();
             Vector3 computedVelocity = new Vector3();
 
-            foreach (GameObject creator in _forceCreators)
-            {
-                if (creator == null || creator.GetComponent<ForceCreator>() == null) { continue; }
-                
+            for (int j = 0; j < _forceCreators.Count; ++j) {
+                GameObject creator = _forceCreators.getAt(j);
                 ForceCreator[] forces = creator.GetComponents<ForceCreator>();
                 foreach (ForceCreator force in forces)
                 {
