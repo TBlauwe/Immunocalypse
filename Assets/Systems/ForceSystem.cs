@@ -2,8 +2,12 @@
 using FYFY;
 
 public class ForceSystem : FSystem {
-    private readonly Family _subToForces = FamilyManager.getFamily(new AllOfComponents(typeof(SubjectToForces)));
-    private readonly Family _forceCreators = FamilyManager.getFamily(new AllOfComponents(typeof(ForceCreator)));
+    private readonly Family _subToForces = FamilyManager.getFamily(
+        new AllOfComponents(typeof(SubjectToForces)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+    );
+    private readonly Family _forceCreators = FamilyManager.getFamily(
+        new AllOfComponents(typeof(ForceCreator)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+    );
 
     protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject go in _subToForces)
