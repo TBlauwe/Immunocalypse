@@ -25,6 +25,7 @@ public class UIButtonSystem : FSystem
 
             foreach (string functionName in onClickFunctions.functionNames)
             {
+                Debug.Log("adding " + functionName);
                 addListener(button, functionName);
             }
         }
@@ -82,6 +83,7 @@ public class UIButtonSystem : FSystem
 
     public void MenuPrincipal()
     {
+        Debug.Log("clicked");
         SceneManager.LoadScene("MainMenu");
     }
 
