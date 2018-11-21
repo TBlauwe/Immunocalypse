@@ -35,6 +35,7 @@ public class PlayerSystem : FSystem {
 
         // Add some cards
         player.globalDeck.Add(CreateMacrophageCard(go));
+        player.levelDeck.Add(CreateMacrophageCard(go));
 
         GameObjectManager.bind(go);
     }

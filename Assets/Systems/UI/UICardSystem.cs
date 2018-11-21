@@ -162,6 +162,14 @@ public class UICardSystem : FSystem {
 
             // Instanciate prefab
             GameObject clone = Object.Instantiate(card.entityPrefab);
+            if(card.entityPrefab.GetInstanceID() == clone.GetInstanceID())
+            {
+                Debug.Log("good");
+            }
+            else
+            {
+                Debug.Log("bad " + card.entityPrefab.GetInstanceID());
+            }
             Dragable drag = clone.AddComponent<Dragable>();
             drag.isDragged = true;
 
