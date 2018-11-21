@@ -1,5 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour {
-	// Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
+    // The player's global deck
+    public List<GameObject> globalDeck = new List<GameObject>();
+
+    // The player's level deck
+    public List<GameObject> levelDeck = new List<GameObject>();
 }

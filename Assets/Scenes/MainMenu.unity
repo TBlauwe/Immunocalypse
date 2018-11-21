@@ -266,13 +266,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fixedUpdateSystemDescriptions: []
   _updateSystemDescriptions:
-  - _typeAssemblyQualifiedName: UIButtonSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: UIButtonSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: PlayerSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: PlayerSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: UIButtonSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: UIButtonSystem
     _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0

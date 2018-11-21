@@ -7,11 +7,19 @@ public class DragAndDropSystem : FSystem {
     private readonly Family _entities = FamilyManager.getFamily(
         new AllOfComponents(typeof(Dragable)), new NoneOfComponents(typeof(Card))
     );
+
     private readonly Family _cards = FamilyManager.getFamily(
         new AllOfComponents(typeof(Dragable), typeof(Card))
     );
 
+    private readonly Family _holders = FamilyManager.getFamily(
+        new AllOfComponents(typeof(CardHolder))
+    );
+
+    private readonly Family _player = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
+
     protected override void onProcess(int familiesUpdateCount) {
+
         foreach (GameObject go in _entities)
         {
             Dragable dragable = go.GetComponent<Dragable>();
@@ -58,16 +66,42 @@ public class DragAndDropSystem : FSystem {
 
                     go.transform.position = mousePos;
                 }
-                else if (go.GetComponent<Triggered2D>() == null)
+                else
                 {
+                    // No more drag
                     dragable.isDragged = false;
 
-                    Card card = go.GetComponent<Card>();
-                    GameObject nextParent = card.lastParent;
-                    card.lastParent = go.transform.parent.gameObject;
+                    // Setup variables
+                    GameObject selectedHolder = null;
+                    float minDistance = float.MaxValue;
 
-                    go.transform.SetParent(nextParent.transform);
+                    // Look for the closest holder
+                    foreach (GameObject holder in _holders)
+                    {
+                        float currentDistance = (go.transform.position - holder.transform.position).magnitude;
+                        if (currentDistance < minDistance)
+                        {
+                            selectedHolder = holder;
+                            minDistance = currentDistance;
+                        }
+                    }
+
+                    // Set parent
+                    go.transform.SetParent(selectedHolder.transform);
                     go.transform.SetAsFirstSibling();
+
+                    // Change the card's deck
+                    Player player = _player.First().GetComponent<Player>();
+                    if (player.globalDeck.Contains(go))
+                    {
+                        player.globalDeck.Remove(go);
+                        player.levelDeck.Add(go);
+                    }
+                    else
+                    {
+                        player.levelDeck.Remove(go);
+                        player.globalDeck.Add(go);
+                    }
                 }
             }
         }
