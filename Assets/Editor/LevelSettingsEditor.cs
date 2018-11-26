@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 [CustomEditor(typeof(LevelSettings))]
 public class LevelSettingsEditor : Editor {
@@ -7,6 +8,10 @@ public class LevelSettingsEditor : Editor {
     private LevelSettings level;          // Reference to the level
 
     private bool showFactoryList = true;    // Bool to track if Factories prefabs' foldout must be expanded or collapsed
+
+    private string exportedFileName = "level";
+
+    private readonly string levelsFolder =  "/Resources/levels/";
 
     private void OnEnable()
     {
@@ -62,10 +67,16 @@ public class LevelSettingsEditor : Editor {
                     addFactoryButton();
                     clearFactoryButton();
                 EditorGUILayout.EndHorizontal();
-            } 
-
+            }
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Export to file", EditorStyles.boldLabel);
+        this.exportedFileName = EditorGUILayout.TextField(this.exportedFileName);
+        if(this.exportedFileName != "" && GUILayout.Button("save"))
+        {
+            string filePath = Application.dataPath + levelsFolder + this.exportedFileName + ".json";
+            File.WriteAllText(filePath, JsonUtility.ToJson(this.level));
+        }
         // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Splitter for graphical's purposes
-
     }
 
     // ======================================   
@@ -75,7 +86,7 @@ public class LevelSettingsEditor : Editor {
     private void addFactoryButton()
     {
         if (GUILayout.Button("Add")){
-            level.factoryPrefabList.Add(new GameObject());
+            level.factoryPrefabList.Add(null);
             level.factoryNumberList.Add(0);
         }
     }
