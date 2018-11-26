@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1088,7 +1088,7 @@ MonoBehaviour:
     type: 2}
   factoryPrefabList:
   - {fileID: 1241284251489592, guid: 7f17adaeda915044b8edc76b23d1c28a, type: 2}
-  factoryNumberList: 04000000
+  factoryNumberList: 01000000
 --- !u!1 &1527638137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,6 +1359,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fixedUpdateSystemDescriptions: []
   _updateSystemDescriptions:
+  - _typeAssemblyQualifiedName: PlayerSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: PlayerSystem
+    _pause: 0
   - _typeAssemblyQualifiedName: LevelGenerationSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LevelGenerationSystem
@@ -1367,49 +1371,37 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: CameraSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: FactorySystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: FactorySystem
-    _pause: 0
   - _typeAssemblyQualifiedName: LevelManagerSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LevelManagerSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: FactorySystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: FactorySystem
     _pause: 0
   - _typeAssemblyQualifiedName: ForceSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: ForceSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: GameUISystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: GameUISystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: EatingSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: EatingSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: BacteriaSystem
-    _pause: 1
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: CellSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: DeadRemovingSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: DragAndDropSystem
     _pause: 0
   - _typeAssemblyQualifiedName: InfectionSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: InfectionSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: PlayerSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: BacteriaSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: EatingSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-    _typeFullName: PlayerSystem
+    _typeFullName: EatingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DragAndDropSystem
     _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: UICardSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -1423,6 +1415,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: UIPauseSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DeadRemovingSystem
     _pause: 0
   _forceUpdateInspector: 0
   _loadingState: 0

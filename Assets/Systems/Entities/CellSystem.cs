@@ -48,7 +48,7 @@ public class CellSystem : FSystem {
                 
                 while (healthComponent.health > 1 && i < cell.infections.Count)
                 {
-                    int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime);
+                    int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime / 2);
                     int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
                     cell.infections[i].originalNb += Mathf.FloorToInt(Mathf.Log(consumedResources));
                     cell.infections[i].nb = cell.infections[i].originalNb;

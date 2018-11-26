@@ -53,6 +53,8 @@ public class FactorySystem : FSystem
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);
             clone.SetActive(true);
+
+            // Bind it to FYFY
             GameObjectManager.bind(clone);
 
             // Set GameObject's position
