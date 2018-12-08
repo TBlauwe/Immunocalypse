@@ -70,11 +70,12 @@ public class LevelSettingsEditor : Editor {
             }
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Export to file", EditorStyles.boldLabel);
-        this.exportedFileName = EditorGUILayout.TextField(this.exportedFileName);
-        if(this.exportedFileName != "" && GUILayout.Button("save"))
+        exportedFileName = EditorGUILayout.TextField(exportedFileName);
+        if(exportedFileName != "" && GUILayout.Button("save"))
         {
-            string filePath = Application.dataPath + levelsFolder + this.exportedFileName + ".json";
-            File.WriteAllText(filePath, JsonUtility.ToJson(this.level));
+            string filePath = Application.dataPath + levelsFolder + exportedFileName + ".json";
+            File.WriteAllText(filePath, JsonUtility.ToJson(level));
+            Debug.Log("Exported level to : " + filePath);
         }
         // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); // Splitter for graphical's purposes
     }
