@@ -27,10 +27,19 @@ public class LevelSettingsEditor : Editor {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Grid Settings", EditorStyles.boldLabel);
-            level.radius    = EditorGUILayout.IntSlider(new GUIContent("Radius", "Radius of hexagonal grids reserved for cells"), level.radius, 1, 100);
+        switch (level.gridType)
+        {
+            case GRID_TYPE.HEXAGON:
+                hexSettingsGUI();
+                break;
+            case GRID_TYPE.GRID:
+                gridSettingsGUI();
+                break;
+        }
             level.cellSizeX = EditorGUILayout.Slider(new GUIContent("Size X", "Cell's X size "), level.cellSizeX, 0.1f, 100.0f);
             level.cellSizeZ = EditorGUILayout.Slider(new GUIContent("Size Z", "Cell's Z size"), level.cellSizeZ, 0.1f, 100.0f);
             level.cellPrefab = EditorGUILayout.ObjectField(new GUIContent("Cell Prefab", "GameObject used to represent a cell"), level.cellPrefab, typeof(GameObject), true) as GameObject;
+
 
         EditorGUILayout.Space();
         EditorGUILayout.Space();
@@ -49,6 +58,9 @@ public class LevelSettingsEditor : Editor {
         {
             case GRID_TYPE.HEXAGON:
                 hexGUI();
+                break;
+            case GRID_TYPE.GRID:
+                gridGUI();
                 break;
         }
 
@@ -140,4 +152,21 @@ public class LevelSettingsEditor : Editor {
             level.islandsNumber = EditorGUILayout.IntSlider(new GUIContent("Number of Islands", "Explicit"), level.islandsNumber, 1, maxIslandNumber);
     }
 
+    private void gridGUI()
+    {
+        EditorGUILayout.LabelField("Layers settings", EditorStyles.boldLabel);
+            level.cellLayerDefense = EditorGUILayout.IntSlider(new GUIContent("Cell layers", "Number of layers for the cells"), level.cellLayerDefense, 1, 100);
+            level.numberOfFactoriesLayers = EditorGUILayout.IntSlider(new GUIContent("Factories layers", "Number of layers for the factories"), level.numberOfFactoriesLayers, 1, 100);
+            level.numberOffSafeZoneLayers = EditorGUILayout.IntSlider(new GUIContent("Safe zone layers", "Number of layers between factories' rings and cells' rings"), level.numberOffSafeZoneLayers, 1, 100);
+    }
+
+    private void hexSettingsGUI()
+    {
+        level.radius    = EditorGUILayout.IntSlider(new GUIContent("Radius", "Radius of hexagonal grids reserved for cells"), level.radius, 1, 100);
+    }
+
+    private void gridSettingsGUI()
+    {
+        level.width    = EditorGUILayout.IntSlider(new GUIContent("Width", ""), level.width, 1, 100);
+    }
 }

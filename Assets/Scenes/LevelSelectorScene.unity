@@ -220,6 +220,11 @@ Prefab:
       propertyPath: descriptionHolder
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114552015311634710, guid: 0535761bd13025946be8076cb9c3c770,
+        type: 2}
+      propertyPath: levelName
+      value: Niveau 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0535761bd13025946be8076cb9c3c770, type: 2}
   m_IsPrefabAsset: 0
@@ -1120,6 +1125,11 @@ Prefab:
       propertyPath: data
       value: 
       objectReference: {fileID: 4900000, guid: e0e992529ffbc8046aebe85d40ef6b4e, type: 3}
+    - target: {fileID: 114552015311634710, guid: 0535761bd13025946be8076cb9c3c770,
+        type: 2}
+      propertyPath: levelName
+      value: Niveau 2b
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0535761bd13025946be8076cb9c3c770, type: 2}
   m_IsPrefabAsset: 0
@@ -1456,6 +1466,11 @@ Prefab:
       propertyPath: data
       value: 
       objectReference: {fileID: 4900000, guid: e0e992529ffbc8046aebe85d40ef6b4e, type: 3}
+    - target: {fileID: 114552015311634710, guid: 0535761bd13025946be8076cb9c3c770,
+        type: 2}
+      propertyPath: levelName
+      value: Niveau 2a
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0535761bd13025946be8076cb9c3c770, type: 2}
   m_IsPrefabAsset: 0

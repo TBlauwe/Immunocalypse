@@ -93,7 +93,7 @@ public class CameraSystem : FSystem {
         Vector3 size = levelSettings.size; 
 
         setPivotPosition(levelSettings.center);
-        setCameraPosition(new Vector3(size.x / 2.5f, size.x / 2.5f, 0.0f), saveAsDefault);
+        setCameraPosition(levelSettings.center + new Vector3(size.x / 2.5f, size.x / 2.5f, 0.0f), saveAsDefault);
         setCameraRotation(new Vector3(45, -90), saveAsDefault);
         setCameraZoom(size.x / 2, saveAsDefault);
 

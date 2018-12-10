@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Hex : IEquatable<Hex> {
 
@@ -20,6 +21,11 @@ public class Hex : IEquatable<Hex> {
         q = _q;
         r = _r;
         s = _s;
+    }
+
+    public override string ToString()
+    {
+        return "hex[" + q.ToString() + ","  + r.ToString() + "," + s.ToString() + "]";
     }
 
     public bool Equals(Hex other)
@@ -126,6 +132,21 @@ public class Hex : IEquatable<Hex> {
         for(int i=startAt; i <= startAt + radius - 1; i++)
         {
             results.AddRange(Hex.Ring(center, i));
+        }
+        return results;
+    }
+
+    public static List<Hex> Rectangle(int width, int height)
+    {
+        List<Hex> results = new List<Hex>() {};
+        int h_offset = Mathf.FloorToInt((height * 1.0f) / 2.0f);
+        for(int h=-h_offset; h < height - h_offset; h++)
+        {
+            int w_offset = Mathf.FloorToInt((h * 1.0f) / 2.0f);
+            for(int w=-w_offset; w < width - w_offset; w++)
+            {
+                results.Add(new Hex(h, w, -h - w));
+            }
         }
         return results;
     }

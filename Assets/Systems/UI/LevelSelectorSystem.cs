@@ -14,12 +14,11 @@ public class LevelSelectorSystem : FSystem {
     // ======================================
     public LevelSelectorSystem()
     {
+        _levelGO.addEntryCallback(DontDestroyCallback);
         foreach(GameObject go in _levelGO)
         {
             setupLevelButton(go);
         }
-
-        _levelGO.addEntryCallback(DontDestroyCallback);
     }
 
     // ===========================
@@ -115,10 +114,10 @@ public class LevelSelectorSystem : FSystem {
         }
     }
     
-    // A call back function telling that all player objects shouldn't be destroyed
-    private void DontDestroyCallback(GameObject player)
+    // A call back function telling that all go shouldn't be destroyed
+    private void DontDestroyCallback(GameObject go)
     {
-        GameObjectManager.dontDestroyOnLoadAndRebind(player);
+        GameObjectManager.dontDestroyOnLoadAndRebind(go);
     }
 
     // =======================================
