@@ -28,51 +28,10 @@ public class EatingSystem : FSystem {
                     if (eatable != null && target.activeSelf && (eatable.eatableLevel & eater.eatingMask) > 0)
                     {
                         // Destroy eaten object
-                        if (target.GetComponent<Bacteria>() != null)
-                        {
-                            DestroyBacteria(target);
-                        }
-                        //GameObjectManager.unbind(target);
-                        //Object.Destroy(target);
                         GameObjectManager.addComponent<Removed>(target);
                     }
                 }
             }
         }
 	}
-
-    private void DestroyBacteria(GameObject bacteria)
-    {
-        ForceManager manager = bacteria.GetComponent<ForceManager>();
-        if (manager != null)
-        {
-            foreach (GameObject child in manager.children)
-            {
-                if (child == null) continue;
-                GameObjectManager.removeComponent<SpringJoint>(child);
-                GameObjectManager.removeComponent<ForceManaged>(child);
-
-                GameObjectManager.addComponent<ForceCreator>(
-                    child,
-                    new { forceLayerMask = bacteria.GetComponent<ForceCreator>().forceLayerMask }
-                );
-
-                SubjectToForces subjectToForces = bacteria.GetComponent<SubjectToForces>();
-                GameObjectManager.addComponent<SubjectToForces>(
-                        child,
-                        new { appliedForces = subjectToForces.appliedForces, speed = subjectToForces.speed }
-                    );
-            }
-        }
-
-        ForceManaged managed = bacteria.GetComponent<ForceManaged>();
-        if (managed != null && managed.parent != null)
-        {
-            ForceManager parentManager = managed.parent.GetComponent<ForceManager>();
-            if (parentManager != null)
-            {
-                parentManager.children.Remove(bacteria);
-            }
-        }
-    }
 }

@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 114116989709559216}
   - component: {fileID: 114691353936999036}
   - component: {fileID: 114982064726270698}
+  - component: {fileID: 114414033946514952}
+  - component: {fileID: 114473543621062764}
   m_Layer: 0
   m_Name: "bact\xE9rie_simple"
   m_TagString: pathogene
@@ -166,7 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceLayerMask: 1
-  active: 1
 --- !u!114 &114268638614517676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,6 +180,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eatableLevel: 1
+--- !u!114 &114414033946514952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680458187064766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ec43e6997812b4696f73b484dd839b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114473543621062764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680458187064766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceObject: {fileID: 1680458187064766}
 --- !u!114 &114509636048606078
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -53,9 +53,10 @@ public class PlayerSystem : FSystem {
 
         public GameObject getGameObject()
         {
-            GameObject gameObject = GameObject.Get;
+            /*GameObject gameObject = GameObject.Get;
             GameObjectManager.bind(gameObject);
-            return gameObject;
+            return gameObject;*/
+            return null;
         }
 
         public static List<CardDescription> fromList(List<GameObject> list)

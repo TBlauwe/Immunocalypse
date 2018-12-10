@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114253106284207422}
   - component: {fileID: 114624876924824436}
   - component: {fileID: 114041881014071638}
+  - component: {fileID: 114489130393650608}
   m_Layer: 0
   m_Name: virus_simple
   m_TagString: pathogene
@@ -153,6 +154,18 @@ MonoBehaviour:
     B: 50
     Mask: 2
   speed: 0.1
+--- !u!114 &114489130393650608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109382869687334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceObject: {fileID: 1109382869687334}
 --- !u!114 &114624876924824436
 MonoBehaviour:
   m_ObjectHideFlags: 1

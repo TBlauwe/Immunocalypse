@@ -1357,7 +1357,11 @@ MonoBehaviour:
   m_Script: {fileID: 1260832056, guid: a0d56c64595f0234fb2734beb226c287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fixedUpdateSystemDescriptions: []
+  _fixedUpdateSystemDescriptions:
+  - _typeAssemblyQualifiedName: ForceSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: ForceSystem
+    _pause: 0
   _updateSystemDescriptions:
   - _typeAssemblyQualifiedName: PlayerSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
@@ -1379,17 +1383,9 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: FactorySystem
     _pause: 0
-  - _typeAssemblyQualifiedName: ForceSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: ForceSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: CellSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: InfectionSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: InfectionSystem
     _pause: 0
   - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1398,6 +1394,14 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: EatingSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: EatingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: InfectionSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: InfectionSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: ForceManagementSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: ForceManagementSystem
     _pause: 0
   - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1415,6 +1419,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: UIPauseSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: ForceRemoverSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: ForceRemoverSystem
     _pause: 0
   - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
