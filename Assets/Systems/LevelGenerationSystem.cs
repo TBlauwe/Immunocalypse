@@ -23,6 +23,9 @@ public class LevelGenerationSystem : FSystem {
             case GRID_TYPE.HEXAGON:
                 hexIslandGeneration();
                 break;
+            case GRID_TYPE.GRID:
+                gridGeneration();
+                break;
         }
 
         // ===== ARENA SETUP =====
@@ -36,9 +39,31 @@ public class LevelGenerationSystem : FSystem {
 		arena.transform.SetParent(level.transform, true);
         arena.name = "Petri Box";
 
-        float treshold = Mathf.Clamp(getTotalRadius() * Mathf.Max(levelSettings.cellSizeX, levelSettings.cellSizeZ), 1, 100);
+        float mult = 0.0f;
+        switch (levelSettings.gridType)
+        {
+            case GRID_TYPE.HEXAGON:
+                mult = getTotalRadius();
+                break;
+            case GRID_TYPE.GRID:
+                mult = (levelSettings.width - getTotalHeight() > 0) ? levelSettings.width : getTotalHeight();
+                mult /= 1.75f;
+                break;
+        }
+        Debug.Log(mult);
+        float treshold = Mathf.Clamp(mult * Mathf.Max(levelSettings.cellSizeX, levelSettings.cellSizeZ), 1, 100);
         arena.transform.localScale = Vector3.one * treshold;
-        arena.transform.localPosition = new Vector3(arena.transform.localPosition.x, 0, arena.transform.localPosition.z) +
+
+        float x = arena.transform.localPosition.x;
+        float y = 0;
+        float z = arena.transform.localPosition.z;
+
+        if(levelSettings.gridType == GRID_TYPE.GRID)
+        {
+            x += (levelSettings.width * levelSettings.cellSizeX) / 4;
+            z += (levelSettings.width * levelSettings.cellSizeZ) / 3;
+        }
+        arena.transform.localPosition = new Vector3(x, y, z) +
                                             Vector3.up * (-0.06f * treshold);
 
         levelSettings.size = arena.GetComponent<Renderer>().bounds.size;
@@ -92,6 +117,37 @@ public class LevelGenerationSystem : FSystem {
             GameObject factory = getNextFactory();
             
             if (factory != null) { spawnGameObjectAt(factory, randomHex, factory.name); }
+        }
+    }
+
+    private void gridGeneration()
+    {
+        int width = levelSettings.width;
+        int height = levelSettings.cellLayerDefense + levelSettings.numberOffSafeZoneLayers + levelSettings.numberOfFactoriesLayers;
+        foreach(Hex hex in Hex.Rectangle(width, height))
+        {
+        }
+
+        int h_offset = Mathf.FloorToInt((height * 1.0f) / 2.0f);
+        int h_counter = 0;
+        for(int h=h_offset; h > -height + h_offset; h--)
+        {
+            h_counter++;
+            int w_offset = Mathf.FloorToInt((h * 1.0f) / 2.0f);
+            for(int w=-w_offset; w < width - w_offset; w++)
+            {
+                Hex hex = new Hex(h, w, -h - w);
+                if(h_counter <= levelSettings.cellLayerDefense) // CELL LAND
+                    spawnGameObjectAt(levelSettings.cellPrefab, hex, "cell");
+                else if(h_counter <= levelSettings.cellLayerDefense + levelSettings.numberOffSafeZoneLayers) {
+                    // NO CELL'S LANDS
+                }
+                else if(h_counter <= getTotalHeight()) // FACTORY LAND
+                {
+                    GameObject factory = getNextFactory();
+                    if (factory != null) { spawnGameObjectAt(factory, hex, factory.name); }
+                }
+            }
         }
     }
 
@@ -155,5 +211,10 @@ public class LevelGenerationSystem : FSystem {
     public int getTotalRadius()
     {
         return levelSettings.radius + levelSettings.numberOffSafeZoneLayers + levelSettings.numberOfFactoriesLayers;
+    }
+
+    public int getTotalHeight()
+    {
+        return levelSettings.cellLayerDefense + levelSettings.numberOffSafeZoneLayers + levelSettings.numberOfFactoriesLayers;
     }
 }

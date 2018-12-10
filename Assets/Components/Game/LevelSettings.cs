@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum GRID_TYPE
 {
-    HEXAGON
+    HEXAGON,
+    GRID
 }
 
 public enum ARENA_TYPE 
@@ -25,16 +26,22 @@ public class LevelSettings : MonoBehaviour {
     // ===== EDITABLE =====
     // ====================
 
-    // ===== GRID SETTINGS =====
+    // ===== HEXAGON SETTINGS =====
     public int radius   = 8;      // Combien de lignes ?
 
+    // ===== GRID SETTINGS =====
+    public int width    = 8;      // Largeur de la défense de lignes ?
+
+    // ===== CELL SETTINGS =====
     public float cellSizeX  = 0.3f;    // Taille en X d'une cellule 
     public float cellSizeZ  = 0.3f;    // Taille en Z d'une cellule 
 
-    public GRID_TYPE gridType   = GRID_TYPE.HEXAGON;  // Type de génération pour la grille
-
     // ===== ARENA SETTINGS =====
+    public GRID_TYPE gridType   = GRID_TYPE.HEXAGON;  // Type de génération pour la grille
     public ARENA_TYPE arenaType = ARENA_TYPE.PETRI;  // Type de génération pour la grille
+
+    // ===== GRID SETTINGS =====
+    public int cellLayerDefense = 1;   // Nombre d'ilôts à générer
 
     // ===== ISLANDS SETTINGS =====
     public int islandsNumber = 1;   // Nombre d'ilôts à générer
