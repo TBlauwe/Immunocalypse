@@ -25,30 +25,46 @@ public class ForceRemoverSystem : FSystem {
         // Here we are making some force management
         // Have the object a ForceManaged component ?
         ForceManaged managed = entity.GetComponent<ForceManaged>();
+        Removed rm = entity.GetComponent<Removed>();
         if (managed != null)
         {
             if (managed.parent != null)
             {
-                ForceCreator[] forceCreators = managed.parent.GetComponents<ForceCreator>();
-                foreach (ForceCreator forceCreator in forceCreators)  // Put the ForceCreator component if available
+                if (rm == null) // Not deleted at this frame
                 {
-                    GameObjectManager.addComponent<ForceCreator>(entity, new { forceLayerMask = forceCreator.forceLayerMask });
+                    ForceCreator[] forceCreators = managed.parent.GetComponents<ForceCreator>();
+                    foreach (ForceCreator forceCreator in forceCreators)  // Put the ForceCreator component if available
+                    {
+                        GameObjectManager.addComponent<ForceCreator>(entity, new { forceLayerMask = forceCreator.forceLayerMask });
+                    }
+
+                    SubjectToForces subjectToForces = managed.parent.GetComponent<SubjectToForces>();
+                    if (subjectToForces != null)
+                    {
+                        GameObjectManager.addComponent<SubjectToForces>(
+                            entity,
+                            new { appliedForces = subjectToForces.appliedForces, speed = subjectToForces.speed }
+                        );
+                    }
+
+                    // If a SprintJoint is found, delete it
+                    SpringJoint joint = entity.GetComponent<SpringJoint>();
+                    if (joint != null)
+                    {
+                        GameObjectManager.removeComponent<SpringJoint>(entity);
+                    }
                 }
-                SubjectToForces subjectToForces = managed.parent.GetComponent<SubjectToForces>();
-                if (subjectToForces != null)
-                {
-                    GameObjectManager.addComponent<SubjectToForces>(
-                        entity,
-                        new { appliedForces = subjectToForces.appliedForces, speed = subjectToForces.speed }
-                    );
-                }
+
                 ForceManager parentManager = managed.parent.GetComponent<ForceManager>();
                 if (parentManager != null)
                 {
                     parentManager.children.Remove(entity);
                 }
             }
-            GameObjectManager.removeComponent<ForceManaged>(entity);
+            if (rm == null)
+            {
+                GameObjectManager.removeComponent<ForceManaged>(entity);
+            }
         }
 
         // Have the game object a ForceManager component ?
@@ -57,7 +73,11 @@ public class ForceRemoverSystem : FSystem {
         {
             foreach (GameObject child in manager.children)
             {
-                GameObjectManager.removeComponent<SpringJoint>(child);
+                if (child.GetComponent<Removed>() != null) continue;
+                if (child.GetComponent<SpringJoint>() != null)
+                {
+                    GameObjectManager.removeComponent<SpringJoint>(child);
+                }
                 GameObjectManager.removeComponent<ForceManaged>(child);
 
                 // Could have many ForceCreator
@@ -72,19 +92,19 @@ public class ForceRemoverSystem : FSystem {
                     new { appliedForces = subjectToForces.appliedForces, speed = subjectToForces.speed }
                 );
             }
-            GameObjectManager.removeComponent<ForceManager>(entity);
-        }
-
-        // If a SprintJoint is found, delete it
-        SpringJoint joint = entity.GetComponent<SpringJoint>();
-        if (joint != null)
-        {
-            GameObjectManager.removeComponent<SpringJoint>(entity);
+            if (rm == null)
+            {
+                GameObjectManager.removeComponent<ForceManager>(entity);
+            }
         }
 
         // Finally, delete RemoveForces component
-        foreach (RemoveForces rm in entity.GetComponents<RemoveForces>()) {
-            GameObjectManager.removeComponent(rm);
+        if (rm == null)
+        {
+            foreach (RemoveForces rf in entity.GetComponents<RemoveForces>())
+            {
+                GameObjectManager.removeComponent(rf);
+            }
         }
     }
 }

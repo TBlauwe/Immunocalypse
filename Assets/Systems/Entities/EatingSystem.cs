@@ -28,6 +28,7 @@ public class EatingSystem : FSystem {
                     if (eatable != null && target.activeSelf && (eatable.eatableLevel & eater.eatingMask) > 0)
                     {
                         // Destroy eaten object
+                        GameObjectManager.addComponent<RemoveForces>(target);
                         GameObjectManager.addComponent<Removed>(target);
                     }
                 }
