@@ -6,9 +6,12 @@ using System.Collections.Generic;
 public class ForceManagementSystem : FSystem {
     // Learders management
     private readonly Family _potentialLeaders = FamilyManager.getFamily(
-        new NoneOfComponents(typeof(ForceManaged), typeof(Removed), typeof(RemoveForces), typeof(Cell)), //until I figure a way to do it
+        new NoneOfComponents(
+            typeof(ForceManaged), typeof(Removed), typeof(RemoveForces), typeof(Cell)
+        ), //until I figure a way to do it
         new AllOfComponents(typeof(Triggered3D), typeof(ForceCreator)),
-        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new NoneOfLayers(10) // ImmunCell layer
     );
 
     // Use to process your families.

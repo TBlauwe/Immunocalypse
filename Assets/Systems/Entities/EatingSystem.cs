@@ -16,12 +16,19 @@ public class EatingSystem : FSystem {
             Macrophage eater = go.GetComponent<Macrophage>();
             Triggered3D triggered = go.GetComponent<Macrophage>().eatingRange.GetComponent<Triggered3D>();
 
+            // Decrease remaining time
+            eater.remaining -= Time.deltaTime;
+
+            // If remaining is not less or equals than 0, we cannot eat
+            if (eater.remaining > 0) continue;
+
             // Something is in our eating range
             if (triggered != null)
             {
+                bool hasEaten = false;
                 foreach (GameObject target in triggered.Targets)
                 {
-                    if (!target.activeSelf || target.GetComponent<Removed>() != null) continue;
+                    if (!target.activeSelf || target.GetComponent<Removed>() != null || Random.value > eater.eatingProbability) continue;
                     Eatable eatable = target.GetComponent<Eatable>();
 
                     // If we can eat it (layer is good)
@@ -30,8 +37,12 @@ public class EatingSystem : FSystem {
                         // Destroy eaten object
                         GameObjectManager.addComponent<RemoveForces>(target);
                         GameObjectManager.addComponent<Removed>(target);
+                        hasEaten = true;
                     }
                 }
+
+                // If the macrophage ate some thing, then a cooldown is set
+                if (hasEaten) eater.remaining = eater.cooldown;
             }
         }
 	}

@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114044143148195988}
   - component: {fileID: 114851609737614938}
   - component: {fileID: 114193882122682322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Macrophage
   m_TagString: immuno
   m_Icon: {fileID: 0}
@@ -181,6 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eatingRange: {fileID: 1674872369654506}
   eatingMask: 1
+  eatingProbability: 0.008
+  cooldown: 2
+  remaining: 0
 --- !u!114 &114715092287913838
 MonoBehaviour:
   m_ObjectHideFlags: 1
