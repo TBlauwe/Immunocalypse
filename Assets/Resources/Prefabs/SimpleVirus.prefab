@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114920540266014154}
   - component: {fileID: 114297035136536328}
   - component: {fileID: 114131253436230430}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SimpleVirus
   m_TagString: pathogene
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747563028277284}
   - component: {fileID: 135790320856861170}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: group
   m_TagString: Untagged
   m_Icon: {fileID: 0}

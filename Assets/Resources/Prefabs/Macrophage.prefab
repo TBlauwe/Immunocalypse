@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 114851609737614938}
   - component: {fileID: 114193882122682322}
   m_Layer: 0
-  m_Name: macrophage 1
+  m_Name: Macrophage
   m_TagString: immuno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 4859758452707746}
   - component: {fileID: 135753113864194548}
   - component: {fileID: 114715092287913838}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 2
+  m_Name: EatingRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4990701811578722}
   - component: {fileID: 114642442439540004}
   m_Layer: 0
-  m_Name: B_Factory
+  m_Name: TestFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,14 +52,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entries:
-  - prefab: {fileID: 1680458187064766, guid: eb8c1222707b5474fb89e087dd086872, type: 2}
-    nb: 5
-    originalNb: 5
-  - prefab: {fileID: 1109382869687334, guid: aa111ebd3623d2e46a9374a8a3c02b1d, type: 2}
-    nb: 5
-    originalNb: 5
-  useRandomSpawning: 0
-  rate: 0.6
+  - prefab: {fileID: 1879328838511224, guid: e820e6f43fb4c524fb077baa903953ba, type: 2}
+    nb: 2
+    originalNb: 2
+  - prefab: {fileID: 1343967513573378, guid: ab836aa7f753ca747b760aef58a8415c, type: 2}
+    nb: 2
+    originalNb: 2
+  useRandomSpawning: 1
+  rate: 1
   remaining: 0
   paused: 0
-  destroyWhenFinished: 0
+  destroyWhenFinished: 1

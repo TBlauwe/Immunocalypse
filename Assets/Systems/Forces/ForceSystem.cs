@@ -10,7 +10,7 @@ public class ForceSystem : FSystem
     private readonly Family _subToForces = FamilyManager.getFamily(
         new AllOfComponents(typeof(SubjectToForces)),
         new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
-        new NoneOfComponents(typeof(RemoveForces), typeof(Removed))
+        new NoneOfComponents(typeof(RemoveForces), typeof(Removed)/*, typeof(Freeze)*/)
     );
 
     // Get applicable forces
@@ -37,6 +37,13 @@ public class ForceSystem : FSystem
         for (int i = 0; i < _subToForces.Count; ++i)
         {
             GameObject go = _subToForces.getAt(i);
+
+            if (go.GetComponent<Freeze>() != null)
+            {
+                go.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                continue;
+            }
+
             SubjectToForces subject = go.GetComponent<SubjectToForces>();
             Vector3 computedVelocity = new Vector3();
 
@@ -72,6 +79,7 @@ public class ForceSystem : FSystem
             computedVelocity.Normalize();
             Debug.DrawRay(go.transform.position, computedVelocity, Color.black);
             go.GetComponent<Rigidbody>().velocity = computedVelocity * subject.speed;
+            //go.transform.position += computedVelocity * Time.deltaTime;
         }
     }
 }

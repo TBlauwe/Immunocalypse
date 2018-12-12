@@ -6,7 +6,7 @@ public class BacteriaSystem : FSystem
     // All bacterias in the game
     private readonly Family bacterias = FamilyManager.getFamily(
         new AllOfComponents(typeof(Bacteria)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
-        new NoneOfComponents(typeof(Removed))
+        new NoneOfComponents(typeof(Removed), typeof(Freeze))
     );
 
     private readonly Family prefabsHolders = FamilyManager.getFamily(

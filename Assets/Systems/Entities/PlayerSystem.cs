@@ -157,14 +157,23 @@ public class PlayerSystem : FSystem {
 
         // Add some cards
         player.globalDeck.Add(CreateMacrophageCard(go));
-        player.levelDeck.Add(CreateMacrophageCard(go));
+        player.globalDeck.Add(CreateBCellCard(go));
+        // player.levelDeck.Add(CreateMacrophageCard(go));
 
         GameObjectManager.bind(go);
     }
 
     private GameObject CreateMacrophageCard(GameObject parent)
     {
-        GameObject go = Resources.Load<GameObject>("Test/UI_Macrophage_Card");
+        GameObject go = Resources.Load<GameObject>("Cards/MacrophageCard");
+        GameObject card = Object.Instantiate(go);
+        card.transform.SetParent(parent.transform);
+        return card;
+    }
+
+    private GameObject CreateBCellCard(GameObject parent)
+    {
+        GameObject go = Resources.Load<GameObject>("Cards/BCellCard");
         GameObject card = Object.Instantiate(go);
         card.transform.SetParent(parent.transform);
         return card;

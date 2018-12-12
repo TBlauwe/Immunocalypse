@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4191048659399788}
   - component: {fileID: 135333409206993508}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: groupe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114691353936999036}
   - component: {fileID: 114982064726270698}
   - component: {fileID: 114414033946514952}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "bact\xE9rie_simple"
   m_TagString: pathogene
   m_Icon: {fileID: 0}
