@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4107020471784804}
   - component: {fileID: 114698804393748114}
   m_Layer: 0
-  m_Name: YellowPage
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
