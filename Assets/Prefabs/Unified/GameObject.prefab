@@ -9,54 +9,49 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1241284251489592}
+  m_RootGameObject: {fileID: 1707199059048522}
   m_IsPrefabAsset: 1
---- !u!1 &1241284251489592
+--- !u!1 &1707199059048522
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4990701811578722}
-  - component: {fileID: 114642442439540004}
+  - component: {fileID: 4107020471784804}
+  - component: {fileID: 114698804393748114}
   m_Layer: 0
-  m_Name: B_Factory
+  m_Name: YellowPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4990701811578722
+--- !u!4 &4107020471784804
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1241284251489592}
+  m_GameObject: {fileID: 1707199059048522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 295.30527, y: 253.28113, z: -9.592845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114642442439540004
+--- !u!114 &114698804393748114
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1241284251489592}
+  m_GameObject: {fileID: 1707199059048522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2051085d2e9a574ca38d0150eeb54b2, type: 3}
+  m_Script: {fileID: 11500000, guid: c830a38f3eeb55b4491f3e5d6706ec23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entries:
-  - prefab: {fileID: 1680458187064766, guid: 3e86400c95c83a54382075945ccc180e, type: 2}
-    nb: 10
-    originalNb: 10
-  useRandomSpawning: 0
-  rate: 0.6
-  remaining: 0
-  paused: 0
-  destroyWhenFinished: 0
+  items:
+  - key: uiMacrophage
+    sourceObject: {fileID: 1942010040987194, guid: 7468cae8ed64dba4cb6b0a36a505ceb6,
+      type: 2}
