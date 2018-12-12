@@ -111,7 +111,7 @@ public class PlayerSystem : FSystem {
             return go;
         }
 
-       
+
     }
 
     public PlayerSystem()
@@ -150,7 +150,7 @@ public class PlayerSystem : FSystem {
             }
         }
 	}
-   
+
 
     // A call back function telling that all player objects shouldn't be destroyed
     private void DontDestroyCallback(GameObject player)

@@ -52,6 +52,9 @@ public class UIButtonSystem : FSystem
             case "Play":
                 button.onClick.AddListener(delegate { Play(); } );
                 break;
+            case "LoadLevel":
+                button.onClick.AddListener(delegate { LoadLevel(go); } );
+                break;
             case "Quit":
                 button.onClick.AddListener(delegate { Quit(); });
                 break;
@@ -75,7 +78,7 @@ public class UIButtonSystem : FSystem
     public void Play()
     {
         //SceneManager.LoadScene("PlayScene");
-        GameObjectManager.loadScene("PrepareDeckScene");
+        GameObjectManager.loadScene("LevelSelectorScene");
     }
 
     public void FreePlay()
@@ -110,6 +113,24 @@ public class UIButtonSystem : FSystem
             player.globalDeck.AddRange(player.levelDeck);
         }
         GameObjectManager.loadScene("MainMenu");
+    }
+
+    public void LoadLevel(GameObject go)
+    {
+        //SceneManager.LoadScene("GalleryScene");
+        LevelButton comp = go.GetComponent<LevelButton>();
+
+        // Save data to be tranfer between scenes
+        GameObject _player = GameObject.Find("Player"); // Could be replaced with a Family searching for Player component
+        Player player = _player.GetComponent<Player>();
+        Debug.Log(player);
+        Debug.Log(comp);
+        player.levelButton = comp;
+
+        // Load scene and setup scene
+        GameObjectManager.loadScene("PrepareDeckScene");
+        GameObject descriptionGo  = GameObject.Find("Level Description"); // Could be replaced with a Family searching for Player component
+        descriptionGo.GetComponent<TextMesh>().text = comp.description;
     }
 
     public void ToggleCardMenu(GameObject go)
