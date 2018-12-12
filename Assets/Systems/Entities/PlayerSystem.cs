@@ -111,7 +111,6 @@ public class PlayerSystem : FSystem {
 
     public PlayerSystem()
     {
-        _players.addEntryCallback(DontDestroyCallback);
         if (_players.Count == 0)
         {
             CreatePlayer();
@@ -158,18 +157,12 @@ public class PlayerSystem : FSystem {
         }
 	}
 
-
-    // A call back function telling that all player objects shouldn't be destroyed
-    private void DontDestroyCallback(GameObject player)
-    {
-        GameObjectManager.dontDestroyOnLoadAndRebind(player);
-    }
-
     private void CreatePlayer()
     {
         // Create the player
         GameObject go = new GameObject("Player");
         Player player = go.AddComponent<Player>();
+        go.AddComponent<DontDestroyOnLoad>();
 
         // Add some cards
         player.globalDeck.Add(CreateMacrophageCard(go));
