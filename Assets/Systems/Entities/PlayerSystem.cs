@@ -6,9 +6,13 @@ using System.Collections.Generic;
 public class PlayerSystem : FSystem {
     private readonly Family _players = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
 
+    private readonly Family _yellowPageFamily = FamilyManager.getFamily(new AllOfComponents(typeof(YellowPageComponent)));
+
     private string exportedFileName = "save";
 
     private readonly string levelsFolder = "/Resources/saves/";
+
+    private static YellowPageComponent yellowPage;
 
     [System.Serializable]
     private abstract class Jsonable
@@ -39,24 +43,21 @@ public class PlayerSystem : FSystem {
     [System.Serializable]
     private class CardDescription : Description<Card>
     {
-        public int prefabID;
+        public string prefabID;
         public CardDescription(Card sourceObject) : base(sourceObject)
         {
             Origin origin = sourceObject.GetComponent<Origin>();
             if (origin != null)
             {
-                this.prefabID = origin.sourceObject.GetInstanceID();
+                this.prefabID = origin.sourceObjectKey;
             }
         }
 
-
-
-        public GameObject getGameObject()
+        public GameObject getGameObject(GameObject parent)
         {
-            //GameObject gameObject = GameObject.Get;
-            //GameObjectManager.bind(gameObject);
-            //return gameObject;
-            return null;
+            GameObject prefab = YellowPageUtils.GetSourceObject(yellowPage, this.prefabID);
+            GameObject result = GameObject.Instantiate(prefab, parent.transform);
+            return result;
         }
 
         public static List<CardDescription> fromList(List<GameObject> list)
@@ -73,12 +74,12 @@ public class PlayerSystem : FSystem {
             return resultat;
         }
 
-        public static List<GameObject> getGameObjects(List<CardDescription> descriptions)
+        public static List<GameObject> getGameObjects(List<CardDescription> descriptions, GameObject parent)
         {
             List<GameObject> resultat = new List<GameObject>();
             foreach (CardDescription description in descriptions)
             {
-                resultat.Add(description.getGameObject());
+                resultat.Add(description.getGameObject(parent));
             }
             return resultat;
         }
@@ -90,35 +91,35 @@ public class PlayerSystem : FSystem {
     {
         public List<CardDescription> globalDeck;
 
-        public List<CardDescription> levelDeck;
-
         public PlayerDescription(Player sourceObject) : base(sourceObject)
         {
             this.globalDeck = CardDescription.fromList(sourceObject.globalDeck);
-            this.levelDeck = CardDescription.fromList(sourceObject.levelDeck);
         }
 
         public GameObject getObject()
         {
             string name = "Player" + ((int)(Random.value * 100));
-            //Debug.Log(name);
-            GameObject go = new GameObject("Player");
+            GameObject go = new GameObject(name);
             Player player = go.AddComponent<Player>();
-            player.globalDeck = CardDescription.getGameObjects(this.globalDeck);
-            player.levelDeck = CardDescription.getGameObjects(this.levelDeck);
+            player.globalDeck = CardDescription.getGameObjects(this.globalDeck, go);
             GameObjectManager.bind(go);
             return go;
         }
 
-       
+
     }
 
     public PlayerSystem()
     {
-        _players.addEntryCallback(DontDestroyCallback);
         if (_players.Count == 0)
         {
             CreatePlayer();
+        }
+
+        foreach(GameObject go in _yellowPageFamily)
+        {
+            yellowPage = go.GetComponent<YellowPageComponent>();
+            break;
         }
     }
 
@@ -130,30 +131,38 @@ public class PlayerSystem : FSystem {
             {
                 Player playerComponent = go.GetComponent<Player>();
                 string filePath = Application.dataPath + levelsFolder + this.exportedFileName + ".json";
-                File.WriteAllText(filePath, JsonUtility.ToJson(new PlayerDescription(playerComponent)));
+                string json = JsonUtility.ToJson(new PlayerDescription(playerComponent));
+                Debug.Log(json);
+                File.WriteAllText(filePath, json);
             }
             else if(Input.GetKeyDown("l"))
             {
                 string path = Application.dataPath + levelsFolder + this.exportedFileName + ".json";
-                GameObject newPlayer = JsonUtility.FromJson<PlayerDescription>(File.ReadAllText(path)).getObject();
-                GameObjectManager.unbind(go);
-                GameObject.Destroy(go);
+                PlayerDescription playerDescription = JsonUtility.FromJson<PlayerDescription>(File.ReadAllText(path));
+                Player playerComponent = go.GetComponent<Player>();
+                foreach (GameObject gameObject in playerComponent.globalDeck)
+                {
+                    GameObjectManager.unbind(gameObject);
+                    GameObject.Destroy(gameObject);
+                }
+                foreach(GameObject gameObject in playerComponent.levelDeck)
+                {
+                    GameObjectManager.unbind(gameObject);
+                    GameObject.Destroy(gameObject);
+                }
+                playerComponent.globalDeck.Clear();
+                playerComponent.levelDeck.Clear();
+                playerComponent.globalDeck = CardDescription.getGameObjects(playerDescription.globalDeck, go);
             }
         }
 	}
-   
-
-    // A call back function telling that all player objects shouldn't be destroyed
-    private void DontDestroyCallback(GameObject player)
-    {
-        GameObjectManager.dontDestroyOnLoadAndRebind(player);
-    }
 
     private void CreatePlayer()
     {
         // Create the player
         GameObject go = new GameObject("Player");
         Player player = go.AddComponent<Player>();
+        go.AddComponent<DontDestroyOnLoad>();
 
         // Add some cards
         player.globalDeck.Add(CreateMacrophageCard(go));

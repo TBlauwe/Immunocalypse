@@ -53,8 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - prefab: {fileID: 1680458187064766, guid: eb8c1222707b5474fb89e087dd086872, type: 2}
-    nb: 10
-    originalNb: 10
+    nb: 5
+    originalNb: 5
+  - prefab: {fileID: 1109382869687334, guid: aa111ebd3623d2e46a9374a8a3c02b1d, type: 2}
+    nb: 5
+    originalNb: 5
   useRandomSpawning: 0
   rate: 0.6
   remaining: 0

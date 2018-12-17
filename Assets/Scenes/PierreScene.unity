@@ -1074,10 +1074,12 @@ MonoBehaviour:
   center: {x: 0, y: 0, z: 0}
   size: {x: 0, y: 0, z: 0}
   radius: 8
+  width: 8
   cellSizeX: 0.3
   cellSizeZ: 0.3
   gridType: 0
   arenaType: 0
+  cellLayerDefense: 1
   islandsNumber: 1
   islandMinSize: 1
   islandMaxSize: 2
@@ -1326,6 +1328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2021508069}
   - component: {fileID: 2021508070}
+  - component: {fileID: 2021508071}
   m_Layer: 0
   m_Name: Main_Loop
   m_TagString: Untagged
@@ -1357,7 +1360,11 @@ MonoBehaviour:
   m_Script: {fileID: 1260832056, guid: a0d56c64595f0234fb2734beb226c287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fixedUpdateSystemDescriptions: []
+  _fixedUpdateSystemDescriptions:
+  - _typeAssemblyQualifiedName: ForceSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: ForceSystem
+    _pause: 0
   _updateSystemDescriptions:
   - _typeAssemblyQualifiedName: PlayerSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
@@ -1379,17 +1386,9 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: FactorySystem
     _pause: 0
-  - _typeAssemblyQualifiedName: ForceSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: ForceSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: CellSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: InfectionSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: InfectionSystem
     _pause: 0
   - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1398,6 +1397,14 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: EatingSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: EatingSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: InfectionSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: InfectionSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: ForceManagementSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: ForceManagementSystem
     _pause: 0
   - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1416,6 +1423,10 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: UIPauseSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: ForceRemoverSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: ForceRemoverSystem
+    _pause: 0
   - _typeAssemblyQualifiedName: DeadRemovingSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DeadRemovingSystem
@@ -1432,3 +1443,18 @@ MonoBehaviour:
   fixedUpdateStats: 0
   updateStats: 0
   lateUpdateStats: 0
+--- !u!114 &2021508071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2021508068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847d91d52be58c245a1d2dd2157a1521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SimpleBacteria: {fileID: 1879328838511224, guid: e820e6f43fb4c524fb077baa903953ba,
+    type: 2}
+  SimpleVirus: {fileID: 1343967513573378, guid: ab836aa7f753ca747b760aef58a8415c,
+    type: 2}

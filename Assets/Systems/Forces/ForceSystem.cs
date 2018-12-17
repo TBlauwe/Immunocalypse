@@ -1,26 +1,50 @@
 ﻿using UnityEngine;
 using FYFY;
+using System.Collections.Generic;
+using FYFY_plugins.TriggerManager;
+using System;
 
-public class ForceSystem : FSystem {
+public class ForceSystem : FSystem
+{
+    // Apply forces to objects
     private readonly Family _subToForces = FamilyManager.getFamily(
-        new AllOfComponents(typeof(SubjectToForces)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
-    );
-    private readonly Family _forceCreators = FamilyManager.getFamily(
-        new AllOfComponents(typeof(ForceCreator)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
+        new AllOfComponents(typeof(SubjectToForces)),
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new NoneOfComponents(typeof(RemoveForces), typeof(Removed))
     );
 
-    protected override void onProcess(int familiesUpdateCount) {
-        //foreach (GameObject go in _subToForces)
-        //{
-        for (int i  = 0; i < _subToForces.Count; ++i) {
+    // Get applicable forces
+    private readonly Family _forceCreators = FamilyManager.getFamily(
+        new AllOfComponents(typeof(ForceCreator)),
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new NoneOfComponents(typeof(RemoveForces), typeof(Removed))
+    );
+
+    /// <summary>
+    ///     A lot of stuff to do here : apply forces to objects and manage force leaders
+    /// </summary>
+    /// <param name="familiesUpdateCount"></param>
+    protected override void onProcess(int familiesUpdateCount)
+    {
+        ApplyForces();
+    }
+
+    /// <summary>
+    /// Apply forces to objects
+    /// </summary>
+    private void ApplyForces()
+    {
+        for (int i = 0; i < _subToForces.Count; ++i)
+        {
             GameObject go = _subToForces.getAt(i);
             SubjectToForces subject = go.GetComponent<SubjectToForces>();
             Vector3 computedVelocity = new Vector3();
 
-            for (int j = 0; j < _forceCreators.Count; ++j) {
+            for (int j = 0; j < _forceCreators.Count; ++j)
+            {
                 GameObject creator = _forceCreators.getAt(j);
                 ForceCreator[] forces = creator.GetComponents<ForceCreator>();
-                foreach (ForceCreator force in forces)
+                foreach (ForceCreator force in forces) // Could have many ForceCreator components
                 {
                     int c_mask = force.forceLayerMask;
                     foreach (ForceSpec forceSpec in subject.appliedForces)
@@ -49,5 +73,5 @@ public class ForceSystem : FSystem {
             Debug.DrawRay(go.transform.position, computedVelocity, Color.black);
             go.GetComponent<Rigidbody>().velocity = computedVelocity * subject.speed;
         }
-	}
+    }
 }

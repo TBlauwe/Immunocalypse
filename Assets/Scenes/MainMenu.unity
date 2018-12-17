@@ -207,6 +207,52 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &112751268
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 295.30527
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 253.28113
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -9.592845
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107020471784804, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707199059048522, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+      propertyPath: m_Name
+      value: YellowPage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68856cc1e7a189b479d211a6f8a67b02, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &191930143
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +319,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: UIButtonSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: UIButtonSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: DontDestroyOnLoadSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DontDestroyOnLoadSystem
     _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
