@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceObject: {fileID: 1942010040987194}
+  sourceObjectKey: uiMacrophage
 --- !u!114 &114253732397105804
 MonoBehaviour:
   m_ObjectHideFlags: 1
