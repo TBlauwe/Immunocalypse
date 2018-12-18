@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114044143148195988}
   - component: {fileID: 114851609737614938}
   - component: {fileID: 114193882122682322}
+  - component: {fileID: 114119027140323798}
   m_Layer: 10
   m_Name: Macrophage
   m_TagString: immuno
@@ -168,6 +169,22 @@ MonoBehaviour:
   health: 10
   deathParticles: {fileID: 0}
   deathSound: {fileID: 0}
+--- !u!114 &114119027140323798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1310659980959336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93dc2f6ed77140748b6ec2057803b121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatingRange: {fileID: 1674872369654506}
+  eatingMask: 7
+  eatingProbability: 0.05
+  cooldown: 2
+  remaining: 0
 --- !u!114 &114193882122682322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,11 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2e19d1ec57e294eb665763aa174e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatingRange: {fileID: 1674872369654506}
-  eatingMask: 1
-  eatingProbability: 0.008
-  cooldown: 2
-  remaining: 0
 --- !u!114 &114715092287913838
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -20,7 +20,7 @@ public class CellSystem : FSystem {
     private static readonly int INFECTED_FORCE_LAYER = 4;
 
     // Eatable layer for infected cell
-    private static readonly int INFECTED_EATABLE_LAYER = 1;
+    private static readonly int INFECTED_EATABLE_LAYER = 4;
 
     // This family gather all known cells
     private readonly Family _cells = FamilyManager.getFamily(new AllOfComponents(typeof(Cell)));

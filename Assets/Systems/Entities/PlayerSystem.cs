@@ -165,24 +165,17 @@ public class PlayerSystem : FSystem {
         Player player = go.AddComponent<Player>();
 
         // Add some cards
-        player.globalDeck.Add(CreateMacrophageCard(go));
-        player.globalDeck.Add(CreateBCellCard(go));
+        player.globalDeck.Add(CreateCard(go, "Cards/MacrophageCard"));
+        player.globalDeck.Add(CreateCard(go, "Cards/BCellCard"));
+        player.globalDeck.Add(CreateCard(go, "Cards/TC[Virus]Card"));
         // player.levelDeck.Add(CreateMacrophageCard(go));
 
         GameObjectManager.bind(go);
     }
 
-    private GameObject CreateMacrophageCard(GameObject parent)
+    private GameObject CreateCard(GameObject parent, string prefabLocation)
     {
-        GameObject go = Resources.Load<GameObject>("Cards/MacrophageCard");
-        GameObject card = Object.Instantiate(go);
-        card.transform.SetParent(parent.transform);
-        return card;
-    }
-
-    private GameObject CreateBCellCard(GameObject parent)
-    {
-        GameObject go = Resources.Load<GameObject>("Cards/BCellCard");
+        GameObject go = Resources.Load<GameObject>(prefabLocation);
         GameObject card = Object.Instantiate(go);
         card.transform.SetParent(parent.transform);
         return card;

@@ -4,7 +4,7 @@ using FYFY_plugins.TriggerManager;
 
 public class EatingSystem : FSystem {
     private readonly Family _macrophages = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Macrophage)),
+        new AllOfComponents(typeof(Eater)),
         new NoneOfComponents(typeof(Dragable))
     );
 
@@ -12,9 +12,9 @@ public class EatingSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject go in _macrophages)
         {
-            // We suppose that there is a gameobject reference in eatingRange field in the Macrophage component
-            Macrophage eater = go.GetComponent<Macrophage>();
-            Triggered3D triggered = go.GetComponent<Macrophage>().eatingRange.GetComponent<Triggered3D>();
+            // We suppose that there is a gameobject reference in eatingRange field in the Eater component
+            Eater eater = go.GetComponent<Eater>();
+            Triggered3D triggered = go.GetComponent<Eater>().eatingRange.GetComponent<Triggered3D>();
 
             // Decrease remaining time
             eater.remaining -= Time.deltaTime;
