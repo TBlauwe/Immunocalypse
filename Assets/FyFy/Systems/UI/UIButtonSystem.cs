@@ -90,7 +90,7 @@ public class UIButtonSystem : FSystem
     public void Gallery()
     {
         //SceneManager.LoadScene("GalleryScene");
-        GameObjectManager.loadScene("GalleryScene");
+        GameObjectManager.loadScene("2_GalleryScene");
     }
 
     public void MenuPrincipal()
@@ -112,7 +112,7 @@ public class UIButtonSystem : FSystem
             // Everything must return to the global deck
             player.globalDeck.AddRange(player.levelDeck);
         }
-        GameObjectManager.loadScene("MainMenu");
+        GameObjectManager.loadScene("0_MainMenu");
     }
 
     public void LoadLevel(GameObject go)
