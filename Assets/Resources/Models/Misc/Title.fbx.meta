@@ -1,32 +1,20 @@
 fileFormatVersion: 2
-guid: 2fc075741aedcad41a27b3f7f970fcb3
+guid: fc3b7977cfb45e4428e52305338a25b0
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: Body
-    2100002: Stick
-    2100004: Ball
+    2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Icosphere
+    4300000: Text
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Ball
-    second: {fileID: 2100000, guid: 323744ee67f78ec419dbef7e86c87b39, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Body
-    second: {fileID: 2100000, guid: f0b15325608075a47a49486eba334fc5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Stick
-    second: {fileID: 2100000, guid: e9768cd08bfae23438f9284192d04309, type: 2}
+      name: No Name
+    second: {fileID: 2100000, guid: 355c2cfca9f1d174c99a703b9bdfab9b, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
