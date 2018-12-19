@@ -1,7 +1,0 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-public class Deck : MonoBehaviour {
-    public List<GameObject> cards = new List<GameObject>();
-    public bool inGame = false;
-}
