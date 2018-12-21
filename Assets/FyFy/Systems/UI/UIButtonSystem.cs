@@ -52,6 +52,12 @@ public class UIButtonSystem : FSystem
             case "Play":
                 button.onClick.AddListener(delegate { Play(); } );
                 break;
+            case "DifficultySelection":
+                button.onClick.AddListener(delegate { DifficultySelection(go); } );
+                break;
+            case "DeckBuilder":
+                button.onClick.AddListener(delegate { DeckBuilder(go); } );
+                break;
             case "LoadLevel":
                 button.onClick.AddListener(delegate { LoadLevel(go); } );
                 break;
@@ -78,7 +84,7 @@ public class UIButtonSystem : FSystem
     public void Play()
     {
         //SceneManager.LoadScene("PlayScene");
-        GameObjectManager.loadScene("LevelSelectorScene");
+        GameObjectManager.loadScene("3_LevelSelectionScene");
     }
 
     public void FreePlay()
@@ -115,9 +121,22 @@ public class UIButtonSystem : FSystem
         GameObjectManager.loadScene("0_MainMenu");
     }
 
+    public void DifficultySelection(GameObject go)
+    {
+        // Load scene and setup scene
+        GameObjectManager.loadScene("4_DifficultySelectionScene");
+    }
+
+    public void DeckBuilder(GameObject go)
+    {
+        // Load scene and setup scene
+        GameObjectManager.loadScene("5_DeckBuilderScene");
+    }
+
     public void LoadLevel(GameObject go)
     {
         //SceneManager.LoadScene("GalleryScene");
+        /**
         LevelButton comp = go.GetComponent<LevelButton>();
 
         // Save data to be tranfer between scenes
@@ -131,6 +150,7 @@ public class UIButtonSystem : FSystem
         GameObjectManager.loadScene("PrepareDeckScene");
         GameObject descriptionGo  = GameObject.Find("Level Description"); // Could be replaced with a Family searching for Player component
         descriptionGo.GetComponent<TextMesh>().text = comp.description;
+        **/
     }
 
     public void ToggleCardMenu(GameObject go)
@@ -156,6 +176,7 @@ public class UIButtonSystem : FSystem
 
     public void Fight()
     {
+        /**
         GameObject player = GameObject.Find("Player");
 
         // Each card returns to the player
@@ -163,7 +184,7 @@ public class UIButtonSystem : FSystem
         {
             card.transform.SetParent(player.transform);
         }
-
-        GameObjectManager.loadScene("PierreScene");
+        **/
+        GameObjectManager.loadScene("1_PlayScene");
     }
 }
