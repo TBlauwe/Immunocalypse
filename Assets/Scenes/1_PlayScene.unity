@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
+  - component: {fileID: 534669907}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -733,6 +734,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 6667701a9850bb445b13409e69a395f0, type: 2}
+--- !u!114 &534669907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338c533088689c94999b5654e8862db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+  ZoomSpeed: 100
+  ZoomMin: 0.5
+  MoveSpeed: 10
+  RotationSpeed: 150
+  scrollSpeed: 0.5
+  minXScrollingPosition: -1.18
+  maxXScrollingPosition: 20
+  ZoomMax: 0
+  defaultPosition: {x: 0, y: 0, z: 0}
+  defaultRotation: {x: 0, y: 0, z: 0}
+  defaultSize: 0
 --- !u!1001 &543303066
 Prefab:
   m_ObjectHideFlags: 0
@@ -6152,6 +6176,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: MoveTowardSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: MoveTowardSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: CameraScrollingSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: CameraScrollingSystem
     _pause: 0
   _updateSystemDescriptions:
   - _typeAssemblyQualifiedName: LoopSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
