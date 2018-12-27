@@ -18,6 +18,12 @@ public class CameraSettings : MonoBehaviour {
 
     public float RotationSpeed  = 150.0f;
 
+    public float scrollSpeed = 5;
+
+    public float minXScrollingPosition;
+
+    public float maxXScrollingPosition;
+
     [HideInInspector]
     public float ZoomMax;   // Computed after generation
 
