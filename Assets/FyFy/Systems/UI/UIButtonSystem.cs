@@ -58,6 +58,9 @@ public class UIButtonSystem : FSystem
             case "DeckBuilder":
                 button.onClick.AddListener(delegate { DeckBuilder(go); } );
                 break;
+            case "LoadDifficulty":
+                button.onClick.AddListener(delegate { LoadDifficulty(go); } );
+                break;
             case "LoadLevel":
                 button.onClick.AddListener(delegate { LoadLevel(go); } );
                 break;
@@ -135,22 +138,26 @@ public class UIButtonSystem : FSystem
 
     public void LoadLevel(GameObject go)
     {
-        //SceneManager.LoadScene("GalleryScene");
-        /**
-        LevelButton comp = go.GetComponent<LevelButton>();
+        LevelButton levelButton = go.gameObject.GetComponent<LevelButton>();
+        foreach(Transform child in levelButton.panel.transform)
+        {
+            if(child.gameObject.name == "Title")
+            {
+                TMPro.TextMeshProUGUI Title = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+                Title.text = levelButton.name;
+            }
+            else if(child.gameObject.name == "Description")
+            {
+                TMPro.TextMeshProUGUI Description = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+                Description.text = levelButton.description;
+            }
+        }
+        PersistentData.Level.selectedLevel = go;
+    }
 
-        // Save data to be tranfer between scenes
-        GameObject _player = GameObject.Find("Player"); // Could be replaced with a Family searching for Player component
-        Player player = _player.GetComponent<Player>();
-        Debug.Log(player);
-        Debug.Log(comp);
-        player.levelButton = comp;
-
-        // Load scene and setup scene
-        GameObjectManager.loadScene("PrepareDeckScene");
-        GameObject descriptionGo  = GameObject.Find("Level Description"); // Could be replaced with a Family searching for Player component
-        descriptionGo.GetComponent<TextMesh>().text = comp.description;
-        **/
+    public void LoadDifficulty(GameObject go)
+    {
+        PersistentData.Level.selectedDifficulty = go;
     }
 
     public void ToggleCardMenu(GameObject go)
