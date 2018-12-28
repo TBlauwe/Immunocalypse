@@ -52,9 +52,6 @@ public class UIButtonSystem : FSystem
             case "Play":
                 button.onClick.AddListener(delegate { Play(); } );
                 break;
-            case "LoadDifficulty":
-                button.onClick.AddListener(delegate { LoadDifficulty(go); } );
-                break;
             case "LoadLevel":
                 button.onClick.AddListener(delegate { LoadLevel(go); } );
                 break;
@@ -63,9 +60,6 @@ public class UIButtonSystem : FSystem
                 break;
             case "ToggleCardMenu":
                 button.onClick.AddListener(delegate { ToggleCardMenu(go); } );
-                break;
-            case "Fight":
-                button.onClick.AddListener(delegate { Fight(); });
                 break;
             default:
                 Debug.LogError("Function name : " + functionName + " | Unknown");
@@ -125,15 +119,6 @@ public class UIButtonSystem : FSystem
         Global.data.selectedDifficultyId = comp.title;
     }
 
-    public void LoadDifficulty(GameObject go)
-    {
-        DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
-        comp.selected = true;
-        Global.data.selectedDifficultyId = comp.title;
-        Global.data.selectedLevelDescription = comp.description;
-        Global.data.factories = comp.factories;
-    }
-
     public void ToggleCardMenu(GameObject go)
     {
         GameObject panel = go.transform.parent.Find("Deck").gameObject;
@@ -153,19 +138,5 @@ public class UIButtonSystem : FSystem
         #else
              Application.Quit();
         #endif
-    }
-
-    public void Fight()
-    {
-        /**
-        GameObject player = GameObject.Find("Player");
-
-        // Each card returns to the player
-        foreach(GameObject card in _cards)
-        {
-            card.transform.SetParent(player.transform);
-        }
-        **/
-        GameObjectManager.loadScene("1_PlayScene");
     }
 }

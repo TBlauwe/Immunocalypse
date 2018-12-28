@@ -19,10 +19,15 @@ public class DeckManagerSystem : FSystem {
             Debug.LogError("No deck manager in Scene");
             return;
         }
-        deckManager.Description.text = Global.data.selectedLevelDescription;
+        deckManager.Description.text = Global.data.selectedDifficultyDescription;
+        deckManager.buttonLoadScene.onClick.AddListener(delegate { Fight(); });
     }
 
     // =======================================
     // ========== PRIVATE FUNCTIONS ==========
     // =======================================
+    public void Fight()
+    {
+        GameObjectManager.loadScene(Global.data.selectedDifficultyScene);
+    }
 }

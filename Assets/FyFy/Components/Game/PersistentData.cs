@@ -6,6 +6,7 @@ public class PersistentData : MonoBehaviour {
     // ========== LEVEL ==========
     public string selectedLevelId;
     public string selectedDifficultyId;
-    public string selectedLevelDescription;
+    public string selectedDifficultyDescription;
+    public string selectedDifficultyScene;
     public List<FactoryEntry> factories;
 }

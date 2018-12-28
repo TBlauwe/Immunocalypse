@@ -227,6 +227,7 @@ MonoBehaviour:
   description: 
   selected: 0
   factories: []
+  scene: 1_PlayScene
   victory: 0
   Title: {fileID: 114702549013743224}
   Descrition: {fileID: 114856209297605960}
