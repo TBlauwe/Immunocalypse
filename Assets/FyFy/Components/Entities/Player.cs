@@ -7,7 +7,4 @@ public class Player : MonoBehaviour {
 
     // The player's level deck
     public List<GameObject> levelDeck = new List<GameObject>();
-
-    // The player's selected level
-    public LevelButton levelButton;
 }
