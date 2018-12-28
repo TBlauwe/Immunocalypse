@@ -29,12 +29,12 @@ public class MainMenuSystem : FSystem {
     // =======================================
     public void Play()
     {
-        GameObjectManager.loadScene("3_LevelSelectionScene");
+        GameObjectManager.loadScene("LevelSelectionScene");
     }
 
     public void Gallery()
     {
-        GameObjectManager.loadScene("2_GalleryScene");
+        GameObjectManager.loadScene("GalleryScene");
     }
 
     public void Quit()

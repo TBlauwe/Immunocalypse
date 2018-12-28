@@ -8,5 +8,4 @@ public class PersistentData : MonoBehaviour {
     public string selectedDifficultyId;
     public string selectedDifficultyDescription;
     public string selectedDifficultyScene;
-    public List<FactoryEntry> factories;
 }

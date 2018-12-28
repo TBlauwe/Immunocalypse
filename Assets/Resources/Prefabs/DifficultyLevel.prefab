@@ -56,7 +56,6 @@ GameObject:
   - component: {fileID: 222828523712788416}
   - component: {fileID: 114145248186972330}
   - component: {fileID: 114392195681028896}
-  - component: {fileID: 114750877357451834}
   - component: {fileID: 114998231113804254}
   m_Layer: 0
   m_Name: DifficultyLevel
@@ -166,19 +165,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Facile
---- !u!114 &114750877357451834
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1995133433291538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 800a39f074eba8a40b694cb3c653a281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  functionNames:
-  - LoadDifficulty
 --- !u!114 &114856209297605960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,11 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7805e5616fd88304c8854fd291e2ab58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 
-  description: 
-  selected: 0
-  factories: []
-  scene: 1_PlayScene
+  title: Titre
+  description: Description
+  scene: 0
   victory: 0
   Title: {fileID: 114702549013743224}
   Descrition: {fileID: 114856209297605960}

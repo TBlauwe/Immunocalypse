@@ -79,7 +79,7 @@ public class UIButtonSystem : FSystem
             // Everything must return to the global deck
             player.globalDeck.AddRange(player.levelDeck);
         }
-        GameObjectManager.loadScene("0_MainMenu");
+        GameObjectManager.loadScene("MainMenu");
     }
 
     public void LoadLevel(GameObject go)

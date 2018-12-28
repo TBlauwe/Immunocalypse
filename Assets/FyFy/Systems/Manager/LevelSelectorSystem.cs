@@ -66,31 +66,11 @@ public class LevelSelectorSystem : FSystem {
                 }
             }
         }
-
-        foreach(GameObject go in _DifficultyGO)
-        {
-            DifficultyLevel  difficultyLevel = go.gameObject.GetComponent<DifficultyLevel>();
-            if (difficultyLevel.selected)
-            {
-                if (selectedDifficulty != difficultyLevel && selectedDifficulty != null)
-                {
-                    selectedDifficulty.selected = false;
-                }
-                selectedDifficulty = difficultyLevel;
-            }
-        }
     }
 
     // =======================================
     // ========== PRIVATE FUNCTIONS ==========
     // =======================================
-    private void setupDifficultyLevel(GameObject go)
-    {
-        DifficultyLevel difficultyLevel = go.GetComponent<DifficultyLevel>();
-        difficultyLevel.Title.text = difficultyLevel.title;
-        difficultyLevel.Descrition.text = difficultyLevel.description;
-    }
-
     public void toggleDifficultyLevels()
     {
         if (selectedLevel)
@@ -107,13 +87,11 @@ public class LevelSelectorSystem : FSystem {
         if (selectedLevel)
         {
             DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
-            comp.selected = true;
             Global.data.selectedDifficultyId = comp.title;
             Global.data.selectedDifficultyDescription = comp.description;
-            Global.data.selectedDifficultyScene = comp.scene;
-            Global.data.factories = comp.factories;
+            Global.data.selectedDifficultyScene = comp.scene.ToString();
 
-            GameObjectManager.loadScene("4_DeckBuilderScene");
+            GameObjectManager.loadScene("DeckBuilderScene");
         }
     }
 }
