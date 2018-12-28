@@ -48,7 +48,7 @@ public class LoopSystem : FSystem {
             Triggered3D triggered = triggerVolume.GetComponent<Triggered3D>();
             foreach (GameObject go in triggered.Targets) {
                 MoveToward moveToward = go.GetComponent<MoveToward>();
-                if(moveToward && moveToward.target != triggerComp.target.position)
+                if(moveToward && moveToward.target != triggerComp.target.position && go.layer != 11) // Immuno layer
                 {
                     moveToward.target = triggerComp.target.position;
                 }

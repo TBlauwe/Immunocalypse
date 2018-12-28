@@ -22,8 +22,10 @@ public class PathSystem : FSystem {
     {
         foreach (GameObject nodeGO in _waypoints)
         {
-            _graph.nodes.Add(nodeGO.GetComponent<Node>());
+            Node node = nodeGO.GetComponent<Node>();
+            _graph.nodes.Add(node);
             nodeGO.GetComponent<MeshRenderer>().enabled = false;
+            Debug.Log(string.Format("Current Node : {0}, Neighbours: {1}", node, node.connections.Count));
         }
         // Maybe add a listener on the family ?
     }
@@ -78,17 +80,9 @@ public class PathSystem : FSystem {
         {
             // Set next waypoint and face it
             follower.nextWaypoint = path.nodes[0];
-            //Vector3 targetDir = follower.nextWaypoint.transform.position - go.transform.position;
-
-            //Vector3 newDir = Vector3.RotateTowards(go.transform.forward, targetDir, 2 * Mathf.PI, 0.0f);
-            //Debug.DrawRay(go.transform.position, newDir, Color.blue);
-
-            //go.transform.rotation = Quaternion.LookRotation(newDir);
-            //go.transform.rotation = Quaternion.LookRotation(newDir);
 
             // Remove step from path
             path.nodes.RemoveAt(0);
-            //followersPath.Add(go, path);
         }
     }
 
