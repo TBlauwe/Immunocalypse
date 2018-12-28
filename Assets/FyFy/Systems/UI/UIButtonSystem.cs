@@ -144,7 +144,7 @@ public class UIButtonSystem : FSystem
             if(child.gameObject.name == "Title")
             {
                 TMPro.TextMeshProUGUI Title = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                Title.text = levelButton.name;
+                Title.text = levelButton.title;
             }
             else if(child.gameObject.name == "Description")
             {
@@ -152,12 +152,10 @@ public class UIButtonSystem : FSystem
                 Description.text = levelButton.description;
             }
         }
-        PersistentData.Level.selectedLevel = go;
     }
 
     public void LoadDifficulty(GameObject go)
     {
-        PersistentData.Level.selectedDifficulty = go;
     }
 
     public void ToggleCardMenu(GameObject go)

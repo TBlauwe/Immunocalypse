@@ -14,13 +14,6 @@ public class LevelSelectorSystem : FSystem {
     // ======================================
     public LevelSelectorSystem()
     {
-        GameObject container = GameObject.Find("Container");
-        foreach(GameObject go in PersistentData.Level.selectedLevel.GetComponent<LevelButton>().difficultyLevels)
-        {
-            GameObjectManager.bind(go);
-            setupDifficultyLevel(go);
-            go.transform.parent = container.transform;
-        }
     }
 
     // ===========================
@@ -41,7 +34,7 @@ public class LevelSelectorSystem : FSystem {
     private void setupDifficultyLevel(GameObject go)
     {
         DifficultyLevel difficultyLevel = go.GetComponent<DifficultyLevel>();
-        difficultyLevel.Title.text = difficultyLevel.name;
+        difficultyLevel.Title.text = difficultyLevel.title;
         difficultyLevel.Descrition.text = difficultyLevel.description;
     }
 }

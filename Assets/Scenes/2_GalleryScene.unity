@@ -7133,6 +7133,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: UIButtonSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: DontDestroyOnLoadSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DontDestroyOnLoadSystem
+    _pause: 0
   _forceUpdateInspector: 0
   _loadingState: 0
   _specialGameObjects:
@@ -9076,6 +9080,9 @@ MonoBehaviour:
   ZoomMin: 0.5
   MoveSpeed: 10
   RotationSpeed: 150
+  scrollSpeed: 5
+  minXScrollingPosition: 0
+  maxXScrollingPosition: 0
   ZoomMax: 0
   defaultPosition: {x: 0, y: 0, z: 0}
   defaultRotation: {x: 0, y: 0, z: 0}

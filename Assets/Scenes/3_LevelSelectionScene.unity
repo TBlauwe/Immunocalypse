@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e3070c1ced5de4ebfba4e40975d492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Intestin
+  title: PlaceHolder
   description: "D\xE9fendez vos cellules (Epit\xE9lium Intestinal) contre divers pathog\xE8nes"
   panel: {fileID: 108326928}
   victory: 0
@@ -743,6 +743,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: UIButtonSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: UIButtonSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: DontDestroyOnLoadSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DontDestroyOnLoadSystem
     _pause: 0
   _forceUpdateInspector: 0
   _loadingState: 0

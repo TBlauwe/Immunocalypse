@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 
 public class DifficultyLevel : MonoBehaviour {
-    public string           name;
+    public string           title;
     [TextArea(3,10)]
     public string           description;
     public Object           data;                       // Data containing information for generating a level

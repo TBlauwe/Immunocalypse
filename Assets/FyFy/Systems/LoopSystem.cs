@@ -20,7 +20,6 @@ public class LoopSystem : FSystem {
         foreach (GameObject triggerVolume in _StartTriggerGO)
         {
             StartLoopTrigger triggerComp = triggerVolume.GetComponent<StartLoopTrigger>();
-            Triggered3D triggered = triggerVolume.GetComponent<Triggered3D>();
             if(triggerComp.deckPool.Count > 0)
             {
                 triggerComp.cooldownDeck -= Time.deltaTime;

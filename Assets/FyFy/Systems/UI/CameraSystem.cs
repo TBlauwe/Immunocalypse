@@ -25,14 +25,6 @@ public class CameraSystem : FSystem {
     private int             currentRank=-1;
     private GALLERY_MODE    galleryMode;
 
-    private Vector3         target;
-
-    // ===================================
-    // ========== GAMEPLAY MODE ==========
-    // ===================================
-    private Family          _levelGO = FamilyManager.getFamily(new AllOfComponents(typeof(LevelSettings)));
-    private LevelSettings   levelSettings;
-
     // =================================
     // ========== CONSTRUCTOR ==========
     // =================================
@@ -50,10 +42,6 @@ public class CameraSystem : FSystem {
         switch (cameraMode)
         {
             case CAMERA_MODE.FIXED:
-                break;
-            case CAMERA_MODE.GAMEPLAY:
-                if(_levelGO.Count == 0) { throw new ArgumentNullException("No level in scene, cannot setup camera accordingly"); }
-                setupCameraForGameplay(true);
                 break;
             case CAMERA_MODE.INSPECTION:
                 break;
@@ -73,9 +61,6 @@ public class CameraSystem : FSystem {
         {
             case CAMERA_MODE.FIXED:
                 break;
-            case CAMERA_MODE.GAMEPLAY:
-                updateCameraForGameplay();
-                break;
             case CAMERA_MODE.INSPECTION:
                 break;
             case CAMERA_MODE.GALLERY:
@@ -87,55 +72,17 @@ public class CameraSystem : FSystem {
     // ===========================
     // ========== SETUP ==========
     // ===========================
-    private void setupCameraForGameplay(bool saveAsDefault) {
-        levelSettings   = _levelGO.First().GetComponent<LevelSettings>();
-
-        Vector3 size = levelSettings.size; 
-
-        setPivotPosition(levelSettings.center);
-        setCameraPosition(levelSettings.center + new Vector3(size.x / 2.5f, size.x / 2.5f, 0.0f), saveAsDefault);
-        setCameraRotation(new Vector3(45, -90), saveAsDefault);
-        setCameraZoom(size.x / 2, saveAsDefault);
-
-        cameraSettings.ZoomMax = size.x/2;
-    }
-
     private void setupCameraForGallery()
     {
         galleryManager = _galleryManagerGO.First().gameObject.GetComponent<GalleryManager>();
         galleryMode = GALLERY_MODE.CLOSE;
         focus(0);
-        target = cameraGO.transform.position;
     }
 
 
     // ============================
     // ========== UPDATE ==========
     // ============================
-
-    private void updateCameraForGameplay()
-    {
-        // UPDATE TRANSLATION
-        Vector3 translation = GetInputTranslationDirection();
-        if (!translation.Equals(Vector3.zero)) { updateTranslation(translation); }
-
-        // UPDATE ROTATION
-        float rotationDelta = Input.GetAxis("Mouse X");
-        if (Input.GetMouseButton(1) && rotationDelta != 0) { updateRotation(rotationDelta); }
-
-        // UPDATE ZOOM 
-        float zoomDelta = Input.GetAxis("Mouse ScrollWheel");
-		if (zoomDelta != 0f) { updateZoom(zoomDelta); }
-
-        // Reset position
-        if (Input.GetKey(KeyCode.R))
-        {
-            cameraGO.transform.position     = cameraSettings.defaultPosition;
-            cameraGO.transform.eulerAngles  = cameraSettings.defaultRotation;
-            camera.orthographicSize         = cameraSettings.defaultSize;
-        }
-    }
-
     private void updateCameraForGallery()
     {
         float rotationDelta = Input.GetAxis("Mouse X");

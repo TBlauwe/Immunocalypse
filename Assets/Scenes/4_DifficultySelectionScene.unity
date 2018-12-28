@@ -6290,7 +6290,7 @@ Transform:
   - {fileID: 1841575058}
   - {fileID: 1060419876}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1798290423
 GameObject:
@@ -6413,6 +6413,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LevelSelectorSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: DontDestroyOnLoadSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DontDestroyOnLoadSystem
+    _pause: 0
   _forceUpdateInspector: 0
   _loadingState: 0
   _specialGameObjects:
@@ -6462,7 +6466,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4129713798970102, guid: 3cb85a0d091131d428de5cea4867a7b0, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb85a0d091131d428de5cea4867a7b0, type: 2}
