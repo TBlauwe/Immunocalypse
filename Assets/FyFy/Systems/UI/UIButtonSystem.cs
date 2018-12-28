@@ -52,12 +52,6 @@ public class UIButtonSystem : FSystem
             case "Play":
                 button.onClick.AddListener(delegate { Play(); } );
                 break;
-            case "DifficultySelection":
-                button.onClick.AddListener(delegate { DifficultySelection(go); } );
-                break;
-            case "DeckBuilder":
-                button.onClick.AddListener(delegate { DeckBuilder(go); } );
-                break;
             case "LoadDifficulty":
                 button.onClick.AddListener(delegate { LoadDifficulty(go); } );
                 break;
@@ -124,38 +118,20 @@ public class UIButtonSystem : FSystem
         GameObjectManager.loadScene("0_MainMenu");
     }
 
-    public void DifficultySelection(GameObject go)
-    {
-        // Load scene and setup scene
-        GameObjectManager.loadScene("4_DifficultySelectionScene");
-    }
-
-    public void DeckBuilder(GameObject go)
-    {
-        // Load scene and setup scene
-        GameObjectManager.loadScene("5_DeckBuilderScene");
-    }
-
     public void LoadLevel(GameObject go)
     {
-        LevelButton levelButton = go.gameObject.GetComponent<LevelButton>();
-        foreach(Transform child in levelButton.panel.transform)
-        {
-            if(child.gameObject.name == "Title")
-            {
-                TMPro.TextMeshProUGUI Title = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                Title.text = levelButton.title;
-            }
-            else if(child.gameObject.name == "Description")
-            {
-                TMPro.TextMeshProUGUI Description = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                Description.text = levelButton.description;
-            }
-        }
+        LevelButton comp = go.gameObject.GetComponent<LevelButton>();
+        comp.selected = true;
+        Global.data.selectedDifficultyId = comp.title;
     }
 
     public void LoadDifficulty(GameObject go)
     {
+        DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
+        comp.selected = true;
+        Global.data.selectedDifficultyId = comp.title;
+        Global.data.selectedLevelDescription = comp.description;
+        Global.data.factories = comp.factories;
     }
 
     public void ToggleCardMenu(GameObject go)
