@@ -40,23 +40,11 @@ public class UIButtonSystem : FSystem
     {
         switch (functionName)
         {
-            case "FreePlay":
-                button.onClick.AddListener(delegate { FreePlay(); });
-                break;
-            case "Gallery":
-                button.onClick.AddListener(delegate { Gallery(); });
-                break;
             case "MenuPrincipal":
                 button.onClick.AddListener(delegate { MenuPrincipal(); });
                 break;
-            case "Play":
-                button.onClick.AddListener(delegate { Play(); } );
-                break;
             case "LoadLevel":
                 button.onClick.AddListener(delegate { LoadLevel(go); } );
-                break;
-            case "Quit":
-                button.onClick.AddListener(delegate { Quit(); });
                 break;
             case "ToggleCardMenu":
                 button.onClick.AddListener(delegate { ToggleCardMenu(go); } );
@@ -72,24 +60,6 @@ public class UIButtonSystem : FSystem
     // ========================================
     // ========== BUTTON'S FUNCTIONS ==========
     // ========================================
-    public void Play()
-    {
-        //SceneManager.LoadScene("PlayScene");
-        GameObjectManager.loadScene("3_LevelSelectionScene");
-    }
-
-    public void FreePlay()
-    {
-        //SceneManager.LoadScene("FreePlayScene");
-        GameObjectManager.loadScene("FreePlayScene");
-    }
-
-    public void Gallery()
-    {
-        //SceneManager.LoadScene("GalleryScene");
-        GameObjectManager.loadScene("2_GalleryScene");
-    }
-
     public void MenuPrincipal()
     {
         //SceneManager.LoadScene("MainMenu");
@@ -126,17 +96,5 @@ public class UIButtonSystem : FSystem
 
         GameObject button = go.transform.parent.Find("ToggleButton").gameObject;
         button.transform.eulerAngles += Vector3.forward * 180;
-    }
-
-    public void Quit()
-    {
-        // save any game data here
-        #if UNITY_EDITOR
-        // Application.Quit() does not work in the editor so
-        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-        UnityEditor.EditorApplication.isPlaying = false;
-        #else
-             Application.Quit();
-        #endif
     }
 }

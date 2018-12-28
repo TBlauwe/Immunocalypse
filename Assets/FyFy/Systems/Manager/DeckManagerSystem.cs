@@ -5,14 +5,14 @@ public class DeckManagerSystem : FSystem {
     // =============================
     // ========== MEMBERS ==========
     // =============================
-    private Family singletonDeckManager = FamilyManager.getFamily(new AllOfComponents(typeof(DeckManager)));
+    private Family singletonManager = FamilyManager.getFamily(new AllOfComponents(typeof(DeckManager)));
 
     // ======================================
     // ========== PUBLIC FUNCTIONS ==========
     // ======================================
     public DeckManagerSystem()
     {
-        DeckManager deckManager = singletonDeckManager.First().GetComponent<DeckManager>();
+        DeckManager deckManager = singletonManager.First().GetComponent<DeckManager>();
 
         if (!deckManager)
         {
