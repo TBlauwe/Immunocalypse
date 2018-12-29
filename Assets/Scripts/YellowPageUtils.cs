@@ -42,7 +42,7 @@ public class YellowPageUtils
     {
         foreach (YellowPageItem item in yellowPageComponent.items)
         {
-            if (item.GetKey().Equals(key))
+            if (item != null && item.GetKey().Equals(key))
             {
                 return true;
             }
