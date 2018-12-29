@@ -10,7 +10,4 @@ public class LevelButton : MonoBehaviour {
 
     public GameObject               informationPanel;           // Ref to UI panel
     public GameObject               difficultyLevels;           // Ref to owned difficulty level GOs
-
-    public bool                     victory;                    // Used to unlocked children
-    [HideInInspector] public bool   victoryCached;              // Used to detect changes
 }

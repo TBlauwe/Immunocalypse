@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
+    public bool won = false;            // Est-ce que le joueur a gagné ?
     public bool isPlaying = false;      // Le niveau ne commence pas tout de suite :
 
     public GameObject instructions;     // Etape I      - Affichage des instructions

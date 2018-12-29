@@ -87,9 +87,9 @@ public class LevelSelectorSystem : FSystem {
         if (selectedLevel)
         {
             DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
-            Global.data.selectedDifficultyId = comp.title;
-            Global.data.selectedDifficultyDescription = comp.description;
-            Global.data.selectedDifficultyScene = comp.scene.ToString();
+            Global.data.currentLevel = comp.scene;
+            Global.data.currentLevelDescription = comp.description;
+            Global.data.currentLevelGalleryModelReward = comp.galleryModelReward;
 
             GameObjectManager.loadScene("DeckBuilderScene");
         }

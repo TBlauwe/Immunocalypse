@@ -86,7 +86,6 @@ public class UIButtonSystem : FSystem
     {
         LevelButton comp = go.gameObject.GetComponent<LevelButton>();
         comp.selected = true;
-        Global.data.selectedDifficultyId = comp.title;
     }
 
     public void ToggleCardMenu(GameObject go)

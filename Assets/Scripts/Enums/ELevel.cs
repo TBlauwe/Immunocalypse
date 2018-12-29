@@ -1,3 +1,3 @@
 ﻿public enum ELevel {
-   Intestin_Facile 
+   Intestin_Facile
 }

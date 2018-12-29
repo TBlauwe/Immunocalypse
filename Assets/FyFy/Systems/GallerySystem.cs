@@ -69,6 +69,12 @@ public class GallerySystem : FSystem {
     {
         GalleryModel galleryModel = go.GetComponent<GalleryModel>();
 
+        foreach(PairEGalleryModelBool pair in Global.data.unlockedGalleryModels)
+        {
+            if (pair.a == galleryModel.id)
+                galleryModel.isUnlocked = pair.b;
+        }
+
         setModelName(go, galleryModel.modelName);
         setScientificName(go, galleryModel.scientificName);
         setSize(go, galleryModel.size);

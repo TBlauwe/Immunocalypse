@@ -1156,9 +1156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738d565d74052f94798d97cd4232f44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isFocused: 0
   cacheIsFocused: 0
-  isUnlocked: 1
+  isUnlocked: 0
   cacheIsUnlocked: 0
   isHighlighted: 0
   cacheIsHighlighted: 0
@@ -2340,9 +2341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738d565d74052f94798d97cd4232f44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 2
   isFocused: 0
   cacheIsFocused: 0
-  isUnlocked: 1
+  isUnlocked: 0
   cacheIsUnlocked: 0
   isHighlighted: 0
   cacheIsHighlighted: 0
@@ -5132,9 +5134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738d565d74052f94798d97cd4232f44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1
   isFocused: 0
   cacheIsFocused: 0
-  isUnlocked: 1
+  isUnlocked: 0
   cacheIsUnlocked: 0
   isHighlighted: 0
   cacheIsHighlighted: 0
@@ -6828,9 +6831,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738d565d74052f94798d97cd4232f44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 3
   isFocused: 0
   cacheIsFocused: 0
-  isUnlocked: 1
+  isUnlocked: 0
   cacheIsUnlocked: 0
   isHighlighted: 0
   cacheIsHighlighted: 0

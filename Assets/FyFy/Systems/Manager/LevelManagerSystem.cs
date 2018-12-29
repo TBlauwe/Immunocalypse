@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FYFY;
+using System.Collections.Generic;
 
 public class LevelManagerSystem : FSystem {
     // =============================
@@ -73,6 +74,27 @@ public class LevelManagerSystem : FSystem {
 
     private void endPlay()
     {
+        if (manager.won)
+        {
+            // Level is won
+            foreach(PairELevelBool level in Global.data.succeededLevels)
+            {
+                if(level.a == Global.data.currentLevel)
+                {
+                    level.b = true;
+                }
+            }
+
+            foreach(PairEGalleryModelBool galleryModel in Global.data.unlockedGalleryModels)
+            {
+                if(galleryModel.a == Global.data.currentLevelGalleryModelReward)
+                {
+                    galleryModel.b = true;
+                }
+            }
+
+        }
+
         GameObjectManager.loadScene("LevelSelectionScene");
     }
 }

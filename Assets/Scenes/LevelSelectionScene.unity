@@ -615,8 +615,6 @@ MonoBehaviour:
   selected: 0
   informationPanel: {fileID: 108326928}
   difficultyLevels: {fileID: 1459405589}
-  victory: 0
-  victoryCached: 0
 --- !u!1 &386965829
 GameObject:
   m_ObjectHideFlags: 0
@@ -7480,7 +7478,16 @@ Prefab:
     - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
         type: 2}
       propertyPath: scene
-      value: Intestin_Facile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995133433291538, guid: 1012e9dce80e7664396d9c2fe1fdae22, type: 2}
+      propertyPath: m_Name
+      value: Facile
+      objectReference: {fileID: 0}
+    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
+        type: 2}
+      propertyPath: galleryModelReward
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1012e9dce80e7664396d9c2fe1fdae22, type: 2}

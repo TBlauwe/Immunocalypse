@@ -14,6 +14,8 @@ public class GalleryModel : MonoBehaviour {
 
     // IMPORTANT : Don't change go child structure, 
 
+    public EGalleryModel id;
+
     public bool         isFocused=false;                // Has the focus ?
     [HideInInspector]
     public bool         cacheIsFocused=false;           // Update only if cache is different from current value

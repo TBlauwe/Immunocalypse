@@ -19,7 +19,7 @@ public class DeckManagerSystem : FSystem {
             Debug.LogError("No deck manager in Scene");
             return;
         }
-        deckManager.Description.text = Global.data.selectedDifficultyDescription;
+        deckManager.Description.text = Global.data.currentLevelDescription;
         deckManager.buttonLoadScene.onClick.AddListener(delegate { Fight(); });
     }
 
@@ -28,6 +28,6 @@ public class DeckManagerSystem : FSystem {
     // =======================================
     private void Fight()
     {
-        GameObjectManager.loadScene(Global.data.selectedDifficultyScene);
+        GameObjectManager.loadScene(Global.data.currentLevel.ToString());
     }
 }

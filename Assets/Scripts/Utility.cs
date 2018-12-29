@@ -25,6 +25,22 @@ public class Pair<T, E> : IEquatable<Pair<T, E>>
     }
 }
 
+[Serializable]
+public class PairELevelBool : Pair<ELevel, bool>
+{
+    public PairELevelBool(ELevel a, bool b) : base(a, b)
+    {
+    }
+}
+
+[Serializable]
+public class PairEGalleryModelBool : Pair<EGalleryModel, bool>
+{
+    public PairEGalleryModelBool(EGalleryModel a, bool b) : base(a, b)
+    {
+    }
+}
+
 // https://forum.unity.com/threads/clever-way-to-shuffle-a-list-t-in-one-line-of-c-code.241052/#post-1596795
 public static class IListExtensions {
     /// <summary>
