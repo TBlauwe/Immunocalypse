@@ -138,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 24097618}
   m_LocalRotation: {x: -0.7071068, y: 0.000000014901159, z: -0.000000029802319, w: 0.70710677}
-  m_LocalPosition: {x: 0, y: -0, z: -0}
+  m_LocalPosition: {x: -1.8, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1533523888}
@@ -156,8 +156,8 @@ Light:
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
-  m_Range: 10
-  m_SpotAngle: 101.4
+  m_Range: 40.37
+  m_SpotAngle: 97.9
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -3429,6 +3429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 673084274}
+  - component: {fileID: 673084275}
   m_Layer: 0
   m_Name: Playing
   m_TagString: Untagged
@@ -3453,6 +3454,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &673084275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 673084273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18fc3d69f00de74f9eb36fb71a257d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowOnPause: 0
 --- !u!1001 &673984416
 Prefab:
   m_ObjectHideFlags: 0
