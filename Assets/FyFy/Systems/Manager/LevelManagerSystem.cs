@@ -23,8 +23,7 @@ public class LevelManagerSystem : FSystem {
             return;
         }
 
-        manager.instructionsToPlaying.onClick.AddListener(nextState);
-        manager.debriefToNext.onClick.AddListener(nextState);
+        manager.finishLevel.onClick.AddListener(nextState);
         refreshState();
         cachedState = manager.state;
     }
@@ -39,13 +38,11 @@ public class LevelManagerSystem : FSystem {
 
         switch (manager.state)
         {
-            case 0:
+            case 0: // Playing
                 break;
-            case 1:
+            case 1: // Debrief
                 break;
-            case 2:
-                break;
-            case 3:
+            case 2: // Save & Go to next scene
                 endPlay();
                 break;
             default:
@@ -67,9 +64,8 @@ public class LevelManagerSystem : FSystem {
 
     private void refreshState()
     {
-        manager.instructions.SetActive(manager.state == 0);
-        manager.playing.SetActive(manager.state == 1);
-        manager.debrief.SetActive(manager.state == 2);
+        manager.playing.SetActive(manager.state == 0);
+        manager.debrief.SetActive(manager.state == 1);
     }
 
     private void endPlay()
@@ -95,6 +91,6 @@ public class LevelManagerSystem : FSystem {
 
         }
 
-        GameObjectManager.loadScene("LevelSelectionScene");
+        GameObjectManager.loadScene("MenuPrincipalScene");
     }
 }

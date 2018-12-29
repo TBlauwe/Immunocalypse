@@ -876,7 +876,8 @@ Prefab:
       propertyPath: functionNames.Array.data[0]
       value: Fight
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114670701441553186, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
   m_IsPrefabAsset: 0
 --- !u!224 &679900407 stripped
