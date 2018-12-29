@@ -26,7 +26,7 @@ public class DeckManagerSystem : FSystem {
     // =======================================
     // ========== PRIVATE FUNCTIONS ==========
     // =======================================
-    public void Fight()
+    private void Fight()
     {
         GameObjectManager.loadScene(Global.data.selectedDifficultyScene);
     }

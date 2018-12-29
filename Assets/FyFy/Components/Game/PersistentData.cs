@@ -8,4 +8,8 @@ public class PersistentData : MonoBehaviour {
     public string selectedDifficultyId;
     public string selectedDifficultyDescription;
     public string selectedDifficultyScene;
+
+    // ========== STATISTICS ==========
+    // - Reset for each new level
+    // - Used to debrief a player after finishing a level
 }
