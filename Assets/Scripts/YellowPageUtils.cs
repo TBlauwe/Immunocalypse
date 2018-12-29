@@ -53,11 +53,21 @@ public class YellowPageUtils
     public static YellowPageItem AddItem(YellowPageComponent yellowPageComponent)
     {
         int id = 0;
-        while (KeyExists(yellowPageComponent, id + ""))
+        int i = 0;
+        while(i < yellowPageComponent.items.Count() && yellowPageComponent.items[i] != null)
         {
-            id++;
+            i++;
         }
-        return new YellowPageItem(yellowPageComponent, id + "", null);
+        if(i < yellowPageComponent.items.Count())
+        {
+            while (KeyExists(yellowPageComponent, id + ""))
+            {
+                id++;
+            }
+            yellowPageComponent.items[i] = new YellowPageItem(yellowPageComponent, id + "", null);
+            return yellowPageComponent.items[i];
+        }
+        return null;
     }
 
     public static List<string> GetKeys(YellowPageComponent yellowPageComponent)
