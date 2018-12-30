@@ -1,36 +1,26 @@
 ﻿using UnityEngine;
 using FYFY;
-using FYFY_plugins.TriggerManager;
+using FYFY_plugins.CollisionManager;
 
 public class EatingSystem : FSystem {
-    private readonly Family _macrophages = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Macrophage)),
-        new NoneOfComponents(typeof(Dragable))
+    private readonly Family _Eaters = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Eater), typeof(InCollision3D)),
+        new NoneOfComponents(typeof(Removed))
     );
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        foreach (GameObject go in _macrophages)
+        foreach (GameObject go in _Eaters)
         {
-            // We suppose that there is a gameobject reference in eatingRange field in the Macrophage component
-            Macrophage eater = go.GetComponent<Macrophage>();
-            Triggered3D triggered = go.GetComponent<Macrophage>().eatingRange.GetComponent<Triggered3D>();
+            InCollision3D collision = go.GetComponent<InCollision3D>();
+            Eater eater = go.GetComponent<Eater>();
 
-            // Something is in our eating range
-            if (triggered != null)
+            foreach (GameObject target in collision.Targets)
             {
-                foreach (GameObject target in triggered.Targets)
+                Eatable eatable = target.GetComponent<Eatable>();
+                if (eatable != null && (eater.eatingMask & eatable.eatableMask) > 0 && Random.value <= eater.eatingProbability)
                 {
-                    if (!target.activeSelf || target.GetComponent<Removed>() != null) continue;
-                    Eatable eatable = target.GetComponent<Eatable>();
-
-                    // If we can eat it (layer is good)
-                    if (eatable != null && target.activeSelf && (eatable.eatableLevel & eater.eatingMask) > 0)
-                    {
-                        // Destroy eaten object
-                        GameObjectManager.addComponent<RemoveForces>(target);
-                        GameObjectManager.addComponent<Removed>(target);
-                    }
+                    GameObjectManager.addComponent<Removed>(target);
                 }
             }
         }

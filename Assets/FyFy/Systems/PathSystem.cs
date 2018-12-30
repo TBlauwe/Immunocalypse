@@ -25,7 +25,7 @@ public class PathSystem : FSystem {
             Node node = nodeGO.GetComponent<Node>();
             _graph.nodes.Add(node);
             nodeGO.GetComponent<MeshRenderer>().enabled = false;
-            Debug.Log(string.Format("Current Node : {0}, Neighbours: {1}", node, node.connections.Count));
+            // Debug.Log(string.Format("Current Node : {0}, Neighbours: {1}", node, node.connections.Count));
         }
         // Maybe add a listener on the family ?
     }

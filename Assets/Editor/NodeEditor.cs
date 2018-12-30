@@ -34,6 +34,15 @@ public class WaypointEditor : EditorWindow
         EditorGUILayout.EndHorizontal();
     }
 
+    void OnDrawGizmos() // ???? not working
+    {
+        SerializedProperty f_connections = new SerializedObject(FirstNode).FindProperty("connections");
+        DisplayConnections(f_connections, FirstNode);
+
+        SerializedProperty s_connections = new SerializedObject(SecondNode).FindProperty("connections");
+        DisplayConnections(s_connections, SecondNode);
+    }
+
     private void AddIfNotPresent(SerializedProperty list, Object elem)
     {
         int i = 0;
@@ -44,6 +53,15 @@ public class WaypointEditor : EditorWindow
             list.GetArrayElementAtIndex(i).objectReferenceValue = elem;
         }
         list.serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DisplayConnections(SerializedProperty neighbours, Node node)
+    {
+        for (int i = 0; i < neighbours.arraySize; ++i)
+        {
+            Node other = (Node)neighbours.GetArrayElementAtIndex(i).objectReferenceValue;
+            Gizmos.DrawLine(node.transform.position, other.transform.position);
+        }
     }
 }
 /*
