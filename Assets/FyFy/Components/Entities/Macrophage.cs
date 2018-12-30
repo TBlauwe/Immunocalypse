@@ -2,6 +2,5 @@
 
 public class Macrophage : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
-    public GameObject eatingRange;
-    public int eatingMask;
+    /*[HideInInspector]*/ public MacrophageSystem.DECISIONS lastDescision = MacrophageSystem.DECISIONS.FOLLOW_PATH;
 }

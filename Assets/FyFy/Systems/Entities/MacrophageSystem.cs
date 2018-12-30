@@ -1,8 +1,16 @@
 ﻿using UnityEngine;
 using FYFY;
 using FYFY_plugins.PointerManager;
+using FYFY_plugins.TriggerManager;
 
 public class MacrophageSystem : FSystem {
+
+    public enum DECISIONS
+    {
+        CHASE,
+        FOLLOW_PATH
+    }
+
     private readonly Family _InVesselPointerOver = FamilyManager.getFamily(
         new AllOfComponents(typeof(Macrophage), typeof(PointerOver)),
         new NoneOfLayers(11) // Immuno layer
@@ -26,6 +34,15 @@ public class MacrophageSystem : FSystem {
         new AllOfComponents(typeof(StartLoopTrigger))
     );
 
+    private readonly Family _Active = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Macrophage), typeof(PathFollower)),
+        new AnyOfLayers(11) // Immuno layer
+    );
+
+    private readonly Family _YellowPages = FamilyManager.getFamily(
+        new AllOfComponents(typeof(YellowPageComponent))
+    );
+
 	// Use this to update member variables when system pause. 
 	// Advice: avoid to update your families inside this function.
 	protected override void onPause(int currentFrame) {
@@ -40,6 +57,7 @@ public class MacrophageSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
         ProcessInVesselPointerOver();
         ProcessUseless();
+        MakeDecision();
     }
 
     private void ProcessInVesselPointerOver()
@@ -50,7 +68,7 @@ public class MacrophageSystem : FSystem {
             {
                 GameObjectManager.setGameObjectLayer(go, 11); // Now macrophage is considered as an immunity cell
                 MoveToward move = go.GetComponent<MoveToward>();
-                GameObject target = GetClosestwaypoint(go);
+                GameObject target = GetClosestWaypoint(go);
 
                 GameObjectManager.addComponent(go, typeof(PathFollower), new {
                     destination = ComputeDestination(target.transform.position)
@@ -61,7 +79,7 @@ public class MacrophageSystem : FSystem {
         }
     }
 
-    private GameObject GetClosestwaypoint(GameObject src)
+    private GameObject GetClosestWaypoint(GameObject src)
     {
         GameObject closest = null;
         float minDistance = float.MaxValue;
@@ -100,10 +118,63 @@ public class MacrophageSystem : FSystem {
         StartLoopTrigger start = _StartTrigger.First().GetComponent<StartLoopTrigger>();
         foreach (GameObject go in _ToRepop)
         {
-            GameObjectManager.setGameObjectLayer(go, 0);
-            GameObjectManager.setGameObjectState(go, false);
-            GameObjectManager.unbind(go);
-            start.deckPool.Add(go);
+            GameObjectManager.addComponent<Removed>(go);
+            YellowPageComponent yp = _YellowPages.First().GetComponent<YellowPageComponent>();
+            start.deckPool.Add(YellowPageUtils.GetSourceObject(yp, "Macrophage"));
+        }
+    }
+
+    private void MakeDecision()
+    {
+        foreach (GameObject go in _Active)
+        {
+            Macrophage macrophage = go.GetComponent<Macrophage>();
+            MoveToward move = go.GetComponent<MoveToward>();
+
+            Triggered3D triggered = go.GetComponent<Triggered3D>();
+            if (triggered != null)
+            {
+                Eater eater = go.GetComponent<Eater>();
+                float minDistance = float.MaxValue;
+                GameObject targetedPosition = null;
+
+                // Compute closest eatable thing
+                foreach (GameObject target in triggered.Targets)
+                {
+                    Eatable eatable = target.GetComponent<Eatable>();
+                    if (eatable != null && (eatable.eatableMask & eater.eatingMask) > 0)
+                    {
+                        float distance = Vector3.Distance(go.transform.position, target.transform.position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            targetedPosition = target;
+                        }
+                    }
+                }
+
+                if (targetedPosition != null)
+                {
+                    // Move to it
+                    move.target = targetedPosition.transform.position;
+
+                    // Update last decision made
+                    macrophage.lastDescision = DECISIONS.CHASE;
+                }
+            }
+            else if (macrophage.lastDescision.Equals(DECISIONS.CHASE)) // We were hunting pathogenes, now we need to recompute path
+            {
+                // Recompute destination
+                PathFollower follower = go.GetComponent<PathFollower>();
+                GameObject target = GetClosestWaypoint(go);
+
+                // Go to closest waypoint and update destination
+                move.target = target.transform.position;
+                follower.destination = ComputeDestination(target.transform.position);
+
+                // Update last decision made
+                macrophage.lastDescision = DECISIONS.FOLLOW_PATH;
+            }
         }
     }
 }
