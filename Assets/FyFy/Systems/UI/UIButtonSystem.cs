@@ -49,6 +49,9 @@ public class UIButtonSystem : FSystem
             case "ToggleCardMenu":
                 button.onClick.AddListener(delegate { ToggleCardMenu(go); } );
                 break;
+            case "Fight":
+                button.onClick.AddListener(delegate { Figth(go); } );
+                break;
             default:
                 Debug.LogError("Function name : " + functionName + " | Unknown");
                 break;
@@ -96,4 +99,10 @@ public class UIButtonSystem : FSystem
         GameObject button = go.transform.parent.Find("ToggleButton").gameObject;
         button.transform.eulerAngles += Vector3.forward * 180;
     }
+
+    public void Figth(GameObject go)
+    {
+        GameObjectManager.loadScene(Global.data.currentLevel.ToString());
+    }
+
 }

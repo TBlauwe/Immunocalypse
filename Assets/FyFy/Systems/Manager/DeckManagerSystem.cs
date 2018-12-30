@@ -20,7 +20,7 @@ public class DeckManagerSystem : FSystem {
             return;
         }
         deckManager.Description.text = Global.data.currentLevelDescription;
-        deckManager.buttonLoadScene.onClick.AddListener(delegate { Fight(); });
+        deckManager.buttonLoadScene.onClick.AddListener(Fight);
     }
 
     // =======================================
@@ -28,6 +28,6 @@ public class DeckManagerSystem : FSystem {
     // =======================================
     private void Fight()
     {
-        GameObjectManager.loadScene(Global.data.currentLevel.ToString());
+        GameObjectManager.loadScene("InstructionsScene");
     }
 }
