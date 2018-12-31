@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
 public class Bacteria : MonoBehaviour {
-    [Range(0, 1)] public float duplicationProbability;
+    public float replicationDelay = 20;
+    public string prefabKey;
+    public GameObject target;
+    [HideInInspector] public float replicationCooldown;
 }

@@ -50,10 +50,13 @@ public class PathSystem : FSystem {
             {
                 PathFollower follower = targetGO.GetComponent<PathFollower>();
                 Node current = waypointGO.GetComponent<Node>();
-                if (follower != null && (follower.previousWaypoint == null || !follower.previousWaypoint.Equals(current)))
+                if (follower != null)
                 {
-                    ComputeNextWaypoint(targetGO, follower, current);
-                    follower.previousWaypoint = current;
+                    if (follower.previousWaypoint == null || !follower.previousWaypoint.Equals(current))
+                    {
+                        ComputeNextWaypoint(targetGO, follower, current);
+                        follower.previousWaypoint = current;
+                    }
                     MoveToward move = targetGO.GetComponent<MoveToward>();
                     move.target = follower.nextWaypoint.gameObject.transform.position;
                 }

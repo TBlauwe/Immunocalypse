@@ -42,11 +42,15 @@ public class PersistentDataSystem : FSystem {
         go.AddComponent<DontDestroyOnLoad>();
 
         YellowPageComponent yp = go.AddComponent<YellowPageComponent>();
-        yp.items = new YellowPageItem[] { null };
+        yp.items = new YellowPageItem[] { null, null };
 
         YellowPageItem item = YellowPageUtils.AddItem(yp);
         item.key = "Macrophage";
         item.sourceObject = Resources.Load<GameObject>("Prefabs/Macrophage");
+
+        item = YellowPageUtils.AddItem(yp);
+        item.key = "E.Coli";
+        item.sourceObject = Resources.Load<GameObject>("Prefabs/E.Coli");
 
         GameObjectManager.bind(go);
         Global.data = persistentData;

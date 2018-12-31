@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114886219789942038}
   - component: {fileID: 114436158696913156}
   - component: {fileID: 114523171760640324}
+  - component: {fileID: 114838695100491734}
   m_Layer: 0
   m_Name: Macrophage
   m_TagString: Untagged
@@ -181,6 +182,19 @@ MonoBehaviour:
   m_Script: {fileID: -53623643, guid: f4c0bf0d783056d4eb6275cdcee69205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114838695100491734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614449928611466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020b9cbc0aa9dd043aaf98fd09edb23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eatingMask: 1
+  eatingProbability: 0.5
 --- !u!114 &114886219789942038
 MonoBehaviour:
   m_ObjectHideFlags: 1

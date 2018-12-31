@@ -23,6 +23,9 @@ GameObject:
   - component: {fileID: 23803930905621512}
   - component: {fileID: 54929385278162202}
   - component: {fileID: 65141094622293122}
+  - component: {fileID: 114079162853137386}
+  - component: {fileID: 114478668084511882}
+  - component: {fileID: 114755123092491832}
   m_Layer: 0
   m_Name: EpiteliumIntestinal
   m_TagString: Untagged
@@ -113,3 +116,41 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.57599545, y: 1.1469985, z: 0.2901635}
   m_Center: {x: 0, y: -0.0000000013044728, z: 0.043770842}
+--- !u!114 &114079162853137386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480757893118244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1bde9d254b88445b3a8813a2e33220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  deathParticles: {fileID: 0}
+  deathSound: {fileID: 0}
+--- !u!114 &114478668084511882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480757893118244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5889ed65c426c334283791f78279afbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  infections: []
+--- !u!114 &114755123092491832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480757893118244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1215312603, guid: 073122fa615915d4dbe3252dab2199d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

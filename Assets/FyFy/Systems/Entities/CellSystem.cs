@@ -16,14 +16,14 @@ public class CellSystem : FSystem {
     // Default rate for the factory when the cell dies
     private static readonly float DEFAULT_RATE = 0.1f;
 
-    // Layer forces create by an infected cell
-    private static readonly int INFECTED_FORCE_LAYER = 4;
-
     // Eatable layer for infected cell
-    private static readonly int INFECTED_EATABLE_LAYER = 1;
+    private static readonly int INFECTED_EATABLE_LAYER = 2;
 
     // This family gather all known cells
-    private readonly Family _cells = FamilyManager.getFamily(new AllOfComponents(typeof(Cell)));
+    private readonly Family _cells = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Cell)),
+        new NoneOfComponents(typeof(Removed))
+    );
 
 	protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject entity in _cells)
@@ -35,7 +35,6 @@ public class CellSystem : FSystem {
             if (cell.state.Equals(CellState.HEALTHY) && cell.infections.Count > 0)
             {
                 cell.state = CellState.INFECTED;
-                GameObjectManager.addComponent<ForceCreator>(entity, new {forceLayerMask = INFECTED_FORCE_LAYER});
                 GameObjectManager.addComponent<Eatable>(entity, new {eatableLevel = INFECTED_EATABLE_LAYER});
             }
 
