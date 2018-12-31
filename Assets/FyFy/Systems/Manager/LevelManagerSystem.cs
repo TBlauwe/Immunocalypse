@@ -7,6 +7,16 @@ public class LevelManagerSystem : FSystem {
     // ========== MEMBERS ==========
     // =============================
     private Family singletonManager = FamilyManager.getFamily(new AllOfComponents(typeof(LevelManager)));
+    private readonly Family RemainingCells = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Cell)),
+        new NoneOfComponents(typeof(Removed))
+    );
+    private readonly Family RemainingPathogenes = FamilyManager.getFamily(
+        new AnyOfLayers(9) // pathogene layer
+    );
+    private readonly Family RemainingFactories = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Factory))
+    );
     private LevelManager manager;
     private int cachedState;
 
@@ -39,6 +49,7 @@ public class LevelManagerSystem : FSystem {
         switch (manager.state)
         {
             case 0: // Playing
+                UpdatePlayerStatus();
                 break;
             case 1: // Debrief
                 break;
@@ -92,5 +103,31 @@ public class LevelManagerSystem : FSystem {
         }
 
         GameObjectManager.loadScene("MenuPrincipalScene");
+    }
+
+    private void UpdatePlayerStatus()
+    {
+        if (RemainingCells.Count == 0)
+        {
+            manager.won = false;
+            nextState();
+        }
+        else
+        {
+            bool infectedFound = false;
+            foreach (GameObject cellGO in RemainingCells)
+            {
+                Cell cell = cellGO.GetComponent<Cell>();
+                if (!cell.state.Equals(CellState.HEALTHY))
+                {
+                    infectedFound = true;
+                }
+            }
+            if (!infectedFound && RemainingFactories.Count == 0 && RemainingPathogenes.Count == 0)
+            {
+                manager.won = true;
+                nextState();
+            }
+        }
     }
 }
