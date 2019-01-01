@@ -75,7 +75,6 @@ public class CellSystem : FSystem {
                 factory.rate = DEFAULT_RATE;
                 factory.entries = cell.infections;
                 factory.useRandomSpawning = true;
-                factory.destroyWhenFinished = true;
 
                 // Bind it to FYFY
                 GameObjectManager.bind(obj);

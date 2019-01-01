@@ -117,13 +117,6 @@ public class FactoryEditor : Editor
                 factory.useRandomSpawning = EditorGUILayout.Toggle(factory.useRandomSpawning);
             }
             EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.PrefixLabel("Destroy factory when it has finished");
-                factory.destroyWhenFinished = EditorGUILayout.Toggle(factory.destroyWhenFinished);
-            }
-            EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
     }
@@ -147,6 +140,13 @@ public class FactoryEditor : Editor
                 factory.entries[index].nb = factory.entries[index].originalNb = EditorGUILayout.IntField(
                     factory.entries[index].originalNb
                 );
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.PrefixLabel("Layer");
+                factory.entries[index].layer = EditorGUILayout.LayerField(factory.entries[index].layer);
             }
             EditorGUILayout.EndHorizontal();
             
@@ -174,6 +174,13 @@ public class FactoryEditor : Editor
                 {
                     EditorGUILayout.PrefixLabel("Remaining");
                     EditorGUILayout.IntField(factory.entries[index].nb);
+                }
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                {
+                    EditorGUILayout.PrefixLabel("Layer");
+                    factory.entries[index].layer = EditorGUILayout.LayerField(factory.entries[index].layer);
                 }
                 EditorGUILayout.EndHorizontal();
             }

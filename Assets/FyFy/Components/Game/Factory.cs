@@ -7,5 +7,4 @@ public class Factory : MonoBehaviour {
     [SerializeField] public float rate = 0.1f;
     [HideInInspector] public float remaining = 0;
     [SerializeField] public bool paused = false;
-    [SerializeField] public bool destroyWhenFinished = false;
 }

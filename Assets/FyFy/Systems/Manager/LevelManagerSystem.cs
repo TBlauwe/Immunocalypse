@@ -6,7 +6,8 @@ public class LevelManagerSystem : FSystem {
     // =============================
     // ========== MEMBERS ==========
     // =============================
-    private Family singletonManager = FamilyManager.getFamily(new AllOfComponents(typeof(LevelManager)));
+    private readonly Family singletonManager = FamilyManager.getFamily(new AllOfComponents(typeof(LevelManager)));
+
     private readonly Family RemainingCells = FamilyManager.getFamily(
         new AllOfComponents(typeof(Cell)),
         new NoneOfComponents(typeof(Removed))
@@ -84,6 +85,8 @@ public class LevelManagerSystem : FSystem {
     {
         manager.playing.SetActive(manager.state == 0);
         manager.debrief.SetActive(manager.state == 1);
+        manager.wonPanel.SetActive(manager.state == 1 && manager.won);
+        manager.lostPanel.SetActive(manager.state == 1 && !manager.won);
     }
 
     private void endPlay()
@@ -126,10 +129,9 @@ public class LevelManagerSystem : FSystem {
             {
                 Cell cell = cellGO.GetComponent<Cell>();
                 if (!cell.state.Equals(CellState.HEALTHY))
-                {
                     infectedFound = true;
-                }
             }
+
             if (!infectedFound && RemainingFactories.Count == 0 && RemainingPathogenes.Count == 0)
             {
                 manager.won = true;

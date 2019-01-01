@@ -7,6 +7,7 @@ public class FactoryEntry
     public GameObject prefab;
     public int nb;
     public int originalNb;
+    public int layer;
 
     public FactoryEntry() {}
 

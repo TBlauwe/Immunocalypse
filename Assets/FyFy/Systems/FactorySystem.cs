@@ -8,6 +8,7 @@ public class FactorySystem : FSystem
         typeof(Factory)
     ));
 
+
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
     {
@@ -18,11 +19,8 @@ public class FactorySystem : FSystem
             // Is the factory working ? Should it be destroyed ?
             if (!AtLeastOneThingToInstanciate(factory.entries))
             {
-                if (factory.destroyWhenFinished)
-                {
-                    GameObjectManager.unbind(go);
-                    Object.Destroy(go);
-                }
+                GameObjectManager.unbind(go);
+                Object.Destroy(go);
                 continue;
             }
             if (factory.paused) continue;
@@ -53,6 +51,9 @@ public class FactorySystem : FSystem
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);
             clone.SetActive(true);
+            // TODO - Resolve var reset when playing
+            //clone.layer = entry.layer;
+            clone.layer = LayerMask.NameToLayer("Pathogene");
 
             // Bind it to FYFY
             GameObjectManager.bind(clone);
