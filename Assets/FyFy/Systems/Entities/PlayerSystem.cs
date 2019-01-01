@@ -161,7 +161,7 @@ public class PlayerSystem : FSystem {
     private void CreatePlayer()
     {
         GameObject go = new GameObject("Player");
-        Player player = go.AddComponent<Player>();
+        go.AddComponent<Player>();
         go.AddComponent<DontDestroyOnLoad>();
         GameObjectManager.bind(go);
     }

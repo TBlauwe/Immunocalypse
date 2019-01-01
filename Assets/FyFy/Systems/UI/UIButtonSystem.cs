@@ -11,7 +11,6 @@ public class UIButtonSystem : FSystem
     // =============================
 
     private Family _UIClickableButtons = FamilyManager.getFamily(new AllOfComponents(typeof(UI_Button)));
-    private readonly Family _cards = FamilyManager.getFamily(new AllOfComponents(typeof(Card)));
 
     // =================================
     // ========== CONSTRUCTOR ==========
@@ -65,7 +64,7 @@ public class UIButtonSystem : FSystem
     // ========================================
     public void MenuPrincipal()
     {
-        //SceneManager.LoadScene("MainMenu");
+        /**
         if (SceneManager.GetActiveScene().name == "PierreScene" || SceneManager.GetActiveScene().name == "PrepareDeckScene")
         {
             GameObject _player = GameObject.Find("Player"); // Could be replaced with a Family searching for Player component
@@ -82,6 +81,7 @@ public class UIButtonSystem : FSystem
             // Everything must return to the global deck
             player.globalDeck.AddRange(player.levelDeck);
         }
+        **/
         GameObjectManager.loadScene("MainMenu");
     }
 

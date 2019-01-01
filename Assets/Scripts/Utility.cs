@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FYFY;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class Pair<T, E> : IEquatable<Pair<T, E>>
@@ -79,5 +81,13 @@ public static class Utility
      {
          return (a % b + b) % b;
      }
+
+    public static GameObject clone(GameObject go, GameObject parent)
+    {
+        GameObject clone = UnityEngine.Object.Instantiate(go);
+        clone.transform.SetParent(parent.transform);
+        GameObjectManager.bind(clone);
+        return clone;
+    }
 }
  

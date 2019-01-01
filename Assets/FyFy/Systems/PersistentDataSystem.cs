@@ -7,7 +7,8 @@ public class PersistentDataSystem : FSystem {
     // =============================
     // ========== MEMBERS ==========
     // =============================
-    private Family singletonPersistentData = FamilyManager.getFamily(new AllOfComponents(typeof(PersistentData)));
+    private readonly Family singletonPersistentData = FamilyManager.getFamily(new AllOfComponents(typeof(PersistentData)));
+    private readonly Family singletonPlayer = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
     private PersistentData persistentData;
 
     // ======================================
@@ -17,7 +18,6 @@ public class PersistentDataSystem : FSystem {
     {
         if(singletonPersistentData.First() == null)
             initialization();
-
     }
 
     // =======================================
@@ -54,5 +54,6 @@ public class PersistentDataSystem : FSystem {
 
         GameObjectManager.bind(go);
         Global.data = persistentData;
+        Global.player = singletonPlayer.First().GetComponent<Player>();
     }
 }

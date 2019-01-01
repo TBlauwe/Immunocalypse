@@ -23,9 +23,6 @@ public class UICardSystem : FSystem {
         new AllOfComponents(typeof(Card), typeof(PointerOver)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF)
     );
 
-    // All players (normally, only one !)
-    private readonly Family _player = FamilyManager.getFamily(new AllOfComponents(typeof(Player)));
-
     private readonly GameObject UI = GameObject.Find("DeckBuilder");
 
     public UICardSystem()
@@ -45,18 +42,12 @@ public class UICardSystem : FSystem {
             CardHolder holder = go.GetComponent<CardHolder>();
             if (holder.inGame) // Holder in a play scene
             {
-                GameObject entity = _player.First();
-                Player player = entity.GetComponent<Player>();
-
-                MoveCardsToHolder(go, player.levelDeck, true);
+                MoveCardsToHolder(go, Global.player.levelDeck, true);
             }
 
             else if (go.name == "GlobalCardHolder") // Holder in preparedeck scene
             {
-                GameObject entity = _player.First();
-                Player player = entity.GetComponent<Player>();
-
-                MoveCardsToHolder(go, player.globalDeck, false);
+                MoveCardsToHolder(go, Global.player.globalDeck, false);
             }
         }
 
@@ -144,7 +135,6 @@ public class UICardSystem : FSystem {
         {
             // Activate card and set it as an in-game card if necessary
             card.SetActive(true);
-            card.GetComponent<Card>().isInDeck = isInDeck;
 
             // Add it to the holder
             card.transform.SetParent(holder.transform);
@@ -155,15 +145,11 @@ public class UICardSystem : FSystem {
 
     private void MoveCardToGlobalDeck(GameObject card)
     {
-        // Get player
-        GameObject entity = _player.First();
-        Player player = entity.GetComponent<Player>();
-
         // Change card parent
-        card.transform.SetParent(entity.transform);
+        card.transform.SetParent(Global.player.gameObject.transform);
 
         // Change card's deck
-        player.globalDeck.Add(card);
-        player.levelDeck.Remove(card);
+        Global.player.globalDeck.Add(card);
+        Global.player.levelDeck.Remove(card);
     }
 }
