@@ -494,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 6667701a9850bb445b13409e69a395f0, type: 2}
+  profile: {fileID: 11400000, guid: 9d0b7aea2b4d5f94280b604df56a59e5, type: 2}
 --- !u!81 &1317163107
 AudioListener:
   m_ObjectHideFlags: 0
