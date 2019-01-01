@@ -113,6 +113,7 @@ public class PlayerSystem : FSystem {
     {
         if (_players.Count == 0)
         {
+            Debug.LogWarning("No Player in scene, creating one from scratch");
             CreatePlayer();
         }
 
@@ -159,23 +160,9 @@ public class PlayerSystem : FSystem {
 
     private void CreatePlayer()
     {
-        // Create the player
         GameObject go = new GameObject("Player");
         Player player = go.AddComponent<Player>();
         go.AddComponent<DontDestroyOnLoad>();
-
-        // Add some cards
-        player.globalDeck.Add(CreateMacrophageCard(go));
-        player.levelDeck.Add(CreateMacrophageCard(go));
-
         GameObjectManager.bind(go);
-    }
-
-    private GameObject CreateMacrophageCard(GameObject parent)
-    {
-        GameObject go = Resources.Load<GameObject>("Test/UI_Macrophage_Card");
-        GameObject card = Object.Instantiate(go);
-        card.transform.SetParent(parent.transform);
-        return card;
     }
 }

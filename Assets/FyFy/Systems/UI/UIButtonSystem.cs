@@ -76,7 +76,7 @@ public class UIButtonSystem : FSystem
                 // Card are no more active and in-game
                 card.transform.SetParent(_player.transform);
                 card.SetActive(false);
-                card.GetComponent<Card>().inGame = false;
+                card.GetComponent<Card>().isInDeck = false;
             }
 
             // Everything must return to the global deck

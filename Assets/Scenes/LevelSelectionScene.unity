@@ -508,7 +508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 84}
+  m_AnchoredPosition: {x: 0, y: 124}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380800187
@@ -528,7 +528,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 0.4666667, g: 0, b: 0, a: 1}
     m_HighlightedColor: {r: 0.6784314, g: 0.23137257, b: 0.16470589, a: 1}
@@ -537,9 +537,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: e95608b9b496ed44da1cba16db87919e,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 186ef2e7bb7cfe047ae59a5c81a93246, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: ba8a969eb2678fc43b1bb7e7a3b9204e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -571,8 +572,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 9f2fe460108c5cd46a02d52dc626da6f, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6182,7 +6183,8 @@ Prefab:
       propertyPath: m_Name
       value: Return
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114670701441553186, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
   m_IsPrefabAsset: 0
 --- !u!224 &1371210858 stripped
@@ -6230,7 +6232,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000017048385, y: 0}
-  m_SizeDelta: {x: -510, y: 0}
+  m_SizeDelta: {x: -1600, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1459405591
 MonoBehaviour:
@@ -7065,7 +7067,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -7531,54 +7533,13 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: PlayButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 224614957493302252, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.9999281
-      objectReference: {fileID: 0}
-    - target: {fileID: 224614957493302252, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.9999281
-      objectReference: {fileID: 0}
-    - target: {fileID: 224614957493302252, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.9999276
-      objectReference: {fileID: 0}
-    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: title
-      value: Niveau I
-      objectReference: {fileID: 0}
-    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: description
-      value: "Premi\xE8re rencontre avec un pathog\xE8ne, E.Coli"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114856209297605960, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: m_Text
-      value: Description
-      objectReference: {fileID: 0}
-    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: scene
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1995133433291538, guid: 1012e9dce80e7664396d9c2fe1fdae22, type: 2}
       propertyPath: m_Name
       value: Facile
       objectReference: {fileID: 0}
-    - target: {fileID: 114998231113804254, guid: 1012e9dce80e7664396d9c2fe1fdae22,
-        type: 2}
-      propertyPath: galleryModelReward
-      value: 2
+    - target: {fileID: 1995133433291538, guid: 1012e9dce80e7664396d9c2fe1fdae22, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1012e9dce80e7664396d9c2fe1fdae22, type: 2}
