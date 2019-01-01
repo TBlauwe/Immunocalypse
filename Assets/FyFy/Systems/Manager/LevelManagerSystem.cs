@@ -17,7 +17,9 @@ public class LevelManagerSystem : FSystem {
     private readonly Family RemainingFactories = FamilyManager.getFamily(
         new AllOfComponents(typeof(Factory))
     );
+
     private LevelManager manager;
+    private StartLoopTrigger spawner;
     private int cachedState;
 
     // ======================================
@@ -36,6 +38,10 @@ public class LevelManagerSystem : FSystem {
         manager.finishLevel.onClick.AddListener(nextState);
         refreshState();
         cachedState = manager.state;
+
+        // Setup pool
+        spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
+        spawner.deckPool = Global.player.levelDeck;
     }
 
     protected override void onProcess(int familiesUpdateCount)
@@ -54,6 +60,7 @@ public class LevelManagerSystem : FSystem {
             case 1: // Debrief
                 break;
             case 2: // Save & Go to next scene
+                Global.player.levelDeck.Clear();
                 endPlay();
                 break;
             default:

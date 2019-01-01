@@ -73,16 +73,13 @@ public class UICardSystem : FSystem {
     private void InitializeCard(GameObject go)
     {
         Card card = go.GetComponent<Card>();
-        // Initialize card if not done yet
-        if (!card.initialized)
-        {
-            TMPro.TextMeshProUGUI Text = go.transform.Find("Title").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-            Text.text = card.title;
 
-            TMPro.TextMeshProUGUI Counter = go.transform.Find("Counter").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-            Counter.text = card.counter.ToString();
-            card.initialized = true;
-        }
+        // Initialize card if not done yet
+        TMPro.TextMeshProUGUI Text = go.transform.Find("Title").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+        Text.text = card.title;
+
+        TMPro.TextMeshProUGUI Counter = go.transform.Find("Counter").gameObject.GetComponent<TMPro.TextMeshProUGUI>();
+        Counter.text = card.counter.ToString();
     }
 
     private List<GameObject> spawnGameObjectFromCard(Card card)

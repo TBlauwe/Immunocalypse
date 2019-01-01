@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour {
     public GameObject playing;          // Etape II     - Partie
     public GameObject debrief;          // Etape III    - Débrief
 
+    public GameObject bloodVessel;      // 
+
     public Button finishLevel;
 
     public int state=0;                    // Index de l'étape en cours

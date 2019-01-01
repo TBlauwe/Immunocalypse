@@ -517,7 +517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Macrophage
   counter: 1
-  entityPrefab: {fileID: 0}
+  entityPrefab: {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937,
+    type: 2}
   initialized: 0
 --- !u!114 &114651079199654142
 MonoBehaviour:

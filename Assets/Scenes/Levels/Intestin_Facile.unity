@@ -563,12 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97a3bff35e04cb49966411ab1afb1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckPool:
-  - {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937, type: 2}
-  - {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937, type: 2}
-  - {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937, type: 2}
-  - {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937, type: 2}
-  - {fileID: 1614449928611466, guid: 65c6c83abb536734483c49a635558937, type: 2}
+  deckPool: []
   randomGoPool: []
   deckRate: 1
   randomGoRate: 0
@@ -670,6 +665,7 @@ MonoBehaviour:
   isPlaying: 0
   playing: {fileID: 877899923}
   debrief: {fileID: 2138811146}
+  bloodVessel: {fileID: 252319920}
   finishLevel: {fileID: 593800147}
   state: 0
 --- !u!1001 &326070216
@@ -7692,7 +7688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &877899924
 Transform:
   m_ObjectHideFlags: 0
