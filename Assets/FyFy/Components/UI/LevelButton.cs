@@ -8,6 +8,5 @@ public class LevelButton : MonoBehaviour {
 
     public bool                     selected=false;             // Explicit
 
-    public GameObject               informationPanel;           // Ref to UI panel
     public GameObject               difficultyLevels;           // Ref to owned difficulty level GOs
 }

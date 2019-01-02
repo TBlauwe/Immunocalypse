@@ -52,7 +52,7 @@ public class UIButtonSystem : FSystem
                 button.onClick.AddListener(delegate { Figth(go); } );
                 break;
             default:
-                Debug.LogError("Function name : " + functionName + " | Unknown");
+                Debug.LogError("GameObject : " + go.name + " | Function name : " + functionName + " | Unknown");
                 break;
         }
     }
@@ -102,7 +102,7 @@ public class UIButtonSystem : FSystem
 
     public void Figth(GameObject go)
     {
-        GameObjectManager.loadScene(Global.data.currentLevel.ToString());
+        GameObjectManager.loadScene(Global.data.currentPlayScene.ToString());
     }
 
 }

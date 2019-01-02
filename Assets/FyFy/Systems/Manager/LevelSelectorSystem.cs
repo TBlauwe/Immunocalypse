@@ -25,7 +25,6 @@ public class LevelSelectorSystem : FSystem {
         {
             DifficultyLevel  difficultyLevel = go.gameObject.GetComponent<DifficultyLevel>();
             difficultyLevel.Title.text = difficultyLevel.title;
-            difficultyLevel.Descrition.text = difficultyLevel.description;
             go.GetComponent<Button>().onClick.AddListener(delegate { loadDeckBuilderScene(go); });
         }
 
@@ -40,6 +39,8 @@ public class LevelSelectorSystem : FSystem {
     // ===========================
     protected override void onProcess(int familiesUpdateCount)
     {
+        bool showGeneralDescription = true;
+
         foreach(GameObject go in _levelGO)
         {
             LevelButton levelButton = go.gameObject.GetComponent<LevelButton>();
@@ -50,22 +51,14 @@ public class LevelSelectorSystem : FSystem {
                     selectedLevel.selected = false;
                 }
                 selectedLevel = levelButton;
+                showGeneralDescription = false;
 
-                foreach(Transform child in levelButton.informationPanel.transform)
-                {
-                    if(child.gameObject.name == "Title")
-                    {
-                        TMPro.TextMeshProUGUI Title = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                        Title.text = levelButton.title;
-                    }
-                    else if(child.gameObject.name == "Description")
-                    {
-                        TMPro.TextMeshProUGUI Description = child.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                        Description.text = levelButton.description;
-                    }
-                }
+                manager.levelTitleText.text = levelButton.title;
+                manager.levelDescriptionText.text = levelButton.description;
             }
         }
+        manager.generalDescriptionPanel.SetActive(showGeneralDescription);
+        manager.levelDescriptionPanel.SetActive(!showGeneralDescription);
     }
 
     // =======================================
@@ -84,14 +77,13 @@ public class LevelSelectorSystem : FSystem {
 
     public void loadDeckBuilderScene(GameObject go)
     {
-        if (selectedLevel)
-        {
-            DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
-            Global.data.currentLevel = comp.scene;
-            Global.data.currentLevelDescription = comp.description;
-            Global.data.currentLevelGalleryModelReward = comp.galleryModelReward;
+        DifficultyLevel comp = go.gameObject.GetComponent<DifficultyLevel>();
+        Global.data.currentPlayScene = comp.playScene;
+        Global.data.currentInstructionsScene = comp.instructionsScene;
+        Global.data.currentLevelDescription = comp.description;
+        Global.data.currentLevelGalleryModelRewards = comp.galleryModelRewards;
+        Global.data.currentLevelCardRewards = comp.cardRewards;
 
-            GameObjectManager.loadScene("DeckBuilderScene");
-        }
+        GameObjectManager.loadScene("DeckBuilderScene");
     }
 }

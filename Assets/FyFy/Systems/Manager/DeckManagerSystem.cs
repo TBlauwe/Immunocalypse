@@ -51,7 +51,7 @@ public class DeckManagerSystem : FSystem {
             for (int i = 0; i < card.counter; i++)
                 Global.player.levelDeck.Add(card.entityPrefab);
         }
-        GameObjectManager.loadScene("InstructionsScene");
+        GameObjectManager.loadScene(Global.data.currentInstructionsScene.ToString());
     }
 
     private void SwitchDeck(GameObject go)

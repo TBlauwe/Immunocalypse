@@ -43,6 +43,21 @@ public class LevelManagerSystem : FSystem {
         // Setup pool
         spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
         spawner.deckPool = Global.player.levelDeck;
+
+        // Setup "unlockable" description
+        foreach (GameObject go in Global.data.currentLevelCardRewards)
+        {
+            if(go != null)
+            {
+                GameObject clone = Utility.clone(go, manager.cardsUnlockablePanel);
+                clone.transform.localScale = new Vector3(1, 1, 1);
+                clone.transform.localPosition = new Vector3(0, 0, 0);
+            }
+        }
+        foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
+        {
+            manager.galleryModelsUnlockablePanel.GetComponent<TMPro.TextMeshProUGUI>().text += "Le modèle " + model.ToString() + "\n";
+        }
     }
 
     protected override void onProcess(int familiesUpdateCount)
@@ -96,20 +111,28 @@ public class LevelManagerSystem : FSystem {
             // Level is won
             foreach(PairELevelBool level in Global.data.succeededLevels)
             {
-                if(level.a == Global.data.currentLevel)
+                if(level.a == Global.data.currentPlayScene)
                 {
                     level.b = true;
                 }
             }
 
-            foreach(PairEGalleryModelBool galleryModel in Global.data.unlockedGalleryModels)
+            foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
             {
-                if(galleryModel.a == Global.data.currentLevelGalleryModelReward)
+                foreach(PairEGalleryModelBool galleryModel in Global.data.unlockedGalleryModels)
                 {
-                    galleryModel.b = true;
+                    if (galleryModel.a == model)
+                    {
+                        galleryModel.b = true;
+                        break;
+                    }
                 }
             }
 
+            foreach (GameObject reward in Global.data.currentLevelCardRewards)
+            {
+                Global.player.globalDeck.Add(reward);
+            }
         }
 
         GameObjectManager.loadScene("MenuPrincipalScene");
