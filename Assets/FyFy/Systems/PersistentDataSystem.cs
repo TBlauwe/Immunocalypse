@@ -46,11 +46,11 @@ public class PersistentDataSystem : FSystem {
 
         YellowPageItem item = YellowPageUtils.AddItem(yp);
         item.key = "Macrophage";
-        item.sourceObject = Resources.Load<GameObject>("Prefabs/Macrophage");
+        item.sourceObject = Resources.Load<GameObject>("Prefabs/Units/Macrophage");
 
         item = YellowPageUtils.AddItem(yp);
         item.key = "E.Coli";
-        item.sourceObject = Resources.Load<GameObject>("Prefabs/E.Coli");
+        item.sourceObject = Resources.Load<GameObject>("Prefabs/Units/E.Coli");
 
         GameObjectManager.bind(go);
         Global.data = persistentData;
