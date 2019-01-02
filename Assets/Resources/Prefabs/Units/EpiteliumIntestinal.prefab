@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114079162853137386}
   - component: {fileID: 114478668084511882}
   - component: {fileID: 114755123092491832}
+  - component: {fileID: 114132492476781458}
   m_Layer: 0
   m_Name: EpiteliumIntestinal
   m_TagString: Untagged
@@ -128,8 +129,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  maxHealth: 0
   deathParticles: {fileID: 0}
   deathSound: {fileID: 0}
+--- !u!114 &114132492476781458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480757893118244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e06466d25ad014484a9bedc40308c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  percentage: 1
+  materialName: Toon_Cell
+  startingColor: {r: 0.9647059, g: 1, b: 0.654902, a: 0}
+  endingColor: {r: 0.6792453, g: 0, b: 0.52140003, a: 0}
 --- !u!114 &114478668084511882
 MonoBehaviour:
   m_ObjectHideFlags: 1
