@@ -130,8 +130,12 @@ public class MacrophageSystem : FSystem {
         {
             Macrophage macrophage = go.GetComponent<Macrophage>();
             MoveToward move = go.GetComponent<MoveToward>();
-
             Triggered3D triggered = go.GetComponent<Triggered3D>();
+
+            // Default is FOLLOW_PATH
+            macrophage.lastDescision = DECISIONS.FOLLOW_PATH;
+
+            // Is the a pathogene nearby ?
             if (triggered != null)
             {
                 Eater eater = go.GetComponent<Eater>();
@@ -153,7 +157,7 @@ public class MacrophageSystem : FSystem {
                     }
                 }
 
-                if (targetedPosition != null)
+                if (targetedPosition != null) // Found something to eat
                 {
                     // Move to it
                     move.target = targetedPosition.transform.position;
@@ -162,7 +166,7 @@ public class MacrophageSystem : FSystem {
                     macrophage.lastDescision = DECISIONS.CHASE;
                 }
             }
-            else if (macrophage.lastDescision.Equals(DECISIONS.CHASE)) // We were hunting pathogenes, now we need to recompute path
+            else if (macrophage.lastDescision.Equals(DECISIONS.FOLLOW_PATH)) // No pathogene to hunt in the area
             {
                 // Recompute destination
                 PathFollower follower = go.GetComponent<PathFollower>();
@@ -171,9 +175,6 @@ public class MacrophageSystem : FSystem {
                 // Go to closest waypoint and update destination
                 move.target = target.transform.position;
                 follower.destination = ComputeDestination(target.transform.position);
-
-                // Update last decision made
-                macrophage.lastDescision = DECISIONS.FOLLOW_PATH;
             }
         }
     }
