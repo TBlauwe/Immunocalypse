@@ -8813,6 +8813,10 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: PlayerSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: RotatorSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: RotatorSystem
+    _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

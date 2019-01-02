@@ -32,6 +32,7 @@ public class DeckManagerSystem : FSystem {
                 GameObject clone = Utility.clone(go, manager.globalDeck);
                 clone.transform.localScale = new Vector3(1, 1, 1);
                 clone.transform.localPosition = new Vector3(0, 0, 0);
+                clone.transform.localEulerAngles = new Vector3(0, 0, 0);
                 clone.GetComponent<Button>().onClick.AddListener(delegate { SwitchDeck(clone); });
             }
         }

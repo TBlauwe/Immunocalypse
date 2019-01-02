@@ -6643,7 +6643,7 @@ Prefab:
         type: 2}
       propertyPath: cardRewards.Array.data[0]
       value: 
-      objectReference: {fileID: 1724595108289448, guid: dc21eb028ab1cc34885908402e25614e,
+      objectReference: {fileID: 1034691418935936, guid: 2b206a236349a674cad1d6fa0d0c5380,
         type: 2}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
