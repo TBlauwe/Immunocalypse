@@ -36,7 +36,8 @@ public class LevelManagerSystem : FSystem {
             return;
         }
 
-        manager.finishLevel.onClick.AddListener(nextState);
+        manager.victoryFinishLevel.onClick.AddListener(nextState);
+        manager.defeatFinishLevel.onClick.AddListener(nextState);
         refreshState();
         cachedState = manager.state;
 
@@ -56,7 +57,7 @@ public class LevelManagerSystem : FSystem {
         }
         foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
         {
-            manager.galleryModelsUnlockablePanel.GetComponent<TMPro.TextMeshProUGUI>().text += "Le modèle " + model.ToString() + "\n";
+            manager.galleryModelsUnlockableText.text += "Le modèle " + model.ToString() + "\n";
         }
     }
 
@@ -135,7 +136,7 @@ public class LevelManagerSystem : FSystem {
             }
         }
 
-        GameObjectManager.loadScene("MenuPrincipalScene");
+        GameObjectManager.loadScene("MainMenu");
     }
 
     private void UpdatePlayerStatus()

@@ -795,6 +795,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: PersistentDataSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: UICardSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: UICardSystem
+    _pause: 0
   _forceUpdateInspector: 0
   _loadingState: 0
   _specialGameObjects:
