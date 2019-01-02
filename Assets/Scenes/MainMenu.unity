@@ -4935,6 +4935,11 @@ Prefab:
       propertyPath: m_Name
       value: Play
       objectReference: {fileID: 0}
+    - target: {fileID: 114222418542138876, guid: e2288f4440387a3428047955bbcf19b0,
+        type: 2}
+      propertyPath: m_Text
+      value: Jouer
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114670701441553186, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: e2288f4440387a3428047955bbcf19b0, type: 2}
@@ -5213,7 +5218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalDeck:
-  - {fileID: 1724595108289448, guid: 12bebf9b32252bd48832ea9ffc507ac4, type: 2}
+  - {fileID: 1034691418935936, guid: 12bebf9b32252bd48832ea9ffc507ac4, type: 2}
   levelDeck: []
 --- !u!4 &440410020
 Transform:
@@ -5955,7 +5960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1353547920}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -11,9 +11,13 @@ public class LevelManager : MonoBehaviour {
     public GameObject wonPanel;         // 
     public GameObject lostPanel;        // 
 
+    public GameObject cardsUnlockablePanel;       
+    public Text galleryModelsUnlockableText;       
+
     public GameObject bloodVessel;      // 
 
-    public Button finishLevel;
+    public Button defeatFinishLevel;
+    public Button victoryFinishLevel;
 
     public int state=0;                    // Index de l'étape en cours
 }

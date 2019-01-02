@@ -8,8 +8,10 @@ public class PersistentData : MonoBehaviour {
     public List<PairEGalleryModelBool> unlockedGalleryModels = new List<PairEGalleryModelBool>(); // Unlock those models in the gallery
 
     // ========== LEVEL ==========
-    public ELevel currentLevel;
-    public EGalleryModel currentLevelGalleryModelReward;
+    public ELevel currentPlayScene;
+    public EInstructions currentInstructionsScene;
+    public List<EGalleryModel> currentLevelGalleryModelRewards;
+    public List<GameObject> currentLevelCardRewards;
     public string currentLevelDescription;
 
     // ========== STATISTICS ==========
