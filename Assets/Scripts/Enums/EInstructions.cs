@@ -1,4 +1,4 @@
 ﻿public enum EInstructions {
     None,
-    Basic_Gameplay_Instructions  
+    Basic_Gameplay_Instructions
 }
