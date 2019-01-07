@@ -18,6 +18,40 @@ public class PathSystem : FSystem {
 
     private readonly Dictionary<GameObject, Path> followersPath = new Dictionary<GameObject, Path>();
 
+    public static Node ComputeDestination(Vector3 start, IEnumerable<GameObject> endNodes)
+    {
+        Node selected = null;
+        float currentDistance = float.MaxValue;
+        foreach (GameObject go in endNodes)
+        {
+            float distance = Vector3.Distance(start, go.transform.position);
+            if (distance < currentDistance)
+            {
+                selected = go.GetComponent<Node>();
+                currentDistance = distance;
+            }
+        }
+        return selected;
+    }
+
+    public static GameObject GetClosestWaypoint(GameObject src, IEnumerable<GameObject> nodes)
+    {
+        GameObject closest = null;
+        float minDistance = float.MaxValue;
+
+        foreach (GameObject nodeGO in nodes)
+        {
+            float distance = Vector3.Distance(src.transform.position, nodeGO.transform.position);
+            if (distance < minDistance)
+            {
+                closest = nodeGO;
+                minDistance = distance;
+            }
+        }
+
+        return closest;
+    }
+
     public PathSystem() : base()
     {
         foreach (GameObject nodeGO in _waypoints)
@@ -29,17 +63,6 @@ public class PathSystem : FSystem {
         }
         // Maybe add a listener on the family ?
     }
-
-
-	// Use this to update member variables when system pause. 
-	// Advice: avoid to update your families inside this function.
-	protected override void onPause(int currentFrame) {
-	}
-
-	// Use this to update member variables when system resume.
-	// Advice: avoid to update your families inside this function.
-	protected override void onResume(int currentFrame){
-	}
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {

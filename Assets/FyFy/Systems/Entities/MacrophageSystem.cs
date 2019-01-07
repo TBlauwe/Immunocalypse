@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using FYFY;
-using FYFY_plugins.PointerManager;
 using FYFY_plugins.TriggerManager;
 
 public class MacrophageSystem : FSystem {
@@ -19,84 +18,14 @@ public class MacrophageSystem : FSystem {
         new AllOfComponents(typeof(EndNode))
     );
 
-    private readonly Family _ToRepop = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Macrophage)),
-        new NoneOfComponents(typeof(PathFollower)),
-        new AnyOfLayers(11)
-    );
-
-    private readonly Family _StartTrigger = FamilyManager.getFamily(
-        new AllOfComponents(typeof(StartLoopTrigger))
-    );
-
     private readonly Family _Active = FamilyManager.getFamily(
         new AllOfComponents(typeof(Macrophage), typeof(PathFollower)),
         new AnyOfLayers(11) // Immuno layer
     );
 
-    private readonly Family _YellowPages = FamilyManager.getFamily(
-        new AllOfComponents(typeof(YellowPageComponent))
-    );
-
-	// Use this to update member variables when system pause. 
-	// Advice: avoid to update your families inside this function.
-	protected override void onPause(int currentFrame) {
-	}
-
-	// Use this to update member variables when system resume.
-	// Advice: avoid to update your families inside this function.
-	protected override void onResume(int currentFrame){
-	}
-
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        ProcessUseless();
         MakeDecision();
-    }
-
-    private GameObject GetClosestWaypoint(GameObject src)
-    {
-        GameObject closest = null;
-        float minDistance = float.MaxValue;
-
-        foreach (GameObject nodeGO in _Waypoints)
-        {
-            float distance = Vector3.Distance(src.transform.position, nodeGO.transform.position);
-            if (distance < minDistance)
-            {
-                closest = nodeGO;
-                minDistance = distance;
-            }
-        }
-
-        return closest;
-    }
-
-    private Node ComputeDestination(Vector3 start)
-    {
-        Node selected = null;
-        float currentDistance = float.MaxValue;
-        foreach (GameObject go in _EndWaypoints)
-        {
-            float distance = Vector3.Distance(start, go.transform.position);
-            if (distance < currentDistance)
-            {
-                selected = go.GetComponent<Node>();
-                currentDistance = distance;
-            }
-        }
-        return selected;
-    }
-
-    private void ProcessUseless()
-    {
-        StartLoopTrigger start = _StartTrigger.First().GetComponent<StartLoopTrigger>();
-        foreach (GameObject go in _ToRepop)
-        {
-            GameObjectManager.addComponent<Removed>(go);
-            YellowPageComponent yp = _YellowPages.First().GetComponent<YellowPageComponent>();
-            start.deckPool.Add(YellowPageUtils.GetSourceObject(yp, "Macrophage"));
-        }
     }
 
     private void MakeDecision()
@@ -145,11 +74,11 @@ public class MacrophageSystem : FSystem {
             {
                 // Recompute destination
                 PathFollower follower = go.GetComponent<PathFollower>();
-                GameObject target = GetClosestWaypoint(go);
+                GameObject target = PathSystem.GetClosestWaypoint(go, _Waypoints);
 
                 // Go to closest waypoint and update destination
                 move.target = target.transform.position;
-                follower.destination = ComputeDestination(target.transform.position);
+                follower.destination = PathSystem.ComputeDestination(target.transform.position, _EndWaypoints);
             }
         }
     }

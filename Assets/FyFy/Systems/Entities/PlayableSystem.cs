@@ -4,7 +4,7 @@ using FYFY_plugins.PointerManager;
 
 public class PlayableSystem : FSystem {
     private readonly Family _InVesselPointerOver = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Playable), typeof(PointerOver)),
+        new AllOfComponents(typeof(Playable), typeof(PointerOver), typeof(Origin)),
         new NoneOfLayers(11) // Immuno layer
     );
 
@@ -16,11 +16,27 @@ public class PlayableSystem : FSystem {
         new AllOfComponents(typeof(Node))
     );
 
+    private readonly Family _ToRepop = FamilyManager.getFamily(
+       new AllOfComponents(typeof(Macrophage)),
+       new NoneOfComponents(typeof(PathFollower)),
+       new AnyOfLayers(11)
+   );
+
+    private readonly Family _StartTrigger = FamilyManager.getFamily(
+        new AllOfComponents(typeof(StartLoopTrigger))
+    );
+
+
+    private readonly Family _YellowPages = FamilyManager.getFamily(
+        new AllOfComponents(typeof(YellowPageComponent))
+    );
+
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
         foreach (GameObject go in _InVesselPointerOver)
         {
             ProcessInVesselPointerOver();
+            ProcessUseless();
         }
 	}
 
@@ -45,11 +61,11 @@ public class PlayableSystem : FSystem {
                         }
                     }
                 }
-                GameObject target = GetClosestWaypoint(go);
+                GameObject target = PathSystem.GetClosestWaypoint(go, _Waypoints);
 
                 GameObjectManager.addComponent(go, typeof(PathFollower), new
                 {
-                    destination = ComputeDestination(target.transform.position)
+                    destination = PathSystem.ComputeDestination(target.transform.position, _EndWaypoints)
                 });  // Compute destination (the closest one from start waypoint)
 
                 move.target = target.transform.position; // Move cell to closest waypoint
@@ -57,37 +73,16 @@ public class PlayableSystem : FSystem {
         }
     }
 
-    private Node ComputeDestination(Vector3 start)
+    private void ProcessUseless()
     {
-        Node selected = null;
-        float currentDistance = float.MaxValue;
-        foreach (GameObject go in _EndWaypoints)
+        StartLoopTrigger start = _StartTrigger.First().GetComponent<StartLoopTrigger>();
+        foreach (GameObject go in _ToRepop)
         {
-            float distance = Vector3.Distance(start, go.transform.position);
-            if (distance < currentDistance)
-            {
-                selected = go.GetComponent<Node>();
-                currentDistance = distance;
-            }
+            GameObjectManager.addComponent<Removed>(go);
+
+            Origin origin = go.GetComponent<Origin>();
+            YellowPageComponent yp = _YellowPages.First().GetComponent<YellowPageComponent>();
+            start.deckPool.Add(YellowPageUtils.GetSourceObject(yp, origin.sourceObjectKey));
         }
-        return selected;
-    }
-
-    private GameObject GetClosestWaypoint(GameObject src)
-    {
-        GameObject closest = null;
-        float minDistance = float.MaxValue;
-
-        foreach (GameObject nodeGO in _Waypoints)
-        {
-            float distance = Vector3.Distance(src.transform.position, nodeGO.transform.position);
-            if (distance < minDistance)
-            {
-                closest = nodeGO;
-                minDistance = distance;
-            }
-        }
-
-        return closest;
     }
 }

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114523171760640324}
   - component: {fileID: 114838695100491734}
   - component: {fileID: 114403354521157480}
+  - component: {fileID: 114251680159649264}
   m_Layer: 0
   m_Name: Macrophage
   m_TagString: Untagged
@@ -150,6 +151,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.84104645, y: 0.9953213, z: 0.39041585}
   m_Center: {x: -0.0015737563, y: 0.00000008940695, z: 0}
+--- !u!114 &114251680159649264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614449928611466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceObjectKey: Macrophage
 --- !u!114 &114403354521157480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85d083b68dcbc14fb6d8355afaf1a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackedEntity: 0
 --- !u!114 &114436158696913156
 MonoBehaviour:
   m_ObjectHideFlags: 1
