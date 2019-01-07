@@ -43,6 +43,14 @@ public class PairEGalleryModelBool : Pair<EGalleryModel, bool>
     }
 }
 
+[Serializable]
+public class PairEStatTrackedEntityInt : Pair<EStatTrackedEntity, int>
+{
+    public PairEStatTrackedEntityInt(EStatTrackedEntity a, int b) : base(a, b)
+    {
+    }
+}
+
 // https://forum.unity.com/threads/clever-way-to-shuffle-a-list-t-in-one-line-of-c-code.241052/#post-1596795
 public static class IListExtensions {
     /// <summary>

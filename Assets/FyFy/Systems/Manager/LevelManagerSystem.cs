@@ -41,6 +41,9 @@ public class LevelManagerSystem : FSystem {
         refreshState();
         cachedState = manager.state;
 
+        // Reset statistics
+        Global.data.trackedEntities.Clear();
+
         // Setup pool
         spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
         spawner.deckPool = Global.player.levelDeck;

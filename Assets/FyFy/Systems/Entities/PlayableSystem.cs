@@ -32,6 +32,11 @@ public class PlayableSystem : FSystem {
             {
                 GameObjectManager.setGameObjectLayer(go, 11); // Now macrophage is considered as an immunity cell
                 MoveToward move = go.GetComponent<MoveToward>();
+                Playable playable = go.GetComponent<Playable>();
+                if (playable)
+                {
+                    //Global.data.trackedEntities.
+                }
                 GameObject target = GetClosestWaypoint(go);
 
                 GameObjectManager.addComponent(go, typeof(PathFollower), new
