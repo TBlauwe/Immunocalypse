@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using FYFY;
 using System.Collections.Generic;
+using System;
 
 public class LevelManagerSystem : FSystem {
     // =============================
@@ -43,6 +44,10 @@ public class LevelManagerSystem : FSystem {
 
         // Reset statistics
         Global.data.trackedEntities.Clear();
+        foreach(EStatTrackedEntity trackedEntity in Enum.GetValues(typeof(EStatTrackedEntity)))
+        {
+            Global.data.trackedEntities.Add(new PairEStatTrackedEntityInt(trackedEntity, 0));
+        }
 
         // Setup pool
         spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
