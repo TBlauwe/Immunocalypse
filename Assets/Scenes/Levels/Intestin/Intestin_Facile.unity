@@ -8821,6 +8821,10 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: RotatorSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: DynamicMaterialSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DynamicMaterialSystem
+    _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

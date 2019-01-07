@@ -9,7 +9,10 @@ public class DynamicMaterialSystem : FSystem {
     {
         foreach(GameObject go in _dynGO)
         {
+            WithHealth healthComp = go.GetComponent<WithHealth>();
+            healthComp.maxHealth = healthComp.health;
             DynamicMaterial dynMat = go.GetComponent<DynamicMaterial>();
+            dynMat.percentage = healthComp.health / healthComp.maxHealth;
             foreach(Material mat in go.GetComponent<Renderer>().materials)
             {
                 if (mat.name.Contains(dynMat.materialName) || go.GetComponent<Renderer>().materials.Length == 1)
@@ -34,12 +37,14 @@ public class DynamicMaterialSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
         foreach(GameObject go in _dynGO)
         {
+            WithHealth healthComp = go.GetComponent<WithHealth>();
             DynamicMaterial dynMat = go.GetComponent<DynamicMaterial>();
+            dynMat.percentage = healthComp.health / healthComp.maxHealth;
             foreach(Material mat in go.GetComponent<Renderer>().materials)
             {
                 if (mat.name.Contains(dynMat.materialName) || go.GetComponent<Renderer>().materials.Length == 1)
                 {
-                    mat.color = Color.Lerp(dynMat.startingColor, dynMat.endingColor, Mathf.PingPong(Time.time, 1));
+                    mat.color = Color.Lerp(dynMat.endingColor, dynMat.startingColor, dynMat.percentage);
                 }
             }
         }

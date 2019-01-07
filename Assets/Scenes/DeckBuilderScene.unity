@@ -377,7 +377,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 802676660}
   m_HandleRect: {fileID: 802676659}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -701,7 +701,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Unit\xE9es disponibles"
+  m_Text: "Unit\xE9s disponibles"
 --- !u!222 &607742494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1253,7 +1253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00015268325, y: 0}
+  m_AnchoredPosition: {x: 0.000058028087, y: 0}
   m_SizeDelta: {x: -1036.8, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &783660873
@@ -1495,7 +1495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00005408003, y: 0}
+  m_AnchoredPosition: {x: 0.00008306548, y: 0}
   m_SizeDelta: {x: -1036.8, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &907324866
@@ -8283,7 +8283,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.9999995, y: 1}
+  m_AnchorMax: {x: 0.99999976, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
