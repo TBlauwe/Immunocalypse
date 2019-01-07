@@ -59,6 +59,7 @@ public class LevelSelectorSystem : FSystem {
         }
         manager.generalDescriptionPanel.SetActive(showGeneralDescription);
         manager.levelDescriptionPanel.SetActive(!showGeneralDescription);
+        manager.buttonNextMenu.GetComponent<Button>().interactable = !showGeneralDescription;
     }
 
     // =======================================
