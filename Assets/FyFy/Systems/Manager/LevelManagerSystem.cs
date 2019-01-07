@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using FYFY;
 using System.Collections.Generic;
 using System;
@@ -24,6 +25,8 @@ public class LevelManagerSystem : FSystem {
     private StartLoopTrigger spawner;
     private int cachedState;
 
+    private bool computeDebriefInformations = false;
+
     // ======================================
     // ========== PUBLIC FUNCTIONS ==========
     // ======================================
@@ -37,36 +40,14 @@ public class LevelManagerSystem : FSystem {
             return;
         }
 
-        manager.victoryFinishLevel.onClick.AddListener(nextState);
-        manager.defeatFinishLevel.onClick.AddListener(nextState);
+        manager.nextLevel.onClick.AddListener(nextState);
         refreshState();
         cachedState = manager.state;
-
-        // Reset statistics
-        Global.data.trackedEntities.Clear();
-        foreach(EStatTrackedEntity trackedEntity in Enum.GetValues(typeof(EStatTrackedEntity)))
-        {
-            Global.data.trackedEntities.Add(new PairEStatTrackedEntityInt(trackedEntity, 0));
-        }
 
         // Setup pool
         spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
         spawner.deckPool = Global.player.levelDeck;
 
-        // Setup "unlockable" description
-        foreach (GameObject go in Global.data.currentLevelCardRewards)
-        {
-            if(go != null)
-            {
-                GameObject clone = Utility.clone(go, manager.cardsUnlockablePanel);
-                clone.transform.localScale = new Vector3(1, 1, 1);
-                clone.transform.localPosition = new Vector3(0, 0, 0);
-            }
-        }
-        foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
-        {
-            manager.galleryModelsUnlockableText.text += "Le modèle " + model.ToString() + "\n";
-        }
     }
 
     protected override void onProcess(int familiesUpdateCount)
@@ -82,12 +63,25 @@ public class LevelManagerSystem : FSystem {
             case 0: // Playing
                 UpdatePlayerStatus();
                 break;
+
             case 1: // Debrief
+                if (!computeDebriefInformations)
+                    computeDebrief();
                 break;
+
             case 2: // Save & Go to next scene
                 Global.player.levelDeck.Clear();
+
+                // Reset statistics
+                Global.data.trackedEntities.Clear();
+                foreach(EStatTrackedEntity trackedEntity in Enum.GetValues(typeof(EStatTrackedEntity)))
+                {
+                    Global.data.trackedEntities.Add(new PairEStatTrackedEntityInt(trackedEntity, 0));
+                }
+
                 endPlay();
                 break;
+
             default:
                 Debug.LogError("Unknown GameState");
                 break;
@@ -98,6 +92,114 @@ public class LevelManagerSystem : FSystem {
     // =======================================
     // ========== PRIVATE FUNCTIONS ==========
     // =======================================
+    private void computeDebrief()
+    {
+        computeDebriefInformations = true;
+        int note = 0;
+
+        // DETAILS
+        if (manager.won)
+        {
+            manager.details.text = Global.data.currentLevelWinDescription;
+        }
+        else
+        {
+            manager.details.text = Global.data.currentLevelLostDescription;
+        }
+
+        // UNLOCKABLES
+        foreach (GameObject go in Global.data.currentLevelCardRewards)
+        {
+            if(go != null)
+            {
+                GameObject clone = Utility.clone(go, manager.cardsUnlockableScrollView);
+                clone.transform.localScale = new Vector3(1, 1, 1);
+                clone.transform.localPosition = new Vector3(0, 0, 0);
+                clone.transform.localEulerAngles = new Vector3(0, 0, 0);
+                clone.GetComponent<Button>().interactable = manager.won;
+            }
+        }
+
+        foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
+        {
+            GameObject go = Utility.clone(manager.Text_ContentSizeFitter_Prefab, manager.galleryModelsUnlockableScrollView);
+            go.transform.localScale = new Vector3(1, 1, 1);
+            go.transform.localPosition = new Vector3(0, 0, 0);
+            go.transform.localEulerAngles = new Vector3(0, 0, 0);
+            go.GetComponent<Text>().text = "Modèle " + model.ToString();
+            go.GetComponent<Text>().color = (manager.won) ? Color.green : Color.red;
+        }
+
+        // ========== STATISTICS ==========
+        foreach (PairEStatTrackedEntityInt targetStat in Global.data.targetStats)
+        {
+            manager.totalNote++;
+            // I. First, add all expexted stat from the level
+            GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
+            go.transform.localScale = new Vector3(1, 1, 1);
+            go.transform.localPosition = new Vector3(0, 0, 0);
+            go.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+            UI_Stat stat = go.GetComponent<UI_Stat>();
+            int target = targetStat.b;
+            int actual = 0;
+
+            for(int i = 0; i < Global.data.trackedEntities.Count; i++)
+            {
+                PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
+                if(actualStat.a == targetStat.a)
+                {
+                    actual = actualStat.b;
+                    Global.data.trackedEntities.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // Set stat's text
+            stat.nameText = targetStat.a.ToString();
+            stat.targetText = target.ToString();
+            stat.actualText = actual.ToString();
+
+            // Set stat's color
+            if(actual < target)
+            {
+                note -= 2;
+                stat.Actual.color = Color.blue;
+            }else if(actual == target)
+            {
+                note -= 1;
+                stat.Actual.color = Color.green;
+            }
+            else
+            {
+                note++;
+                stat.Actual.color = Color.red;
+            }
+        }
+
+        // II. Second, add all unexpected stat 
+        for(int i = 0; i < Global.data.trackedEntities.Count; i++)
+        {
+            GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
+            go.transform.localScale = new Vector3(1, 1, 1);
+            go.transform.localPosition = new Vector3(0, 0, 0);
+            go.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+            PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
+            UI_Stat stat = go.GetComponent<UI_Stat>();
+
+            stat.nameText = actualStat.a.ToString();
+            stat.targetText = 0.ToString();
+            stat.actualText = actualStat.b.ToString();
+            stat.Actual.color = Color.green;
+
+            note += 2;
+        }
+        manager.note = Mathf.Clamp(note, 0, manager.totalNote);
+
+        manager.noteText.text = manager.note.ToString() + " / " + manager.totalNote.ToString();
+    }
+
     private void nextState()
     {
         manager.state++;
@@ -109,8 +211,6 @@ public class LevelManagerSystem : FSystem {
     {
         manager.playing.SetActive(manager.state == 0);
         manager.debrief.SetActive(manager.state == 1);
-        manager.wonPanel.SetActive(manager.state == 1 && manager.won);
-        manager.lostPanel.SetActive(manager.state == 1 && !manager.won);
     }
 
     private void endPlay()
