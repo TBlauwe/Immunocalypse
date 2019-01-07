@@ -8797,6 +8797,14 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: EatingSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: BCellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: BCellSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: FreezeSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: FreezeSystem
+    _pause: 0
   - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: BacteriaSystem
