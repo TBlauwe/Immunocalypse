@@ -36,8 +36,7 @@ public class MacrophageSystem : FSystem {
             MoveToward move = go.GetComponent<MoveToward>();
             Triggered3D triggered = go.GetComponent<Triggered3D>();
 
-            // Default is FOLLOW_PATH
-            macrophage.lastDescision = DECISIONS.FOLLOW_PATH;
+            bool shouldRecompute = false;
 
             // Is the a pathogene nearby ?
             if (triggered != null)
@@ -68,18 +67,32 @@ public class MacrophageSystem : FSystem {
 
                     // Update last decision made
                     macrophage.lastDescision = DECISIONS.CHASE;
+
+                    continue;
+                }
+
+                if (macrophage.lastDescision.Equals(DECISIONS.CHASE))
+                {
+                    shouldRecompute = true;
                 }
             }
-            else if (macrophage.lastDescision.Equals(DECISIONS.FOLLOW_PATH)) // No pathogene to hunt in the area
-            {
-                // Recompute destination
-                PathFollower follower = go.GetComponent<PathFollower>();
-                GameObject target = PathSystem.GetClosestWaypoint(go, _Waypoints);
 
-                // Go to closest waypoint and update destination
-                move.target = target.transform.position;
-                follower.destination = PathSystem.ComputeDestination(target.transform.position, _EndWaypoints);
+            
+
+            if (macrophage.lastDescision.Equals(DECISIONS.CHASE) || shouldRecompute) // No pathogene to hunt in the area
+            {
+                // Recompute closest Waypoint
+                GameObject _target = PathSystem.GetClosestWaypoint(go, _Waypoints);
+                PathFollower follower = go.GetComponent<PathFollower>();
+
+                // Update destination
+                follower.destination = PathSystem.ComputeDestination(_target.transform.position, _EndWaypoints);
+                move.target = _target.transform.position;
+
+                // Update decision
+                macrophage.lastDescision = DECISIONS.FOLLOW_PATH;
             }
+            
         }
     }
 }

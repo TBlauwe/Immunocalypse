@@ -73,8 +73,16 @@ public class PathSystem : FSystem {
             {
                 PathFollower follower = targetGO.GetComponent<PathFollower>();
                 Node current = waypointGO.GetComponent<Node>();
+
                 if (follower != null)
                 {
+                    if (current.Equals(follower.destination))
+                    {
+                        GameObjectManager.removeComponent(follower);
+                        followersPath.Remove(targetGO);
+                        continue;
+                    }
+
                     if (follower.previousWaypoint == null || !follower.previousWaypoint.Equals(current))
                     {
                         ComputeNextWaypoint(targetGO, follower, current);
@@ -89,20 +97,25 @@ public class PathSystem : FSystem {
 
     private void ComputeNextWaypoint(GameObject go, PathFollower follower, Node node)
     {
-        if (!followersPath.ContainsKey(go))
+        Path path = null;
+        if (!followersPath.TryGetValue(go, out path) || path.nodes.Count == 0 || path.nodes[path.nodes.Count - 1].Equals(node))
         {
-            ComputePathTo(go, node, follower.destination);
+            if (path != null)
+            {
+                followersPath.Remove(go);
+            }
+            ComputePathTo(go, node, follower.destination); // Compute pathh to destination
         }
-        Path path;
         followersPath.TryGetValue(go, out path);
+    
 
-        if (path.nodes.Count == 0)
+        /*if (path.nodes.Count == 0 || follower.destination.Equals(follower.previousWaypoint))
         {
             // No more destination
             GameObjectManager.removeComponent(follower);
             followersPath.Remove(go);
-        }
-        else
+        }*/
+        //else
         {
             // Set next waypoint and face it
             follower.nextWaypoint = path.nodes[0];
