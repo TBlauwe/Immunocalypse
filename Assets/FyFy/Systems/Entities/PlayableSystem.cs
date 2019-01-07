@@ -52,6 +52,14 @@ public class PlayableSystem : FSystem {
                 if (playable)
                 {
                     //Global.data.trackedEntities.
+                    foreach(PairEStatTrackedEntityInt trackedEntity in Global.data.trackedEntities)
+                    {
+                        if (trackedEntity.a == playable.trackedEntity)
+                        {
+                            trackedEntity.b++;
+                            break;
+                        }
+                    }
                 }
                 GameObject target = PathSystem.GetClosestWaypoint(go, _Waypoints);
 

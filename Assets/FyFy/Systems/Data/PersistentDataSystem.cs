@@ -39,6 +39,11 @@ public class PersistentDataSystem : FSystem {
             persistentData.unlockedGalleryModels.Add(new PairEGalleryModelBool(galleryModel, false));
         }
 
+        foreach(EStatTrackedEntity trackedEntity in Enum.GetValues(typeof(EStatTrackedEntity)))
+        {
+            persistentData.trackedEntities.Add(new PairEStatTrackedEntityInt(trackedEntity, 0));
+        }
+
         go.AddComponent<DontDestroyOnLoad>();
 
         YellowPageComponent yp = go.AddComponent<YellowPageComponent>();
