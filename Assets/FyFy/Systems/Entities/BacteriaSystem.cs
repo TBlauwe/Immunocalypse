@@ -8,7 +8,7 @@ public class BacteriaSystem : FSystem
     // All active bacterias in the game
     private readonly Family _Active = FamilyManager.getFamily(
         new AllOfComponents(typeof(Bacteria)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
-        new NoneOfComponents(typeof(Removed))
+        new NoneOfComponents(typeof(Removed), typeof(Frozen))
     );
 
     private readonly Family _YellowPages = FamilyManager.getFamily(
