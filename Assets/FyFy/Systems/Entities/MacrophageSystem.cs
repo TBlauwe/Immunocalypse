@@ -11,11 +11,6 @@ public class MacrophageSystem : FSystem {
         FOLLOW_PATH
     }
 
-    private readonly Family _InVesselPointerOver = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Macrophage), typeof(PointerOver)),
-        new NoneOfLayers(11) // Immuno layer
-    );
-
     private readonly Family _Waypoints = FamilyManager.getFamily(
         new AllOfComponents(typeof(Node))
     );
@@ -55,28 +50,8 @@ public class MacrophageSystem : FSystem {
 
 	// Use to process your families.
 	protected override void onProcess(int familiesUpdateCount) {
-        ProcessInVesselPointerOver();
         ProcessUseless();
         MakeDecision();
-    }
-
-    private void ProcessInVesselPointerOver()
-    {
-        foreach (GameObject go in _InVesselPointerOver)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                GameObjectManager.setGameObjectLayer(go, 11); // Now macrophage is considered as an immunity cell
-                MoveToward move = go.GetComponent<MoveToward>();
-                GameObject target = GetClosestWaypoint(go);
-
-                GameObjectManager.addComponent(go, typeof(PathFollower), new {
-                    destination = ComputeDestination(target.transform.position)
-                });  // Compute destination (the closest one from start waypoint)
-
-                move.target = target.transform.position; // Move cell to closest waypoint
-            }
-        }
     }
 
     private GameObject GetClosestWaypoint(GameObject src)
