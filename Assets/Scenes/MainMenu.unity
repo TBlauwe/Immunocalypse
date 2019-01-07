@@ -5219,6 +5219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalDeck:
   - {fileID: 1034691418935936, guid: 12bebf9b32252bd48832ea9ffc507ac4, type: 2}
+  - {fileID: 1741622234821502, guid: a29d1ec26ed2ef8438a90c5e8a0d0bce, type: 2}
   levelDeck: []
 --- !u!4 &440410020
 Transform:
