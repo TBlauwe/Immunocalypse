@@ -82,8 +82,11 @@ public class LevelSelectorSystem : FSystem {
         Global.data.currentPlayScene = comp.playScene;
         Global.data.currentInstructionsScene = comp.instructionsScene;
         Global.data.currentLevelDescription = comp.description;
+        Global.data.currentLevelWinDescription = comp.wonDescription;
+        Global.data.currentLevelLostDescription = comp.lostDescription;
         Global.data.currentLevelGalleryModelRewards = comp.galleryModelRewards;
         Global.data.currentLevelCardRewards = comp.cardRewards;
+        Global.data.trackedEntities = comp.goodStats;
 
         GameObjectManager.loadScene("DeckBuilderScene");
     }

@@ -13,6 +13,8 @@ public class PersistentData : MonoBehaviour {
     public List<EGalleryModel> currentLevelGalleryModelRewards;
     public List<GameObject> currentLevelCardRewards;
     public string currentLevelDescription;
+    public string currentLevelLostDescription;
+    public string currentLevelWinDescription;
 
     // ========== STATISTICS ==========
     // - Reset for each new level
