@@ -95,6 +95,7 @@ public class LevelManagerSystem : FSystem {
     private void computeDebrief()
     {
         computeDebriefInformations = true;
+        int note = 0;
 
         // DETAILS
         if (manager.won)
@@ -129,20 +130,74 @@ public class LevelManagerSystem : FSystem {
             go.GetComponent<Text>().color = (manager.won) ? Color.green : Color.red;
         }
 
-        foreach (PairEStatTrackedEntityInt goodStat in Global.data.trackedEntities)
+        // ========== STATISTICS ==========
+        foreach (PairEStatTrackedEntityInt targetStat in Global.data.targetStats)
+        {
+            manager.totalNote++;
+            // I. First, add all expexted stat from the level
+            GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
+            go.transform.localScale = new Vector3(1, 1, 1);
+            go.transform.localPosition = new Vector3(0, 0, 0);
+            go.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+            UI_Stat stat = go.GetComponent<UI_Stat>();
+            int target = targetStat.b;
+            int actual = 0;
+
+            for(int i = 0; i < Global.data.trackedEntities.Count; i++)
+            {
+                PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
+                if(actualStat.a == targetStat.a)
+                {
+                    actual = actualStat.b;
+                    Global.data.trackedEntities.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // Set stat's text
+            stat.nameText = targetStat.a.ToString();
+            stat.targetText = target.ToString();
+            stat.actualText = actual.ToString();
+
+            // Set stat's color
+            if(actual < target)
+            {
+                note -= 2;
+                stat.Actual.color = Color.blue;
+            }else if(actual == target)
+            {
+                note -= 1;
+                stat.Actual.color = Color.green;
+            }
+            else
+            {
+                note++;
+                stat.Actual.color = Color.red;
+            }
+        }
+
+        // II. Second, add all unexpected stat 
+        for(int i = 0; i < Global.data.trackedEntities.Count; i++)
         {
             GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
             go.transform.localScale = new Vector3(1, 1, 1);
             go.transform.localPosition = new Vector3(0, 0, 0);
             go.transform.localEulerAngles = new Vector3(0, 0, 0);
-            UI_Stat stat = go.GetComponent<UI_Stat>();
-            stat.nameText = goodStat.a.ToString();
-            stat.actualText = (0).ToString();
-            stat.targetText = goodStat.b.ToString();
-            // TODO -  Get actual stat and compare with target
-        }
 
-        manager.note.text = "X" + " / " + "Y";
+            PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
+            UI_Stat stat = go.GetComponent<UI_Stat>();
+
+            stat.nameText = actualStat.a.ToString();
+            stat.targetText = 0.ToString();
+            stat.actualText = actualStat.b.ToString();
+            stat.Actual.color = Color.green;
+
+            note += 2;
+        }
+        manager.note = Mathf.Clamp(note, 0, manager.totalNote);
+
+        manager.noteText.text = manager.note.ToString() + " / " + manager.totalNote.ToString();
     }
 
     private void nextState()

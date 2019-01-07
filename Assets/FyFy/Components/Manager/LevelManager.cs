@@ -20,7 +20,10 @@ public class LevelManager : MonoBehaviour {
     public GameObject Text_ContentSizeFitter_Prefab;       
     public GameObject Stat_Prefab;       
 
-    public Text note;
+    public Text noteText;
+
+    public int note;
+    public int totalNote;
 
     // ========== UI ==========
     public Button nextLevel;

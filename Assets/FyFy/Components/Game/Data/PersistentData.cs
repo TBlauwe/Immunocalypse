@@ -19,5 +19,6 @@ public class PersistentData : MonoBehaviour {
     // ========== STATISTICS ==========
     // - Reset for each new level
     // - Used to debrief a player after finishing a level
+    public List<PairEStatTrackedEntityInt> targetStats = new List<PairEStatTrackedEntityInt>(); // Unlock those models in the gallery
     public List<PairEStatTrackedEntityInt> trackedEntities = new List<PairEStatTrackedEntityInt>(); // Unlock those models in the gallery
 }
