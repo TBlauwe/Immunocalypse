@@ -96,6 +96,7 @@ public class LevelManagerSystem : FSystem {
     {
         computeDebriefInformations = true;
         int note = 0;
+        int totalNote = 0;
 
         // DETAILS
         if (manager.won)
@@ -107,33 +108,11 @@ public class LevelManagerSystem : FSystem {
             manager.details.text = Global.data.currentLevelLostDescription;
         }
 
-        // UNLOCKABLES
-        foreach (GameObject go in Global.data.currentLevelCardRewards)
-        {
-            if(go != null)
-            {
-                GameObject clone = Utility.clone(go, manager.cardsUnlockableScrollView);
-                clone.transform.localScale = new Vector3(1, 1, 1);
-                clone.transform.localPosition = new Vector3(0, 0, 0);
-                clone.transform.localEulerAngles = new Vector3(0, 0, 0);
-                clone.GetComponent<Button>().interactable = manager.won;
-            }
-        }
-
-        foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
-        {
-            GameObject go = Utility.clone(manager.Text_ContentSizeFitter_Prefab, manager.galleryModelsUnlockableScrollView);
-            go.transform.localScale = new Vector3(1, 1, 1);
-            go.transform.localPosition = new Vector3(0, 0, 0);
-            go.transform.localEulerAngles = new Vector3(0, 0, 0);
-            go.GetComponent<Text>().text = "Modèle " + model.ToString();
-            go.GetComponent<Text>().color = (manager.won) ? Color.green : Color.red;
-        }
-
         // ========== STATISTICS ==========
         foreach (PairEStatTrackedEntityInt targetStat in Global.data.targetStats)
         {
-            manager.totalNote++;
+            totalNote++;
+
             // I. First, add all expexted stat from the level
             GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
             go.transform.localScale = new Vector3(1, 1, 1);
@@ -163,16 +142,15 @@ public class LevelManagerSystem : FSystem {
             // Set stat's color
             if(actual < target)
             {
-                note -= 2;
+                note++;
                 stat.Actual.color = Color.blue;
             }else if(actual == target)
             {
-                note -= 1;
+                note++;
                 stat.Actual.color = Color.green;
             }
             else
             {
-                note++;
                 stat.Actual.color = Color.red;
             }
         }
@@ -180,24 +158,54 @@ public class LevelManagerSystem : FSystem {
         // II. Second, add all unexpected stat 
         for(int i = 0; i < Global.data.trackedEntities.Count; i++)
         {
-            GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
+            PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
+
+            if(actualStat.b > 0)
+            {
+                GameObject go = Utility.clone(manager.Stat_Prefab, manager.statisticsScrollView);
+                go.transform.localScale = new Vector3(1, 1, 1);
+                go.transform.localPosition = new Vector3(0, 0, 0);
+                go.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+                UI_Stat stat = go.GetComponent<UI_Stat>();
+
+                stat.nameText = actualStat.a.ToString();
+                stat.targetText = 0.ToString();
+                stat.actualText = actualStat.b.ToString();
+                stat.Actual.color = Color.green;
+
+                note--;
+            }
+        }
+
+        manager.note = note;
+        manager.totalNote = totalNote;
+
+        manager.noteText.text = manager.note.ToString() + " / " + manager.totalNote.ToString();
+
+        // UNLOCKABLES
+        foreach (GameObject go in Global.data.currentLevelCardRewards)
+        {
+            if(go != null)
+            {
+                GameObject clone = Utility.clone(go, manager.cardsUnlockableScrollView);
+                clone.transform.localScale = new Vector3(1, 1, 1);
+                clone.transform.localPosition = new Vector3(0, 0, 0);
+                clone.transform.localEulerAngles = new Vector3(0, 0, 0);
+                clone.GetComponent<Button>().interactable = manager.won;
+            }
+        }
+
+        foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
+        {
+            GameObject go = Utility.clone(manager.Text_ContentSizeFitter_Prefab, manager.galleryModelsUnlockableScrollView);
             go.transform.localScale = new Vector3(1, 1, 1);
             go.transform.localPosition = new Vector3(0, 0, 0);
             go.transform.localEulerAngles = new Vector3(0, 0, 0);
-
-            PairEStatTrackedEntityInt actualStat = Global.data.trackedEntities[i];
-            UI_Stat stat = go.GetComponent<UI_Stat>();
-
-            stat.nameText = actualStat.a.ToString();
-            stat.targetText = 0.ToString();
-            stat.actualText = actualStat.b.ToString();
-            stat.Actual.color = Color.green;
-
-            note += 2;
+            go.GetComponent<Text>().text = "Modèle " + model.ToString();
+            go.GetComponent<Text>().color = (manager.won && manager.note == manager.totalNote) ? Color.green : Color.red;
         }
-        manager.note = Mathf.Clamp(note, 0, manager.totalNote);
 
-        manager.noteText.text = manager.note.ToString() + " / " + manager.totalNote.ToString();
     }
 
     private void nextState()
@@ -225,15 +233,18 @@ public class LevelManagerSystem : FSystem {
                     level.b = true;
                 }
             }
-
-            foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
+            
+            if(manager.note == manager.totalNote)
             {
-                foreach(PairEGalleryModelBool galleryModel in Global.data.unlockedGalleryModels)
+                foreach (EGalleryModel model in Global.data.currentLevelGalleryModelRewards)
                 {
-                    if (galleryModel.a == model)
+                    foreach(PairEGalleryModelBool galleryModel in Global.data.unlockedGalleryModels)
                     {
-                        galleryModel.b = true;
-                        break;
+                        if (galleryModel.a == model)
+                        {
+                            galleryModel.b = true;
+                            break;
+                        }
                     }
                 }
             }

@@ -1796,7 +1796,9 @@ MonoBehaviour:
     type: 2}
   Stat_Prefab: {fileID: 1236792268771602, guid: d93e2f773cf6a6c4cb7833e0aff29eec,
     type: 2}
-  note: {fileID: 322012497}
+  noteText: {fileID: 322012497}
+  note: 0
+  totalNote: 0
   nextLevel: {fileID: 935597551}
   state: 0
 --- !u!1 &322012495
