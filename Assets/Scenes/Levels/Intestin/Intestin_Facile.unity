@@ -1799,6 +1799,7 @@ MonoBehaviour:
   noteText: {fileID: 322012497}
   note: 0
   totalNote: 0
+  gameOverTitle: {fileID: 161770088}
   nextLevel: {fileID: 935597551}
   state: 0
 --- !u!1 &322012495

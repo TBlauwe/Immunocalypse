@@ -102,10 +102,12 @@ public class LevelManagerSystem : FSystem {
         if (manager.won)
         {
             manager.details.text = Global.data.currentLevelWinDescription;
+            manager.gameOverTitle.text = "VICTOIRE !";
         }
         else
         {
             manager.details.text = Global.data.currentLevelLostDescription;
+            manager.gameOverTitle.text = "Défaite ...";
         }
 
         // ========== STATISTICS ==========

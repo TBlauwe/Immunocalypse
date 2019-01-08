@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour {
     public int totalNote;
 
     // ========== UI ==========
+    public Text gameOverTitle;
     public Button nextLevel;
 
     public int state=0;                    // Index de l'étape en cours
