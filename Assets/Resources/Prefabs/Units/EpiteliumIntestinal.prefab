@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114478668084511882}
   - component: {fileID: 114755123092491832}
   - component: {fileID: 114132492476781458}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EpiteliumIntestinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

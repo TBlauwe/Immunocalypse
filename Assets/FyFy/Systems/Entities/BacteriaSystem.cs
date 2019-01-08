@@ -160,6 +160,6 @@ public class BacteriaSystem : FSystem
     private void InitBacteria(GameObject go)
     {
         Bacteria b = go.GetComponent<Bacteria>();
-        b.replicationCooldown = b.replicationDelay;
+        b.replicationCooldown = Random.Range(0, b.replicationDelay);
     }
 }

@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4181754427577326}
   - component: {fileID: 135233670186370904}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020b9cbc0aa9dd043aaf98fd09edb23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatingMask: 1
+  eatingMask: 3
   eatingProbability: 0.5
 --- !u!114 &114886219789942038
 MonoBehaviour:

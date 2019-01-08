@@ -33,12 +33,9 @@ public class PlayableSystem : FSystem {
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        foreach (GameObject go in _InVesselPointerOver)
-        {
-            ProcessInVesselPointerOver();
-            ProcessUseless();
-        }
-	}
+        ProcessInVesselPointerOver();
+        ProcessUseless();
+    }
 
     private void ProcessInVesselPointerOver()
     {

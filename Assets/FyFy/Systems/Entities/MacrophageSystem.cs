@@ -71,14 +71,12 @@ public class MacrophageSystem : FSystem {
                     continue;
                 }
 
-                if (macrophage.lastDescision.Equals(DECISIONS.CHASE))
+                if (macrophage.lastDescision.Equals(DECISIONS.CHASE)) // Last decision was chase but nothing is eatable in our range
                 {
-                    shouldRecompute = true;
+                    shouldRecompute = true;  // We need to recompute a path to the closest EndNode.
                 }
             }
-
             
-
             if (macrophage.lastDescision.Equals(DECISIONS.CHASE) || shouldRecompute) // No pathogene to hunt in the area
             {
                 // Recompute closest Waypoint
