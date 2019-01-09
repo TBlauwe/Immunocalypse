@@ -12,8 +12,9 @@ public class MoveTowardSystem : FSystem {
         for (int i=0; i<count; i++){
             GameObject go = _MoveTowardGO.getAt(i);
             MoveToward moveToward = go.GetComponent<MoveToward>();
-            float step = moveToward.speed * Time.deltaTime;
-            go.transform.position = Vector3.MoveTowards(go.transform.position, moveToward.target, step);
+            float speed = ((moveToward.useOverride) ? moveToward.overrideSpeed : moveToward.speed);
+            go.transform.position = Vector3.MoveTowards(go.transform.position, moveToward.target, speed * Time.deltaTime);
+            moveToward.useOverride = false;
         }
 	}
 }

@@ -47,6 +47,12 @@ public class LoopSystem : FSystem {
             Triggered3D triggered = triggerVolume.GetComponent<Triggered3D>();
             foreach (GameObject go in triggered.Targets) {
                 MoveToward moveToward = go.GetComponent<MoveToward>();
+                if(moveToward)  // Immuno layer
+                {
+                    moveToward.useOverride = true;
+                    moveToward.overrideSpeed = triggerComp.speed;
+                }
+
                 if(moveToward && moveToward.target != triggerComp.target.position && go.layer != 11) // Immuno layer
                 {
                     moveToward.target = triggerComp.target.position;
