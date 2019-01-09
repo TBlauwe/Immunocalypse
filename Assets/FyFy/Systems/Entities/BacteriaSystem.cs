@@ -11,6 +11,7 @@ public class BacteriaSystem : FSystem
         new NoneOfComponents(typeof(Removed), typeof(Frozen))
     );
 
+    // Where to find the original prefab
     private readonly Family _YellowPages = FamilyManager.getFamily(
         new AllOfComponents(typeof(YellowPageComponent))
     );
@@ -19,12 +20,14 @@ public class BacteriaSystem : FSystem
         new AllOfComponents(typeof(Node))
     );
 
+    // Targets
     private readonly Family _Cells = FamilyManager.getFamily(
         new AllOfComponents(typeof(Cell)),
         new NoneOfComponents(typeof(Removed))
     );
 
     private YellowPageComponent holder;
+    public static readonly int MAX_NB_OF_BACTERIAS = 100;
 
     public BacteriaSystem()
     {
@@ -53,7 +56,7 @@ public class BacteriaSystem : FSystem
     private void Replicate(Bacteria bacteria)
     {
         // Replication
-        if (bacteria.replicationCooldown <= 0)
+        if (bacteria.replicationCooldown <= 0 && _Active.Count < MAX_NB_OF_BACTERIAS)
         {
             // Create new fresh bacteria
             GameObject clone = Object.Instantiate(YellowPageUtils.GetSourceObject(holder, bacteria.prefabKey));
