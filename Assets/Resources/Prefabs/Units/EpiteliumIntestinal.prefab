@@ -129,9 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  maxHealth: 0
-  deathParticles: {fileID: 0}
-  deathSound: {fileID: 0}
+  maxHealth: 50
 --- !u!114 &114132492476781458
 MonoBehaviour:
   m_ObjectHideFlags: 1

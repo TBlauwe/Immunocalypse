@@ -47,18 +47,35 @@ public class CellSystem : FSystem {
                 
                 while (healthComponent.health > 1 && i < cell.infections.Count)
                 {
+                    GameObject go = cell.infections[i].prefab;
+                    Infectious infectious = go.GetComponent<Infectious>();
+
+                    // Decrease cooldown
+                    infectious.cooldown -= Time.deltaTime;
+                    if (infectious.cooldown < 0)
+                    {
+                        // Replicate once
+                        cell.infections[i].nb++;
+                        cell.infections[i].originalNb++;
+                        healthComponent.health -= infectious.replicationCost;
+
+                        // Reset cooldown
+                        infectious.cooldown = infectious.replicationTime;
+                    }
+                                        
+                    /*
                     int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime / 2);
                     int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
                     cell.infections[i].originalNb += Mathf.FloorToInt(Mathf.Log(consumedResources));
                     cell.infections[i].nb = cell.infections[i].originalNb;
                     healthComponent.health -= consumedResources;
+                    */
                     ++i;
                 }
                 
                 // If the is no more resources, the cell is about to die
-                if (healthComponent.health <= 1)
+                if (healthComponent.health <= 0)
                 {
-                    healthComponent.health = 1;
                     cell.state = CellState.DEAD;
                 }
             }
@@ -86,7 +103,7 @@ public class CellSystem : FSystem {
                 }
 
                 // Die
-                healthComponent.health = 0;
+                GameObjectManager.addComponent<Removed>(entity);
             }
         }
 	}

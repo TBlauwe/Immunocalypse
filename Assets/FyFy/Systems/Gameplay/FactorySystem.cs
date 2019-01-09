@@ -51,7 +51,7 @@ public class FactorySystem : FSystem
             // Instanciate the GameObject
             GameObject clone = Object.Instantiate(entry.prefab);
             clone.SetActive(true);
-            // TODO - Resolve var reset when playing
+            
             //clone.layer = entry.layer;
             clone.layer = LayerMask.NameToLayer("Pathogene");
 

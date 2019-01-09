@@ -4,7 +4,10 @@ using FYFY_plugins.CollisionManager;
 using System.Collections.Generic;
 
 public class InfectionSystem : FSystem {
-    private readonly Family _cells = FamilyManager.getFamily(new AllOfComponents(typeof(Cell), typeof(InCollision3D)));
+    private readonly Family _cells = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Cell), typeof(InCollision3D)),
+        new NoneOfComponents(typeof(Removed))
+    );
 
 	protected override void onProcess(int familiesUpdateCount) {
         
