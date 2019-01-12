@@ -3,17 +3,12 @@ using FYFY;
 using FYFY_plugins.TriggerManager;
 using System.Collections.Generic;
 
-public class BacteriaSystem : FSystem
-{
-    // All active bacterias in the game
+public class VirusSystem : FSystem {
+    // All active virus
     private readonly Family _Active = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Bacteria)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new AllOfComponents(typeof(Virus)),
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
         new NoneOfComponents(typeof(Removed), typeof(Frozen))
-    );
-
-    // Where to find the original prefab
-    private readonly Family _YellowPages = FamilyManager.getFamily(
-        new AllOfComponents(typeof(YellowPageComponent))
     );
 
     private readonly Family _Waypoints = FamilyManager.getFamily(
@@ -25,73 +20,34 @@ public class BacteriaSystem : FSystem
         new AllOfComponents(typeof(Cell)),
         new NoneOfComponents(typeof(Removed))
     );
-
-    private YellowPageComponent holder;
-    public static readonly int MAX_NB_OF_BACTERIAS = 100;
-
-    public BacteriaSystem()
-    {
-        foreach (GameObject go in _Active)
-        {
-            InitBacteria(go);
-        }
-        _Active.addEntryCallback(InitBacteria);
-    }
+    
 
     protected override void onProcess(int familiesUpdateCount)
     {
-        // Get prefab holder if it is required
-        if (holder == null)
-        {
-            FindYellowPages();
-        }
-        
         foreach (GameObject go in _Active)
         {
-            Replicate(go.GetComponent<Bacteria>());
             MakeDecision(go);
-        }
-    }
-
-    private void Replicate(Bacteria bacteria)
-    {
-        // Replication
-        if (bacteria.replicationCooldown <= 0 && _Active.Count < MAX_NB_OF_BACTERIAS)
-        {
-            // Create new fresh bacteria
-            Origin origin = bacteria.gameObject.GetComponent<Origin>();
-            GameObject clone = Object.Instantiate(YellowPageUtils.GetSourceObject(holder, origin.sourceObjectKey));
-            clone.transform.position = bacteria.transform.position;
-
-            // Bind it to FYFY
-            GameObjectManager.bind(clone);
-
-            // Reset cooldown
-            bacteria.replicationCooldown = bacteria.replicationDelay;
-        }
-        else
-        {
-            bacteria.replicationCooldown -= Time.deltaTime;
         }
     }
 
     private void MakeDecision(GameObject go)
     {
-        Bacteria bacteria = go.GetComponent<Bacteria>();
+        Virus virus = go.GetComponent<Virus>();
         PathFollower follower = go.GetComponent<PathFollower>();
         MoveToward move = go.GetComponent<MoveToward>();
 
-        if (bacteria.target == null) // No target, maybe already dead or bacteria just spawned
+        if (virus.target == null) // No target, maybe already dead or virus just spawned
         {
-            bacteria.target = FindNextTarget(go.transform.position);
-            if (bacteria.target == null) return;
+            virus.target = FindNextTarget(go.transform.position);
+            if (virus.target == null) return;
 
             Node next = GetClosestWaypointTo(go.transform.position).GetComponent<Node>();
-            Node dest = GetClosestWaypointTo(bacteria.target.transform.position).GetComponent<Node>();
+            Node dest = GetClosestWaypointTo(virus.target.transform.position).GetComponent<Node>();
 
             if (follower == null) // We could have reach the final waypoint, PathFollower component may have been removed
             {
-                GameObjectManager.addComponent<PathFollower>(go, new {
+                GameObjectManager.addComponent<PathFollower>(go, new
+                {
                     nextWaypoint = next,
                     destination = dest
                 });
@@ -105,7 +61,7 @@ public class BacteriaSystem : FSystem
         }
         else if (follower == null) // Final waypoint has been reached, but target still exists
         {
-            move.target = bacteria.target.transform.position;
+            move.target = virus.target.transform.position;
         }
 
         // Bacterias are opportunists : if a cell is closer than their target, they will go kill it
@@ -121,17 +77,6 @@ public class BacteriaSystem : FSystem
                 }
             }
         }
-    }
-
-    private void FindYellowPages()
-    {
-        // Get prefab holder
-        GameObject goHolder = _YellowPages.First();
-        if (goHolder == null)
-        {
-            Debug.LogError("Couldn't find PrefabHolder, cannot instanciate bacteria");
-        }
-        holder = goHolder.GetComponent<YellowPageComponent>();
     }
 
     private GameObject FindNextTarget(Vector3 src)
@@ -159,11 +104,5 @@ public class BacteriaSystem : FSystem
             }
         }
         return target;
-    }
-
-    private void InitBacteria(GameObject go)
-    {
-        Bacteria b = go.GetComponent<Bacteria>();
-        b.replicationCooldown = Random.Range(0, b.replicationDelay);
     }
 }
