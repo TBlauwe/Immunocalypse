@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ec43e6997812b4696f73b484dd839b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replicationTime: 1
+  replicationTime: 2
   replicationCost: 20
   cooldown: 0
 --- !u!114 &114497057407798328

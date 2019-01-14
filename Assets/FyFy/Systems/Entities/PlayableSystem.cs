@@ -17,7 +17,7 @@ public class PlayableSystem : FSystem {
     );
 
     private readonly Family _ToRepop = FamilyManager.getFamily(
-       new AllOfComponents(typeof(Macrophage)),
+       new AnyOfComponents(typeof(Macrophage), typeof(BCell)),
        new NoneOfComponents(typeof(PathFollower)),
        new AnyOfLayers(11)
    );
