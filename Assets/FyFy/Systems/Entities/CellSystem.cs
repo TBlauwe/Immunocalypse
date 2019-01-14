@@ -62,14 +62,7 @@ public class CellSystem : FSystem {
                         // Reset cooldown
                         infectious.cooldown = infectious.replicationTime;
                     }
-                                        
-                    /*
-                    int potentialNbOfPathogenes = Mathf.CeilToInt(cell.infections[i].originalNb  * Time.deltaTime / 2);
-                    int consumedResources = (int) Mathf.Min(potentialNbOfPathogenes, healthComponent.health - 1);
-                    cell.infections[i].originalNb += Mathf.FloorToInt(Mathf.Log(consumedResources));
-                    cell.infections[i].nb = cell.infections[i].originalNb;
-                    healthComponent.health -= consumedResources;
-                    */
+                          
                     ++i;
                 }
                 

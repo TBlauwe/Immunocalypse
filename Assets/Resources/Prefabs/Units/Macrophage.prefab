@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020b9cbc0aa9dd043aaf98fd09edb23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatingMask: 3
+  eatingMask: 7
   eatingProbability: 0.5
 --- !u!114 &114886219789942038
 MonoBehaviour:
@@ -246,6 +246,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   target: {x: 0, y: 0, z: 0}
+  useOverride: 0
+  overrideSpeed: 0
 --- !u!135 &135233670186370904
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -256,5 +258,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}

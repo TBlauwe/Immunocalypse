@@ -38,6 +38,10 @@ public class DamagingSystem : FSystem {
 
             // We can ! Hit and reset cooldown
             targetWH.health -= damager.damagesPerSec;
+            if (targetWH.health <= 0)
+            {
+                GameObjectManager.addComponent<Removed>(target);
+            }
             damager.cooldown = 1;
         }
 	}
