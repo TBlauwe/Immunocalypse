@@ -53,6 +53,10 @@ public class DeckManagerSystem : FSystem {
         {
             GameObjectManager.loadScene(Global.data.currentInstructionsScene.ToString());
         }
+        else
+        {
+            GameObjectManager.loadScene(Global.data.currentPlayScene.ToString());
+        }
     }
 
     private void SwitchDeck(GameObject go)
