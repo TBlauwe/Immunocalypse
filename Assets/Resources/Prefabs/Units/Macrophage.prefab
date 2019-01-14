@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020b9cbc0aa9dd043aaf98fd09edb23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatingMask: 3
+  eatingMask: 7
   eatingProbability: 0.5
 --- !u!114 &114886219789942038
 MonoBehaviour:
