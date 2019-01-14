@@ -20,6 +20,17 @@ public class VirusSystem : FSystem {
         new AllOfComponents(typeof(Cell)),
         new NoneOfComponents(typeof(Removed))
     );
+
+    private static readonly float SPEED_SHIFT = 0.5f;
+
+    public VirusSystem() : base()
+    {
+        foreach (GameObject go in _Active)
+        {
+            RandomizeSpeed(go);
+        }
+        _Active.addEntryCallback(RandomizeSpeed);
+    }
     
 
     protected override void onProcess(int familiesUpdateCount)
@@ -39,7 +50,11 @@ public class VirusSystem : FSystem {
         if (virus.target == null) // No target, maybe already dead or virus just spawned
         {
             virus.target = FindNextTarget(go.transform.position);
-            if (virus.target == null) return;
+            if (virus.target == null)
+            {
+                Debug.Log("No target");
+                return;
+            }
 
             Node next = GetClosestWaypointTo(go.transform.position).GetComponent<Node>();
             Node dest = GetClosestWaypointTo(virus.target.transform.position).GetComponent<Node>();
@@ -64,7 +79,7 @@ public class VirusSystem : FSystem {
             move.target = virus.target.transform.position;
         }
 
-        // Bacterias are opportunists : if a cell is closer than their target, they will go kill it
+        // Virus are opportunists : if a cell is closer than their target, they will go kill it
         Triggered3D triggered = go.GetComponent<Triggered3D>();
         if (triggered != null) // Cell in range ?
         {
@@ -104,5 +119,11 @@ public class VirusSystem : FSystem {
             }
         }
         return target;
+    }
+
+    private void RandomizeSpeed(GameObject go)
+    {
+        MoveToward mv = go.GetComponent<MoveToward>();
+        mv.speed = Random.Range(mv.speed - SPEED_SHIFT, mv.speed + SPEED_SHIFT);
     }
 }

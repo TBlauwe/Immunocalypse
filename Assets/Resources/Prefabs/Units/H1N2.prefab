@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f44eaa1bec04f42b4b99fa74f41ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 1
   target: {x: 0, y: 0, z: 0}
   useOverride: 0
   overrideSpeed: 0
@@ -204,8 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ec43e6997812b4696f73b484dd839b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replicationTime: 0
-  replicationCost: 0
+  replicationTime: 1
+  replicationCost: 20
   cooldown: 0
 --- !u!114 &114497057407798328
 MonoBehaviour:

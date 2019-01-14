@@ -35,7 +35,7 @@ public class CellSystem : FSystem {
             if (cell.state.Equals(CellState.HEALTHY) && cell.infections.Count > 0)
             {
                 cell.state = CellState.INFECTED;
-                GameObjectManager.addComponent<Eatable>(entity, new {eatableLevel = INFECTED_EATABLE_LAYER});
+                GameObjectManager.addComponent<Eatable>(entity, new {eatableMask = INFECTED_EATABLE_LAYER});
             }
 
             // If the cell is infected, we have to replicate all pathogenes, resulting in consuming resources

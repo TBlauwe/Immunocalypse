@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Instructions/Basic_Gameplay_Instructions.unity
     guid: c8b66a45ab99428449c66712b63828c6
+  - enabled: 1
+    path: Assets/Scenes/Levels/Intestin/Intestin_Premiers_Pas.unity
+    guid: 5a01b0657f312934490af7ce41e6da90
   m_configObjects: {}

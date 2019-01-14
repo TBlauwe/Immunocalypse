@@ -10802,10 +10802,6 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DamagingSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: VirusSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: VirusSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: CellSystem
@@ -15814,7 +15810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entries:
-  - prefab: {fileID: 1649756357139328, guid: 2df45db25dd92204a81fed1def39a816, type: 2}
+  - prefab: {fileID: 1749891612322468, guid: ad217b4eceecd5a4e9266930c104c37c, type: 2}
     nb: 2
     originalNb: 2
     layer: 0
