@@ -885,7 +885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Intestin
-  description: "D\xE9fendez vos cellules (Epit\xE9lium Intestinal) contre divers pathog\xE8nes"
+  description: "D\xE9fendez vos cellules (Epith\xE9lium Intestinal) contre divers
+    pathog\xE8nes"
   selected: 0
   difficultyLevels: {fileID: 1459405589}
 --- !u!1 &386965829
