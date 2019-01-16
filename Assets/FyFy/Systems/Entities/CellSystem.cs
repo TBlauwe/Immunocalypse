@@ -57,6 +57,10 @@ public class CellSystem : FSystem {
                         // Replicate once
                         cell.infections[i].nb++;
                         cell.infections[i].originalNb++;
+
+                        Debug.Log("OriginalNB : " + cell.infections[i].originalNb);
+                        Debug.Log("Nb : " + cell.infections[i].nb);
+
                         healthComponent.health -= infectious.replicationCost;
 
                         // Reset cooldown
@@ -89,7 +93,7 @@ public class CellSystem : FSystem {
                 // Bind it to FYFY
                 GameObjectManager.bind(obj);
 
-                // Set all prefab as children of the created factory : they will be removed when the factory will deseapper too.
+                // Set all prefab as children of the created factory : they will be removed when the factory will desappear too.
                 foreach (FactoryEntry entry in cell.infections)
                 {
                     entry.prefab.transform.SetParent(obj.transform);
