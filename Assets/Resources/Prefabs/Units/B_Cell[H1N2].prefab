@@ -267,7 +267,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.011969395
-  m_Center: {x: 0.00021207426, y: 0.000027916854, z: -0.000027845608}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198379753089167754
 ParticleSystem:
   m_ObjectHideFlags: 1
