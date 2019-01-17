@@ -84,6 +84,7 @@ public class LevelSelectorSystem : FSystem {
         Global.data.currentLevelDescription = comp.description;
         Global.data.currentLevelWinDescription = comp.wonDescription;
         Global.data.currentLevelLostDescription = comp.lostDescription;
+        Global.data.currentRandomGos = comp.randomGOs;
         Global.data.currentLevelGalleryModelRewards = comp.galleryModelRewards;
         Global.data.currentLevelCardRewards = comp.cardRewards;
         Global.data.targetStats = comp.goodStats;

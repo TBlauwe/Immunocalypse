@@ -6725,6 +6725,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
+      propertyPath: randomGOs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
       propertyPath: cardRewards.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -6880,6 +6885,18 @@ Prefab:
       propertyPath: playScene
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
+      propertyPath: randomGOs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1984617238772632, guid: eeca3da5a4704ff45aacec2343ba66c4,
+        type: 2}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
+      propertyPath: randomGOs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1984617238772632, guid: eeca3da5a4704ff45aacec2343ba66c4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3abbeadb44cda948918abf04fed5d30, type: 2}
   m_IsPrefabAsset: 0

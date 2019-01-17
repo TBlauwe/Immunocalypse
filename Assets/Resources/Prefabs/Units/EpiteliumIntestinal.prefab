@@ -130,6 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   maxHealth: 50
+  deathParticles: {fileID: 1050820573305242, guid: c12f00c19131cdb428e02d49a171ce8d,
+    type: 2}
 --- !u!114 &114132492476781458
 MonoBehaviour:
   m_ObjectHideFlags: 1

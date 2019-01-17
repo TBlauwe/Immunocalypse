@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: a53f9cff7907d1040b817f8df758ca44
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BloodCell
+    100002: BloodVessel
+    100004: Camera
+    100006: E.Coli
+    100008: //RootNode
+    100010: EpitheliumIntestinal
+    100012: EpitheliumIntestinal_Particle
+    100014: Icosphere
+    100016: Macrophage
+    100018: Text
+    100020: World
+    400000: BloodCell
+    400002: BloodVessel
+    400004: Camera
+    400006: E.Coli
+    400008: //RootNode
+    400010: EpitheliumIntestinal
+    400012: EpitheliumIntestinal_Particle
+    400014: Icosphere
+    400016: Macrophage
+    400018: Text
+    400020: World
+    2000000: Camera
+    2100000: Cell
+    2100002: No Name
+    2100004: Macrophage
+    2100006: Noyeau
+    2100008: Noyau
+    2100010: World
+    2100012: BloodCell
+    2300000: BloodCell
+    2300002: BloodVessel
+    2300004: E.Coli
+    2300006: EpitheliumIntestinal
+    2300008: EpitheliumIntestinal_Particle
+    2300010: Icosphere
+    2300012: Macrophage
+    2300014: Text
+    2300016: World
+    2300018: //RootNode
+    3300000: BloodCell
+    3300002: BloodVessel
+    3300004: E.Coli
+    3300006: EpitheliumIntestinal
+    3300008: EpitheliumIntestinal_Particle
+    3300010: Icosphere
+    3300012: Macrophage
+    3300014: Text
+    3300016: World
+    3300018: //RootNode
+    4300000: EpitheliumIntestinal_Particle
+    4300002: Icosphere
+    4300004: Text
+    4300006: Macrophage
+    4300008: EpitheliumIntestinal
+    4300010: E.Coli
+    4300012: BloodVessel
+    4300014: World
+    4300016: BloodCell
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cell
+    second: {fileID: 2100000, guid: edbab03913761364da84c97bbbbeab62, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

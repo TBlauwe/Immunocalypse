@@ -10,6 +10,8 @@ public class DifficultyLevel : MonoBehaviour {
     public ELevel               playScene;              // ID - Which scene should be loaded
     public EInstructions        instructionsScene;      // ID - Which scene should be loaded
 
+    public List<GameObject>     randomGOs;              // Pool of random GO that will be available during the level
+
     public List<EGalleryModel>  galleryModelRewards;    // Unlock this model in the gallery
     public List<GameObject>     cardRewards;            // Add theses cards in the player's global deck
 

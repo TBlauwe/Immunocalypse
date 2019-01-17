@@ -10,6 +10,7 @@ public class PersistentData : MonoBehaviour {
     // ========== LEVEL ==========
     public ELevel currentPlayScene;
     public EInstructions currentInstructionsScene;
+    public List<GameObject> currentRandomGos;
     public List<EGalleryModel> currentLevelGalleryModelRewards;
     public List<GameObject> currentLevelCardRewards;
     public string currentLevelDescription;

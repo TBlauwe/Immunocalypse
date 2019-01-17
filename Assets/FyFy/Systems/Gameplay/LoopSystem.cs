@@ -39,6 +39,26 @@ public class LoopSystem : FSystem {
                     go.transform.position = randomStartPosition(triggerVolume);
                 }
             }
+
+            if(triggerComp.randomGoPool.Count > 0)
+            {
+                triggerComp.cooldownRandom -= Time.deltaTime;
+                if(triggerComp.cooldownRandom <= 0)
+                {
+                    triggerComp.cooldownRandom = triggerComp.randomGoRate;
+                    GameObject prefab = triggerComp.randomGoPool.Pop<GameObject>();
+
+                    // Instanciate the GameObject
+                    GameObject go = Object.Instantiate(prefab);
+                    go.SetActive(true);
+
+                    // Bind it to FYFY
+                    GameObjectManager.bind(go);
+
+                    // Set GameObject's position
+                    go.transform.position = randomStartPosition(triggerVolume);
+                }
+            }
         }
 
         foreach (GameObject triggerVolume in _InTriggerGO)

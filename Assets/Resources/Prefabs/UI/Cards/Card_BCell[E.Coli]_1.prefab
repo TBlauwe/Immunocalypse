@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 114764178551780786}
   - component: {fileID: 114472368544120890}
   m_Layer: 0
-  m_Name: Card_BCell[E.coli]_1
+  m_Name: Card_BCell[E.Coli]_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

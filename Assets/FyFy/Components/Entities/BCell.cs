@@ -8,5 +8,5 @@ public class BCell : MonoBehaviour {
     public float delay;
     [HideInInspector] public float cooldown;
     public float freezeTime;
-    public ParticleSystem onClickParticleEffect;
+    public GameObject onClickParticleEffect;
 }

@@ -20,7 +20,7 @@ public class BCellSystem : FSystem {
             if (go.GetComponent<PointerOver>() != null && Input.GetKeyDown(KeyCode.Mouse0) && bCell.cooldown <= 0)
             {
                 Freeze(bCell);
-                bCell.onClickParticleEffect.Play();
+                Object.Instantiate(bCell.onClickParticleEffect, go.GetComponent<Collider>().bounds.center, go.transform.rotation);
             }
         }
 	}
