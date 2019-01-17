@@ -31,8 +31,9 @@ GameObject:
   - component: {fileID: 114235962980859224}
   - component: {fileID: 114033562711966756}
   - component: {fileID: 114029409034281372}
+  - component: {fileID: 114241655253646514}
   m_Layer: 9
-  m_Name: H1N2
+  m_Name: Norovirus
   m_TagString: pathogene
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f44eaa1bec04f42b4b99fa74f41ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.5
   target: {x: 0, y: 0, z: 0}
   useOverride: 0
   overrideSpeed: 0
@@ -205,7 +206,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceObjectKey: H1N2
+  sourceObjectKey: Norovirus
+--- !u!114 &114241655253646514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1649756357139328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53ae740eb87fa64ea587c3baee2e62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114355076528894516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b3428b5a2ef29745a2680ede06b1f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &114821828903670408
 MonoBehaviour:
   m_ObjectHideFlags: 1

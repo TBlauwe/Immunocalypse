@@ -3,11 +3,13 @@ using FYFY;
 using FYFY_plugins.TriggerManager;
 using System.Collections.Generic;
 
-public class BacteriaSystem : FSystem
-{
-    // All active bacterias in the game
+public class PathogeneSystem : FSystem {
+    // COMMON STUFF
+    // All active pathogenes in the game
     private readonly Family _Active = FamilyManager.getFamily(
-        new AllOfComponents(typeof(Bacteria)), new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new AllOfComponents(typeof(Pathogene)),
+        new AnyOfLayers(9),  // pathogene layer
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
         new NoneOfComponents(typeof(Removed), typeof(Frozen))
     );
 
@@ -26,16 +28,42 @@ public class BacteriaSystem : FSystem
         new NoneOfComponents(typeof(Removed))
     );
 
-    private YellowPageComponent holder;
-    public static readonly int MAX_NB_OF_BACTERIAS = 100;
+    // SPECIALIZED STUFF
+    private readonly Family _Bacterias = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Bacteria)),
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new NoneOfComponents(typeof(Removed), typeof(Frozen))
+    );
 
-    public BacteriaSystem()
+    private readonly Family _Virus = FamilyManager.getFamily(
+        new AllOfComponents(typeof(Virus)),
+        new AllOfProperties(PropertyMatcher.PROPERTY.ACTIVE_SELF),
+        new NoneOfComponents(typeof(Removed), typeof(Frozen))
+    );
+
+    // ATTRIBUTES
+    private YellowPageComponent holder;
+
+    // OTHER
+    public static readonly int MAX_NB_OF_BACTERIAS = 100;
+    public static readonly float SPEED_SHIFT = 0.1f;
+
+    public PathogeneSystem()
     {
-        foreach (GameObject go in _Active)
+        // Handle specialized stuff
+        // Bacterias
+        foreach (GameObject go in _Bacterias)
         {
             InitBacteria(go);
         }
-        _Active.addEntryCallback(InitBacteria);
+        _Bacterias.addEntryCallback(InitBacteria);
+
+        // Virus
+        foreach (GameObject go in _Virus)
+        {
+            RandomizeSpeed(go);
+        }
+        _Virus.addEntryCallback(RandomizeSpeed);
     }
 
     protected override void onProcess(int familiesUpdateCount)
@@ -45,11 +73,18 @@ public class BacteriaSystem : FSystem
         {
             FindYellowPages();
         }
-        
+
+        // Process main stuff
         foreach (GameObject go in _Active)
         {
-            Replicate(go.GetComponent<Bacteria>());
             MakeDecision(go);
+        }
+
+        // Handle specific tasks
+        // Bacterias
+        foreach (GameObject go in _Bacterias)
+        {
+            Replicate(go.GetComponent<Bacteria>());
         }
     }
 
@@ -77,21 +112,22 @@ public class BacteriaSystem : FSystem
 
     private void MakeDecision(GameObject go)
     {
-        Bacteria bacteria = go.GetComponent<Bacteria>();
+        Pathogene pathogene = go.GetComponent<Pathogene>();
         PathFollower follower = go.GetComponent<PathFollower>();
         MoveToward move = go.GetComponent<MoveToward>();
 
-        if (bacteria.target == null) // No target, maybe already dead or bacteria just spawned
+        if (pathogene.target == null) // No target, maybe already dead or pathogene just spawned
         {
-            bacteria.target = FindNextTarget(go.transform.position);
-            if (bacteria.target == null) return;
+            pathogene.target = FindNextTarget(go.transform.position);
+            if (pathogene.target == null) return;
 
             Node next = GetClosestWaypointTo(go.transform.position).GetComponent<Node>();
-            Node dest = GetClosestWaypointTo(bacteria.target.transform.position).GetComponent<Node>();
+            Node dest = GetClosestWaypointTo(pathogene.target.transform.position).GetComponent<Node>();
 
             if (follower == null) // We could have reach the final waypoint, PathFollower component may have been removed
             {
-                GameObjectManager.addComponent<PathFollower>(go, new {
+                GameObjectManager.addComponent<PathFollower>(go, new
+                {
                     nextWaypoint = next,
                     destination = dest
                 });
@@ -105,10 +141,10 @@ public class BacteriaSystem : FSystem
         }
         else if (follower == null) // Final waypoint has been reached, but target still exists
         {
-            move.target = bacteria.target.transform.position;
+            move.target = pathogene.target.transform.position;
         }
 
-        // Bacterias are opportunists : if a cell is closer than their target, they will go kill it
+        // Pathogenes are opportunists : if a cell is closer than their target, they will go kill it
         Triggered3D triggered = go.GetComponent<Triggered3D>();
         if (triggered != null) // Cell in range ?
         {
@@ -129,7 +165,7 @@ public class BacteriaSystem : FSystem
         GameObject goHolder = _YellowPages.First();
         if (goHolder == null)
         {
-            Debug.LogError("Couldn't find PrefabHolder, cannot instanciate bacteria");
+            Debug.LogError("Couldn't find PrefabHolder, cannot instanciate pathogene");
         }
         holder = goHolder.GetComponent<YellowPageComponent>();
     }
@@ -165,5 +201,11 @@ public class BacteriaSystem : FSystem
     {
         Bacteria b = go.GetComponent<Bacteria>();
         b.replicationCooldown = Random.Range(0, b.replicationDelay);
+    }
+
+    private void RandomizeSpeed(GameObject go)
+    {
+        MoveToward mv = go.GetComponent<MoveToward>();
+        mv.speed = Random.Range(mv.speed - SPEED_SHIFT, mv.speed + SPEED_SHIFT);
     }
 }

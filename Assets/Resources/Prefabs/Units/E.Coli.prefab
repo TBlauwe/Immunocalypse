@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114617319494621526}
   - component: {fileID: 114686316545822090}
   - component: {fileID: 114684111281980746}
+  - component: {fileID: 114452635638343242}
   m_Layer: 9
   m_Name: E.Coli
   m_TagString: Untagged
@@ -58,14 +59,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1749891612322468}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.8375025, y: 0, z: -70.33733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4364895187411928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4364895187411928
 Transform:
   m_ObjectHideFlags: 1
@@ -160,8 +161,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   replicationDelay: 20
-  target: {fileID: 0}
   replicationCooldown: 0
+--- !u!114 &114452635638343242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1749891612322468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53ae740eb87fa64ea587c3baee2e62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!114 &114617319494621526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceObjectKey: E.Coli
+  sourceObjectKey: E.coli
 --- !u!114 &114686316545822090
 MonoBehaviour:
   m_ObjectHideFlags: 1

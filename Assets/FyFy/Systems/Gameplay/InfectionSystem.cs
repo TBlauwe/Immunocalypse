@@ -23,8 +23,8 @@ public class InfectionSystem : FSystem {
                     {
                         FactoryEntry infection = new FactoryEntry(target)
                         {
-                            originalNb = 2,
-                            nb = 2
+                            originalNb = 1,
+                            nb = 1
                         };
 
                         cell.infections.Add(infection);
