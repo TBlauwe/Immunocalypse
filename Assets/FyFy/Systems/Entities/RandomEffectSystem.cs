@@ -17,7 +17,6 @@ public class RandomEffectSystem : FSystem {
 
             if (go.GetComponent<PointerOver>() != null && Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Debug.Log("Clicked");
                 Object.Instantiate(randomEffect.onClickGO, go.GetComponent<Collider>().bounds.center, go.transform.rotation);
                 GameObjectManager.addComponent<Removed>(go);
             }
