@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731725, g: 0.13414745, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   deckPool: []
   randomGoPool: []
   deckRate: 1
-  randomGoRate: 0
+  randomGoRate: 5
   cooldownDeck: 0
   cooldownRandom: 0
 --- !u!1 &254952411
@@ -10829,6 +10829,10 @@ MonoBehaviour:
   - _typeAssemblyQualifiedName: DynamicMaterialSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DynamicMaterialSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: RandomEffectSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: RandomEffectSystem
     _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,

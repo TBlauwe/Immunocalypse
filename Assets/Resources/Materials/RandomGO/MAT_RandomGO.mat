@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MAT_Virus
+  m_Name: MAT_RandomGO
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -73,4 +73,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.8270391, b: 0.2783019, a: 1}
-    - _EmissionColor: {r: 4.705883, g: 4.4322143, b: 0, a: 1}
+    - _EmissionColor: {r: 1.1764708, g: 1.1087159, b: 0, a: 1}

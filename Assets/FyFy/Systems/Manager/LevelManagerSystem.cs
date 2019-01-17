@@ -47,6 +47,7 @@ public class LevelManagerSystem : FSystem {
         // Setup pool
         spawner = manager.bloodVessel.GetComponent<StartLoopTrigger>();
         spawner.deckPool = Global.player.levelDeck;
+        spawner.randomGoPool = Global.data.currentRandomGos;
 
     }
 

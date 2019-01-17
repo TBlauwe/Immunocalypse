@@ -1178,7 +1178,7 @@ MonoBehaviour:
     icosa\xE9drique form\xE9e de 252 capsom\xE8res (240 hexons (en) et 12 pentons).
     Les capsom\xE8res situ\xE9s aux sommets de l'icosa\xE8dre sont des pentons prolong\xE9s
     par une fibre de longueur variable et termin\xE9e par l'antig\xE8ne Y, responsable
-    de la propri\xE9t\xE9 d'h\xE9magglutination.\n\nhttps://fr.wikipedia.org/wiki/Adenoviridae"
+    de la propri\xE9t\xE9 d'h\xE9magglutination.\n\nSource: https://fr.wikipedia.org/wiki/Adenoviridae"
   videoClip: {fileID: 32900000, guid: bc1ec246d65a75b409f7e269e42a9e55, type: 3}
   cameraSpot: {fileID: 0}
 --- !u!1 &310375582
@@ -2377,7 +2377,7 @@ MonoBehaviour:
     sont les cellules phagocytaires pr\xE9sentes le plus vite au lieu de l\u2019inflammation
     et qui ne vivent que quelques jours, la dur\xE9e de vie d\u2019un macrophage va
     de plusieurs mois \xE0 des ann\xE9es. Tout comme la plupart des cellules compl\xE8tement
-    diff\xE9renci\xE9es, elles ne se divisent pas.\n\nhttps://fr.wikipedia.org/wiki/Macrophage"
+    diff\xE9renci\xE9es, elles ne se divisent pas.\n\nSource https://fr.wikipedia.org/wiki/Macrophage"
   videoClip: {fileID: 32900000, guid: bc1ec246d65a75b409f7e269e42a9e55, type: 3}
   cameraSpot: {fileID: 0}
 --- !u!1 &499706383
@@ -5154,7 +5154,7 @@ MonoBehaviour:
   cacheIsUnlocked: 0
   isHighlighted: 0
   cacheIsHighlighted: 0
-  modelName: E-Coli
+  modelName: E. coli
   scientificName: Escherichia coli
   size: 0.5-3 micrometre
   description: "Escherichia coli, \xE9galement appel\xE9e colibacille et abr\xE9g\xE9e
@@ -5179,7 +5179,7 @@ MonoBehaviour:
     toutes les 20 minutes \xE0 37 \xB0C dans un milieu riche) en font un outil d'\xE9tude
     de choix. La profusion de publications scientifiques qui la mentionnent en t\xE9moigne,
     et elle joue le r\xF4le de \xAB cheval de labour \xBB dans tous les laboratoires
-    de biologie mol\xE9culaire.\n\nhttps://fr.wikipedia.org/wiki/Escherichia_coli"
+    de biologie mol\xE9culaire.\n\nSource: https://fr.wikipedia.org/wiki/Escherichia_coli"
   videoClip: {fileID: 32900000, guid: bc1ec246d65a75b409f7e269e42a9e55, type: 3}
   cameraSpot: {fileID: 0}
 --- !u!1 &988966712
@@ -6883,7 +6883,7 @@ MonoBehaviour:
     \xE0 leur fonctionnement ainsi qu'\xE0 la transmission de l'h\xE9r\xE9dit\xE9
     aux g\xE9n\xE9rations de cellules suivantes. Les premi\xE8res cellules sont apparues
     sur Terre par un ph\xE9nom\xE8ne d'abiogen\xE8se il y a au moins 3,7 milliards5
-    d'ann\xE9es."
+    d'ann\xE9es.\n\nSource : https://fr.wikipedia.org/wiki/%C3%89pith%C3%A9lium_intestinal"
   videoClip: {fileID: 32900000, guid: bc1ec246d65a75b409f7e269e42a9e55, type: 3}
   cameraSpot: {fileID: 0}
 --- !u!1 &1550394691
