@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 114686316545822090}
   - component: {fileID: 114684111281980746}
   - component: {fileID: 114452635638343242}
+  - component: {fileID: 114376791021073618}
   m_Layer: 9
   m_Name: E.Coli
   m_TagString: Untagged
@@ -162,6 +163,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   replicationDelay: 20
   replicationCooldown: 0
+--- !u!114 &114376791021073618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1749891612322468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e06466d25ad014484a9bedc40308c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  percentage: 1
+  materialName: Toon_E.Coli
+  startingColor: {r: 0, g: 0.78541684, b: 1, a: 0}
+  endingColor: {r: 1, g: 0, b: 0.7725491, a: 0}
 --- !u!114 &114452635638343242
 MonoBehaviour:
   m_ObjectHideFlags: 1

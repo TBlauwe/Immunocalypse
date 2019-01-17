@@ -15,12 +15,12 @@ public class BCellSystem : FSystem {
         foreach (GameObject go in _BCells)
         {
             BCell bCell = go.GetComponent<BCell>();
-            bCell.cooldown -= Time.deltaTime;
+            bCell.cooldown = Mathf.Clamp(bCell.cooldown - Time.deltaTime, 0, Mathf.Infinity);
 
             if (go.GetComponent<PointerOver>() != null && Input.GetKeyDown(KeyCode.Mouse0) && bCell.cooldown <= 0)
             {
                 Freeze(bCell);
-                Object.Instantiate(bCell.onClickParticleEffect, go.GetComponent<Collider>().bounds.center, go.transform.rotation);
+                Object.Instantiate(bCell.onClickParticleEffect, go.GetComponent<Collider>().bounds.center, Quaternion.Euler(Vector3.zero));
             }
         }
 	}
@@ -36,7 +36,10 @@ public class BCellSystem : FSystem {
                 Eatable eatable = target.GetComponent<Eatable>();
                 if (eatable != null && (eatable.eatableMask & src.freezeMask) > 0 && target.GetComponent<Removed>() == null)
                 {
-                    GameObjectManager.addComponent<Frozen>(target, new { remainingTime = src.freezeTime });
+                    GameObjectManager.addComponent<Frozen>(target, new { 
+                        remainingTime = src.freezeTime,
+                        totalTime = src.freezeTime
+                    });
                 }
             }
 

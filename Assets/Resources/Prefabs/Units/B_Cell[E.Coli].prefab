@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 114105034039643594}
   - component: {fileID: 135077015563199514}
   - component: {fileID: 54792498472412888}
+  - component: {fileID: 114240389901664048}
   m_Layer: 0
   m_Name: B_Cell[E.Coli]
   m_TagString: Untagged
@@ -72,8 +73,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685789991783756}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.925889, y: -5.393528, z: -1.7123376}
-  m_LocalScale: {x: 25, y: 25, z: 25}
+  m_LocalPosition: {x: -1.01, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4303391488396786}
   m_Father: {fileID: 0}
@@ -147,6 +148,22 @@ MonoBehaviour:
   m_Script: {fileID: -53623643, guid: f4c0bf0d783056d4eb6275cdcee69205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114240389901664048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685789991783756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e06466d25ad014484a9bedc40308c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  percentage: 1
+  materialName: Toon_B_Cell[E.coli]
+  startingColor: {r: 1, g: 1, b: 1, a: 0}
+  endingColor: {r: 0.14509805, g: 0.7058824, b: 1, a: 0}
 --- !u!114 &114454560389057438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeMask: 1
-  delay: 15
+  delay: 5
   cooldown: 0
   freezeTime: 10
   onClickParticleEffect: {fileID: 1891162588211074, guid: 64aa7f1d857a3434dac05d2235c38407,
@@ -224,8 +241,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.011969395
-  m_Center: {x: 0.00021207426, y: 0.000027916854, z: -0.000027845608}
+  m_Radius: 0.22
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135433166755844974
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -236,5 +253,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}

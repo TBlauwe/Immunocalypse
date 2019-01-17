@@ -7,12 +7,35 @@ public class DynamicMaterialSystem : FSystem {
 
     public DynamicMaterialSystem()
     {
-        foreach(GameObject go in _dynGO)
+        foreach (GameObject go in _dynGO)
         {
-            WithHealth healthComp = go.GetComponent<WithHealth>();
-            healthComp.maxHealth = healthComp.health;
             DynamicMaterial dynMat = go.GetComponent<DynamicMaterial>();
-            dynMat.percentage = healthComp.health / healthComp.maxHealth;
+
+            if (dynMat.type == EDynMat.HEALTH)
+            {
+                WithHealth healthComp = go.GetComponent<WithHealth>();
+                healthComp.maxHealth = healthComp.health;
+                dynMat.percentage = healthComp.health / healthComp.maxHealth;
+
+            }
+            else if (dynMat.type == EDynMat.FREEZE)
+            {
+                Frozen comp = go.GetComponent<Frozen>();
+                dynMat.percentage = 0;
+                if (comp)
+                {
+                    dynMat.percentage = comp.remainingTime / comp.totalTime;
+                }
+            }
+            else if (dynMat.type == EDynMat.B_Cell)
+            {
+                BCell comp = go.GetComponent<BCell>();
+                if (comp)
+                {
+                    dynMat.percentage = comp.cooldown / comp.delay;
+                }
+            }
+
             foreach(Material mat in go.GetComponent<Renderer>().materials)
             {
                 if (mat.name.Contains(dynMat.materialName) || go.GetComponent<Renderer>().materials.Length == 1)
@@ -37,9 +60,31 @@ public class DynamicMaterialSystem : FSystem {
 	protected override void onProcess(int familiesUpdateCount) {
         foreach(GameObject go in _dynGO)
         {
-            WithHealth healthComp = go.GetComponent<WithHealth>();
             DynamicMaterial dynMat = go.GetComponent<DynamicMaterial>();
-            dynMat.percentage = healthComp.health / healthComp.maxHealth;
+
+            if(dynMat.type == EDynMat.HEALTH)
+            {
+                WithHealth healthComp = go.GetComponent<WithHealth>();
+                dynMat.percentage = healthComp.health / healthComp.maxHealth;
+
+            }else if(dynMat.type == EDynMat.FREEZE)
+            {
+                Frozen comp = go.GetComponent<Frozen>();
+                dynMat.percentage = 0;
+                if (comp)
+                {
+                    dynMat.percentage = comp.remainingTime / comp.totalTime;
+                }
+            }
+            else if (dynMat.type == EDynMat.B_Cell)
+            {
+                BCell comp = go.GetComponent<BCell>();
+                if (comp)
+                {
+                    dynMat.percentage = comp.cooldown / comp.delay;
+                }
+            }
+
             foreach(Material mat in go.GetComponent<Renderer>().materials)
             {
                 if (mat.name.Contains(dynMat.materialName) || go.GetComponent<Renderer>().materials.Length == 1)
