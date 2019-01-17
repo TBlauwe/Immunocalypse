@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 135077015563199514}
   - component: {fileID: 54792498472412888}
   m_Layer: 0
-  m_Name: B_Cell[E.Coli]
+  m_Name: B_Cell[E.coli]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceObjectKey: BCell[E.Coli]
+  sourceObjectKey: BCell[E.coli]
 --- !u!114 &114492174756760076
 MonoBehaviour:
   m_ObjectHideFlags: 1

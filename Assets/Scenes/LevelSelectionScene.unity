@@ -189,7 +189,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1900598397}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.48219424
+  m_Size: 0.48180622
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1497,9 +1497,10 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: description
-      value: "Vous ferez face \xE0 deux pathog\xE8nes communs : E.Coli et un virus
-        de la grippe (H1N2).\nN'oubliez pas d'utiliser les nouvelles unit\xE9s acquises
-        au pr\xE9c\xE9dent niveau de difficult\xE9, vous en aurez besoin !"
+      value: "Vous ferez face \xE0 deux pathog\xE8nes communs : E.coli (souche pathog\xE8ne)
+        et un virus provoquant la gastro-ent\xE9rite (Norovirus).\nN'oubliez pas d'utiliser
+        les nouvelles unit\xE9s acquises au pr\xE9c\xE9dent niveau de difficult\xE9,
+        vous en aurez besoin !"
       objectReference: {fileID: 0}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -1510,7 +1511,7 @@ Prefab:
         type: 2}
       propertyPath: cardRewards.Array.data[0]
       value: 
-      objectReference: {fileID: 1034691418935936, guid: 2b206a236349a674cad1d6fa0d0c5380,
+      objectReference: {fileID: 1854942585942456, guid: 639b0cff62df7a34cb78dfcc5dfa464c,
         type: 2}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -1531,9 +1532,9 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: wonDescription
-      value: "Bravo !\nVous avez battu deux infections courantes ! N\xE9anmoins, il
-        est peu probable de rencontrer le virus de la grippe dans les intestin, ce
-        dernier se transmettant par voie a\xE9rienne."
+      value: 'Bravo !
+
+        Vous avez battu deux infections courantes ! '
       objectReference: {fileID: 0}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -8334,7 +8335,7 @@ RectTransform:
   m_Father: {fileID: 2112755215}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.51780576}
+  m_AnchorMin: {x: 0, y: 0.5181938}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}

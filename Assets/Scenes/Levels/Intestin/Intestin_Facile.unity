@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731725, g: 0.13414745, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10770,10 +10770,6 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: LoopSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: PlayableSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: PlayableSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: PathSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     _typeFullName: PathSystem
@@ -10794,17 +10790,13 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: FreezeSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: BacteriaSystem, Assembly-CSharp, Version=0.0.0.0,
+  - _typeAssemblyQualifiedName: PathogeneSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-    _typeFullName: BacteriaSystem
+    _typeFullName: PathogeneSystem
     _pause: 0
   - _typeAssemblyQualifiedName: DamagingSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DamagingSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: VirusSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: VirusSystem
     _pause: 0
   - _typeAssemblyQualifiedName: CellSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
@@ -10822,13 +10814,13 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: PlayerSystem
     _pause: 0
-  - _typeAssemblyQualifiedName: RotatorSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: RotatorSystem
-    _pause: 0
   - _typeAssemblyQualifiedName: DynamicMaterialSystem, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     _typeFullName: DynamicMaterialSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: PlayableSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: PlayableSystem
     _pause: 0
   _lateUpdateSystemDescriptions:
   - _typeAssemblyQualifiedName: UIPauseSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,

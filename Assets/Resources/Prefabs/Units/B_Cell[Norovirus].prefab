@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114624158961061054}
   - component: {fileID: 54491295231180188}
   m_Layer: 0
-  m_Name: B_Cell[H1N2]
+  m_Name: B_Cell[Norovirus]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f87be333d392d1b45aefb3163f24401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceObjectKey: BCell[H1N2]
+  sourceObjectKey: BCell[Norovirus]
 --- !u!114 &114459257830538314
 MonoBehaviour:
   m_ObjectHideFlags: 1
