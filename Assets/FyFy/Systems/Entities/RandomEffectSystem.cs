@@ -105,7 +105,6 @@ public class RandomEffectSystem : FSystem {
         {
             InLoopTrigger triggerComp = triggerVolume.GetComponent<InLoopTrigger>();
             triggerComp.speedMult = triggerComp.initialSpeedMult * value;
-
         }
     }
 

@@ -6904,7 +6904,10 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: wonDescription
-      value: "Bravo ! Vous avez r\xE9ussi ! [Explication Scientifique]"
+      value: "Bravo ! Vous avez r\xE9ussi ! Le macrophage est une d\xE9fense non sp\xE9cifique
+        du syst\xE8me immunitaire qui phagocyte les d\xE9bris cellulaires et les agents
+        pathog\xE8nes\r. Cependant \xE0 lui tout seul il ne peut pas faire face \xE0
+        tout. Comme vous le verrez dans les prochains niveaux ..."
       objectReference: {fileID: 0}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}

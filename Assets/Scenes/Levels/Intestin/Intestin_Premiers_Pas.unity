@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731725, g: 0.13414745, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1764,6 +1764,7 @@ Transform:
   - {fileID: 945709399}
   - {fileID: 1653488026}
   - {fileID: 320310342}
+  - {fileID: 946292487}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3423,25 +3424,25 @@ Transform:
   - {fileID: 355114139}
   - {fileID: 637881245}
   - {fileID: 1574442862}
-  - {fileID: 1359857479}
   - {fileID: 1253314418}
-  - {fileID: 1614222454}
+  - {fileID: 1359857479}
   - {fileID: 1606406362}
   - {fileID: 1111609142}
+  - {fileID: 1614222454}
   - {fileID: 44653862}
-  - {fileID: 2016775215}
   - {fileID: 1490107611}
+  - {fileID: 2016775215}
   - {fileID: 1422970218}
   - {fileID: 775625289}
-  - {fileID: 1781662843}
   - {fileID: 884414302}
+  - {fileID: 1781662843}
   - {fileID: 693086285}
   - {fileID: 1699445211}
   - {fileID: 2059124555}
   - {fileID: 405260054}
-  - {fileID: 1454890143}
   - {fileID: 30383049}
   - {fileID: 1627153304}
+  - {fileID: 1454890143}
   - {fileID: 676144055}
   - {fileID: 727544629}
   - {fileID: 262903040}
@@ -11247,6 +11248,54 @@ MonoBehaviour:
   fixedUpdateStats: 0
   updateStats: 0
   lateUpdateStats: 0
+--- !u!1 &946292486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 946292487}
+  - component: {fileID: 946292488}
+  m_Layer: 0
+  m_Name: RandomEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &946292487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 946292486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 245065656}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &946292488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 946292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541c71bb3a1509f45895985cd94bf0c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeEffects: []
+  effectSettings:
+  - key: 0
+    a: 5
+    b: 0.5
+  - key: 1
+    a: 5
+    b: 2
 --- !u!1 &948970909
 GameObject:
   m_ObjectHideFlags: 0
@@ -17034,7 +17083,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1695383926}
-  speed: 5
+  speedMult: 5
+  initialSpeedMult: 0
 --- !u!114 &1161127966
 MonoBehaviour:
   m_ObjectHideFlags: 0
