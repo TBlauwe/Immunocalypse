@@ -188,8 +188,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1900598398}
   m_HandleRect: {fileID: 1900598397}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.48219424
+  m_Value: 0
+  m_Size: 0.48219427
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1402,7 +1402,7 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: galleryModelRewards.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224608452873032796, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -1521,7 +1521,7 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: galleryModelRewards.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -1597,6 +1597,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1984617238772632, guid: 32b2fb1b6f708cf46b49240ef5ebc184,
         type: 2}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
+      propertyPath: galleryModelRewards.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3abbeadb44cda948918abf04fed5d30, type: 2}
   m_IsPrefabAsset: 0
@@ -6771,7 +6776,7 @@ Prefab:
     - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
       propertyPath: galleryModelRewards.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224608452873032796, guid: e3abbeadb44cda948918abf04fed5d30,
         type: 2}
@@ -6953,6 +6958,16 @@ Prefab:
       value: 
       objectReference: {fileID: 1984617238772632, guid: eeca3da5a4704ff45aacec2343ba66c4,
         type: 2}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
+      propertyPath: galleryModelRewards.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114830482819419216, guid: e3abbeadb44cda948918abf04fed5d30,
+        type: 2}
+      propertyPath: galleryModelRewards.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3abbeadb44cda948918abf04fed5d30, type: 2}
   m_IsPrefabAsset: 0
@@ -8022,7 +8037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000004077502}
+  m_AnchoredPosition: {x: 0, y: 730.2201}
   m_SizeDelta: {x: 0, y: 1410.22}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1667549779
@@ -8408,8 +8423,8 @@ RectTransform:
   m_Father: {fileID: 2112755215}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.51780576}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.48219427}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
