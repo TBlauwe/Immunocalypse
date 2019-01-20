@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeMask: 1
-  delay: 5
+  delay: 0.1
   cooldown: 0
   freezeTime: 10
   onClickParticleEffect: {fileID: 1891162588211074, guid: 64aa7f1d857a3434dac05d2235c38407,

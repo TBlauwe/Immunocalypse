@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 198873378659128258}
   - component: {fileID: 199715737806271500}
   m_Layer: 0
-  m_Name: RandomGO_Burst
+  m_Name: RandomGO_SpeedDown_Burst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

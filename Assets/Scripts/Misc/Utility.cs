@@ -51,6 +51,49 @@ public class PairEStatTrackedEntityInt : Pair<EStatTrackedEntity, int>
     }
 }
 
+[Serializable]
+public class Triple<K, T, E> : IEquatable<Triple<K, T, E>>
+{
+    public K key;
+    public T a;
+    public E b;
+
+    public Triple(K key, T a, E b)
+    {
+        this.key = key;
+        this.a = a; 
+        this.b = b; 
+    }
+
+    public override string ToString()
+    {
+        return key + " (" + a + ", " + b + ")";
+    }
+
+    public bool Equals(Triple<K, T, E> triple)
+    {
+        if ( a.Equals(triple.a) && b.Equals(triple.b) ) { return true; }
+        return false;
+    }
+}
+
+[Serializable]
+public class TripleEEffectFloatBool : Triple<EEffect, float, bool>
+{
+    public TripleEEffectFloatBool(EEffect key, float a, bool b) : base(key, a, b)
+    {
+    }
+}
+
+[Serializable]
+public class TripleEEffectFloatFloat : Triple<EEffect, float, float>
+{
+    public TripleEEffectFloatFloat(EEffect key, float a, float b) : base(key, a, b)
+    {
+    }
+}
+
+
 // https://forum.unity.com/threads/clever-way-to-shuffle-a-list-t-in-one-line-of-c-code.241052/#post-1596795
 public static class IListExtensions {
     /// <summary>

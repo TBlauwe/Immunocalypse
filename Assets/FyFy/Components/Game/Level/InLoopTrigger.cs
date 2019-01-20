@@ -2,5 +2,6 @@
 
 public class InLoopTrigger : MonoBehaviour {
     public Transform target; 
-    public float speed; 
+    public float speedMult; 
+    [HideInInspector] public float initialSpeedMult; 
 }

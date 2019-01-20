@@ -1,5 +1,5 @@
 ﻿public enum EEffect
 {
-    SLOW_DOWN,
-    FASTER
+    SPEED_DOWN,
+    SPEED_UP 
 }
