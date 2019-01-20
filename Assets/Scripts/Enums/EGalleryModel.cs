@@ -1,6 +1,7 @@
 ﻿public enum EGalleryModel {
-    Adenovirus,
+    Norovirus,
     EColi,
     Macrophage,
+    BCell,
     EpiteliumIntestinal
 }
