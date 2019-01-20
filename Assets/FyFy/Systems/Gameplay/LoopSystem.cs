@@ -4,6 +4,7 @@ using FYFY_plugins.TriggerManager;
 
 public class LoopSystem : FSystem {
     private Family _StartTriggerGO = FamilyManager.getFamily(new AllOfComponents(typeof(StartLoopTrigger)));
+    private Family _InGO = FamilyManager.getFamily(new AllOfComponents(typeof(InLoopTrigger)));
     private Family _InTriggerGO = FamilyManager.getFamily(new AllOfComponents(typeof(Triggered3D), typeof(InLoopTrigger)));
     private Family _EndTriggerGO = FamilyManager.getFamily(new AllOfComponents(typeof(Triggered3D), typeof(EndLoopTrigger)));
 
@@ -12,6 +13,11 @@ public class LoopSystem : FSystem {
         {
             StartLoopTrigger triggerComp = triggerVolume.GetComponent<StartLoopTrigger>();
             triggerComp.deckPool.Shuffle<GameObject>();
+        }
+        foreach (GameObject triggerVolume in _InGO)
+        {
+            InLoopTrigger triggerComp = triggerVolume.GetComponent<InLoopTrigger>();
+            triggerComp.initialSpeedMult = triggerComp.speedMult;
         }
     }
 
@@ -70,7 +76,7 @@ public class LoopSystem : FSystem {
                 if(moveToward)  // Immuno layer
                 {
                     moveToward.useOverride = true;
-                    moveToward.overrideSpeed = triggerComp.speed;
+                    moveToward.overrideSpeed = triggerComp.speedMult;
                 }
 
                 if(moveToward && moveToward.target != triggerComp.target.position && go.layer != 11) // Immuno layer
